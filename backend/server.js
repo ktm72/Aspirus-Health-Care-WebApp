@@ -1,8 +1,9 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
-const cors = require('cors');
+const cors = require("cors");
 const dotenv = require("dotenv").config();
+const PatientRouter = require("./routes/patientrouter");
 
 const app = express();
 
@@ -29,6 +30,9 @@ const connection = mongoose.connection;
 connection.once("open", function() {
     console.log("Aspirus Health Care db connection success");
 }); 
+
+//when http://localhost:8080/patient ran it will execute patientrouter.js file
+app.use("/patient",PatientRouter);
 
 //running the app in previously defined port
 const server = app.listen(PORT,() =>{
