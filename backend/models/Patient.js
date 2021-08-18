@@ -35,12 +35,12 @@ const PatientSchema = new Schema({
     phone: {
         type: String,
         required: true,
-        match: "^(?:7|0|(?:\+94))[0-9]{9,10}$",
+        match: /^(?:7|0|(?:\+94))[0-9]{9,10}$/
     },
 
     profilePicture: {
         type: String,
-        required: true,
+        required: false,
     },
 
     password: {
