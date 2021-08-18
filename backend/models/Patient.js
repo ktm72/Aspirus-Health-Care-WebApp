@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const bcrypt = require("bcrypt");
 
 const Schema = mongoose.Schema;
 
@@ -34,12 +35,12 @@ const PatientSchema = new Schema({
     phone: {
         type: String,
         required: true,
-        match: "^(?:7|0|(?:\+94))[0-9]{9,10}$",
+        match: /^(?:7|0|(?:\+94))[0-9]{9,10}$/
     },
 
     profilePicture: {
         type: String,
-        required: true,
+        required: false,
     },
 
     password: {
@@ -50,6 +51,18 @@ const PatientSchema = new Schema({
         select: false
     }
 
+})
+
+//hashing the password before saving the patient to the database
+PatientSchema.pre("save", async function(next){
+    //checking if the password is already hashed
+    if (!this.isModified("password")){
+        next();
+    }
+
+    //hashing the with difficulty level 12
+    this.password = await bcrypt.hash(this.password, 12);
+    next();
 })
 
 const Patient = mongoose.model("Patient",PatientSchema)
