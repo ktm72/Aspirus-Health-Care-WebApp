@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const bcrypt = require("bcrypt");
 
 const Schema = mongoose.Schema;
 
@@ -50,6 +51,18 @@ const PatientSchema = new Schema({
         select: false
     }
 
+})
+
+//hashing the password before saving the patient to the database
+PatientSchema.pre("save", async function(next){
+    //checking if the password is already hashed
+    if (!this.isModified("password")){
+        next();
+    }
+
+    //hashing the with difficulty level 12
+    this.password = await bcrypt.hash(this.password, 12);
+    next();
 })
 
 const Patient = mongoose.model("Patient",PatientSchema)
