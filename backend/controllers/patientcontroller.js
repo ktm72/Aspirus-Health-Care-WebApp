@@ -48,3 +48,38 @@ exports.patientsignup = async(req,res) => {
         res.status(500).json({message: "Something went wrong", error: error.message})
     }
 }
+
+//update patient controller
+exports.updatePatient = async(req,res) => {
+    let patientID = req.params.id;
+
+    const {phone, password} = req.body;
+
+    //object with provided data
+    const updatePatient = {phone, password}
+
+    try {
+        //find patient by patientID and update the patient with provided data
+        await Patient.findByIdAndUpdate(patientID, updatePatient);
+
+        //sending the status message successful
+        res.status(200).json({message: "Profile updated successfully"})
+    } catch (error) {
+        res.status(500).json({message: "Something went wrong", error: error.message});
+    }
+}
+
+//delete patient controller
+exports.deletePatient = async(req,res) => {
+    let patientID = req.params.id;
+
+    try {
+        //find patient by patientID and delete it
+        await Patient.findByIdAndDelete(patientID);
+
+        //sending the status message successful
+        res.status(200).json({message: "Patient deleted"})
+    } catch (error) {
+        res.status(500).json({message: "Something went wrong", error: error.message});
+    }
+}
