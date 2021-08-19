@@ -33,7 +33,7 @@ exports.patientsignin = async(req, res) => {
 
 //patient sign up controller
 exports.patientsignup = async(req,res) => {
-    const {username, email, dob, gender, nic, phone, password} = req.body;
+    const {firstname, lastname, email, dob, gender, nic, phone, password} = req.body;
 
     try {
         //creating a new patient
