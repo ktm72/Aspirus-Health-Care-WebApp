@@ -6,15 +6,18 @@ const PrescriptionSchema = new Schema({
     
 
     DoctorID: {
-      type: String,
+      type: Schema.Types.ObjectId,
+      ref:'doctor',
       require: true
     },
     PatientID: {
-      type: String,
+      type: Schema.Types.ObjectId,
+      ref:'patient',
       require: true
     },
     MedicineID: {
-      type: String,
+      type: Schema.Types.ObjectId,
+      ref:'medicine',
       require: true
     },  
     Dose: {
