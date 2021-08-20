@@ -4,10 +4,7 @@ const Schema = mongoose.Schema;
 
 const PrescriptionSchema = new Schema({
     
-    PrescriptionID: {
-        type: String,
-        require: true
-    },
+
     DoctorID: {
       type: String,
       require: true
@@ -32,4 +29,5 @@ const PrescriptionSchema = new Schema({
   });
 
 const Prescription = mongoose.model("Prescription",PrescriptionSchema)
+
 module.exports = Prescription

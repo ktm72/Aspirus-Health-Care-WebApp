@@ -11,6 +11,6 @@ router.delete('/deleteprescription', deleteprescription);
 router.put('/updateprescription', updateprescription);
 
 //view prescription
-router.post('/viewprescription', viewprescription);
+router.get('/viewprescription', viewprescription);
 
 module.exports = router;
