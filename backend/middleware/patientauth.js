@@ -6,6 +6,9 @@ patientAuth = async (req,res,next) => {
 
         let token
 
+        if(req.headers.authorization)
+            res.status(401).json({success: false, message: "No authorization header found"})
+
         //checking the token type is admin
         if(req.headers.authorization.startsWith("Patient")){
             //token is an array, this will take the data in the first index
