@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt');
+const crypto = require("crypto");
 const jwt = require("jsonwebtoken");
 const Patient = require('../models/Patient');
 const sendEmail = require("../utils/sendEmail")
@@ -124,7 +125,7 @@ exports.forgotPassword = async (req, res) => {
     
         try {
             //sending the the email
-            await sendEmail({to: patient.email, subject: "Password Reset Request", text: message,});
+            await sendEmail({to: patient.email, subject: "Password Reset Request", text: message});
     
             res.status(200).json({ success: true, data: "Email Sent" });
         } catch (error) {
@@ -138,6 +139,36 @@ exports.forgotPassword = async (req, res) => {
     
             res.status(500).json({message: "Email could not be sent", error: error.message});
         }
+    } catch (error) {
+        res.status(500).json({message: "Something went wrong", error: error.message});
+    }
+};
+
+//Reset Password controller
+exports.resetPassword = async (req, res) => {
+    // Compare token in URL params to hashed token
+    const resetPasswordToken = crypto.createHash("sha256").update(req.params.resetPasswordToken).digest("hex");
+  
+    try {
+        //check whether a user exists with same reset password token and expiration time greater than current time
+        const patient = await Patient.findOne({resetPasswordToken,resetPasswordExpire: { $gt: Date.now() },});
+  
+        if (!patient)
+            return res.status(400).json({message: "Invalid Token", error: error.message});
+
+        //saving the new password
+        patient.password = req.body.password;
+
+        //remove the reset password token
+        patient.resetPasswordToken = undefined;
+        patient.resetPasswordExpire = undefined;
+    
+        await patient.save();
+
+        //creating a token
+        const token = jwt.sign({email: patient.email, id: patient._id}, process.env.JWT_SECRET, {expiresIn: "1h"})
+    
+        res.status(201).json({success: true, result: patient, token});
     } catch (error) {
         res.status(500).json({message: "Something went wrong", error: error.message});
     }

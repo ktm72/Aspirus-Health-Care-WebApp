@@ -59,7 +59,6 @@ const PatientSchema = new Schema({
 
     resetPasswordToken: String,
     resetPasswordExpire: Date,
-
 })
 
 //hashing the password before saving the patient to the database
@@ -87,5 +86,5 @@ PatientSchema.methods.getResetPasswordToken = function () {
     return resetToken;
 };  
 
-const Patient = mongoose.model("Patient",PatientSchema)
+const Patient = mongoose.model("patient",PatientSchema)
 module.exports = Patient

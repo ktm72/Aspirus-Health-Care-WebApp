@@ -10,16 +10,16 @@ router.post('/signup', patientsignup);
 router.post('/signin', patientsignin);
 
 //patient update profile
-router.put('/updateprofile', patientauth, updatePatient);
+router.put('/updateprofile/:id', patientauth, updatePatient);
 
 //patient delete profile
-router.delete('/deleteprofile', patientauth, deletePatient);
+router.delete('/deleteprofile/:id', patientauth, deletePatient);
 
 //patient forgotPassword
 router.post('/forgotpassword', forgotPassword);
 
 //patient resetPassword
-//router.post('/resetpassword', resetPassword);
+router.put('/resetpassword/:resetPasswordToken', resetPassword);
 
 
 module.exports = router;
