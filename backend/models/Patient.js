@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require("bcrypt");
+const crypto = require("crypto");
 
 const Schema = mongoose.Schema;
 
@@ -54,7 +55,10 @@ const PatientSchema = new Schema({
         minlength: 8,
         //select set to false so password doesn't come when querying automatically
         select: false
-    }
+    },
+
+    resetPasswordToken: String,
+    resetPasswordExpire: Date,
 
 })
 
@@ -69,6 +73,19 @@ PatientSchema.pre("save", async function(next){
     this.password = await bcrypt.hash(this.password, 12);
     next();
 })
+
+//reset password token
+PatientSchema.methods.getResetPasswordToken = function () {
+    const resetToken = crypto.randomBytes(20).toString("hex");
+  
+    // Hash token (private key) and save to database
+    this.resetPasswordToken = crypto.createHash("sha256").update(resetToken).digest("hex");
+  
+    // Set token expire date
+    this.resetPasswordExpire = Date.now() + 10 * (60 * 1000); // Ten Minutes
+  
+    return resetToken;
+};  
 
 const Patient = mongoose.model("Patient",PatientSchema)
 module.exports = Patient

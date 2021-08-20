@@ -19,7 +19,7 @@ router.delete('/deleteprofile', patientauth, deletePatient);
 router.post('/forgotpassword', forgotPassword);
 
 //patient resetPassword
-router.post('/resetpassword', resetPassword);
+//router.post('/resetpassword', resetPassword);
 
 
 module.exports = router;
