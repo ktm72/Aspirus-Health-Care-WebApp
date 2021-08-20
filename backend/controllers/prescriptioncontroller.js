@@ -56,7 +56,7 @@ exports.updateprescription = async (req, res) => { //fetch id from url
   }
   //check whether there's a prescription for the ID
   const update = await Prescription.findByIdAndUpdate(PrescriptionID, updatePrescription).then(() => {
-    res.status(200).send({ status: "User Updated" })
+    res.status(200).send({ status: "Prescription Updated" })
   }).catch((err) => {
     console.log(err);
     res.status(500).send({ status: "Error with Updating Prescription", error: err.message });
