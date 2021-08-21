@@ -2,67 +2,67 @@ const router = require("express").Router();
 let Prescription = require("../models/Prescription");
 
 //add new prescription
-exports.addprescription = async (req, res) => {//insert data
-
-  //constant variables for the attributes
-  const DoctorID = req.body.DoctorID;
-  const PatientID = req.body.PatientID;
-  const MedicineID = req.body.MedicineID;
-  const Dose = req.body.Dose;
-  const Action = req.body.Action;
+exports.addprescription = async (req, res) => {
+    //constant variables for the attributes
+  const doctorID = req.body.doctorID;
+  const patientID = req.body.patientID;
+  const productID = req.body.productID;
+  const dose = req.body.dose;
+  const action = req.body.action;
 
   //object
   const newPrescription = new Prescription({
     //initializing properties
-    DoctorID,
-    PatientID,
-    MedicineID,
-    Dose,
-    Action
+    doctorID,
+    patientID,
+    productID,
+    dose,
+    action
   })
 
   //exception handling
-  newPrescription.save().then(() => {//saving the object to the db 
-    res.json("New Prescription Added")
-  }).catch(() => {
-    console.log(err);
+  newPrescription.save().then(() => {
+    //saving the object to the db 
+    res.status(200).json({success:true, message: "New Prescription Added"})
+  }).catch((error) => {
+    res.status(500).json({success:false, message: "Adding Prescription failed", error: error.message})
   })
 }
 
 //delete existing prescription
 exports.deleteprescription = async (req, res) => {
-  let PrescriptionID = req.params.id;
+  let prescriptionID = req.params.id;
 
-  await Prescription.findByIdAndDelete(PrescriptionID).then(() => {
-    res.status(200).send({ status: "Prescription Deleted" });
-  }).catch((errr) => {
-    console.log(err.message);
-    res.status(500).send({ status: "Error with Deleting Prescription", error: errr.message });
+  await Prescription.findByIdAndDelete(prescriptionID).then(() => {
+    res.status(200).json({success:true, message: "Prescription Deleted" });
+  }).catch((error) => {
+    res.status(500).send({success:false, message: "Deleting Prescription failed", error: error.message });
   })
 }
 
 //update prescription
-exports.updateprescription = async (req, res) => { //fetch id from url
-  let PrescriptionID = req.params.id;
+exports.updateprescription = async (req, res) => { 
+  //fetch id from url
+  let prescriptionID = req.params.id;
 
-  const { DoctorID, PatientID, MedicineID, Dose, Action } = req.body;
+  const { doctorID, patientID, productID, dose, action } = req.body;
 
   const updatePrescription = {
-    DoctorID,
-    PatientID,
-    MedicineID,
-    Dose,
-    Action
+    doctorID,
+    patientID,
+    productID,
+    dose,
+    action
   }
   //check whether there's a prescription for the ID
   try {
-    await Prescription.findByIdAndUpdate(PrescriptionID, updatePrescription);
+    await Prescription.findByIdAndUpdate(prescriptionID, updatePrescription);
 
     //sending the successful status
-    res.status(200).json({ success: true, message: "Prescription Updated" })
+    res.status(200).json({success: true, message: "Prescription Updated" })
   } catch (error) {
-    console.log(err);
-    res.status(500).json({ message: "Error with Updating Prescription", error: error.message });
+    console.log(error);
+    res.status(500).json({success:false, message: "Updating Prescription failed", error: error.message });
   }
 }
 
@@ -71,19 +71,19 @@ exports.viewprescription = async (req, res) => { //fetch data
 
   //calling Prescription model
   Prescription.find().then((prescription) => {
-    res.json(prescription)
-  }).catch((err) => {
-    res.status(500).json({ message: "Error with fetching Prescription", error: error.message });
+    res.status(200).json(prescription)
+  }).catch((error) => {
+    res.status(500).json({success:false, message: "Fetching Prescription failed", error: error.message });
   })
 }
 
 //view one prescription
 exports.viewoneprescription = async (req, res) => {
-  let PrescriptionID = req.params.id;
+  let prescriptionID = req.params.id;
 
-  await Prescription.findById(PrescriptionID).then((prescription) => {
-    res.status(200).json({ status: "Prescription fetched", prescription });
-  }).catch((err) => {
-    res.status(500).json({ status: "Error with fetching Prescription", error: err.message });
+  await Prescription.findById(prescriptionID).then((prescription) => {
+    res.status(200).json({success: true, status: "Prescription fetched", prescription });
+  }).catch((error) => {
+    res.status(500).json({success:false, status: "Fetching Prescription failed", error: error.message });
   })
 }
