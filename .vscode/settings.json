@@ -1,9 +1,14 @@
 {
     "cSpell.words": [
         "Aspirus",
+        "additem",
+        "cartcontroller",
+        "deleteitem",
+        "itemid",
         "patientcontroller",
         "patientrouter",
         "patientsignin",
-        "patientsignup"
+        "patientsignup",
+        "updateitem"
     ]
 }
