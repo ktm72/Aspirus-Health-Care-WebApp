@@ -173,3 +173,30 @@ exports.resetPassword = async (req, res) => {
         res.status(500).json({message: "Something went wrong", error: error.message});
     }
 };
+
+//fetch patients controller
+exports.fetchAll = async(req,res) => {
+
+    try {
+        //find all patients in the database
+        const patients = await Patient.find();
+
+        res.status(200).json({success: true, result: patients})
+    } catch (error) {
+        res.status(500).json({success: false, message: "Something went wrong", error: error.message});
+    }
+}
+
+//fetch one patient controller
+exports.fetchOne = async(req,res) => {
+    let patientID = req.params.id;
+
+    try {
+        //find patient with the specific id
+        const patient = await Patient.findById(patientID);
+
+        res.status(200).json({success: true, result: patient})
+    } catch (error) {
+        res.status(500).json({success: false, message: "Something went wrong", error: error.message});
+    }
+}
