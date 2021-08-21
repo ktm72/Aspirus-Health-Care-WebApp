@@ -10,6 +10,9 @@
         "patientrouter",
         "patientsignin",
         "patientsignup",
+        "productcontroller",
+        "productrouter",
+        "viewproduct"
         "resetpassword",
         "updatepatient",
         "updateprofile"
