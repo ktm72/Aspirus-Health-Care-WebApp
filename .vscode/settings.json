@@ -1,6 +1,11 @@
 {
     "cSpell.words": [
         "Aspirus",
+        "SLMC",
+        "doctorfee",
+        "doctorrouter",
+        "fullname",
+        "ispassword",
         "cardlogin",
         "deleteprofile",
         "deletpatient",
@@ -10,6 +15,10 @@
         "patientrouter",
         "patientsignin",
         "patientsignup",
+        "phoneno",
+        "signin",
+        "slmcreg",
+        "speciality"
         "productcontroller",
         "productrouter",
         "viewproduct"
