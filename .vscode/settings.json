@@ -1,9 +1,20 @@
 {
     "cSpell.words": [
         "Aspirus",
+        "cardlogin",
+        "deleteprofile",
+        "deletpatient",
+        "forgotpassword",
+        "patientauth",
         "patientcontroller",
         "patientrouter",
         "patientsignin",
-        "patientsignup"
+        "patientsignup",
+        "productcontroller",
+        "productrouter",
+        "viewproduct"
+        "resetpassword",
+        "updatepatient",
+        "updateprofile"
     ]
 }
