@@ -6,6 +6,11 @@
         "doctorrouter",
         "fullname",
         "ispassword",
+        "cardlogin",
+        "deleteprofile",
+        "deletpatient",
+        "forgotpassword",
+        "patientauth",
         "patientcontroller",
         "patientrouter",
         "patientsignin",
@@ -14,5 +19,11 @@
         "signin",
         "slmcreg",
         "speciality"
+        "productcontroller",
+        "productrouter",
+        "viewproduct"
+        "resetpassword",
+        "updatepatient",
+        "updateprofile"
     ]
 }
