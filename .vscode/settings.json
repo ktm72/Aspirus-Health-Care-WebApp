@@ -4,6 +4,9 @@
         "patientcontroller",
         "patientrouter",
         "patientsignin",
-        "patientsignup"
+        "patientsignup",
+        "productcontroller",
+        "productrouter",
+        "viewproduct"
     ]
 }
