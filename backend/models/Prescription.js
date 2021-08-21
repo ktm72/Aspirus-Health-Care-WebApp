@@ -5,26 +5,26 @@ const Schema = mongoose.Schema;
 const PrescriptionSchema = new Schema({
     
 
-    DoctorID: {
+    doctorID: {
       type: Schema.Types.ObjectId,
       ref:'doctor',
       require: true
     },
-    PatientID: {
+    patientID: {
       type: Schema.Types.ObjectId,
       ref:'patient',
       require: true
     },
-    MedicineID: {
+    productID: {
       type: Schema.Types.ObjectId,
-      ref:'medicine',
+      ref:'product',
       require: true
     },  
-    Dose: {
+    dose: {
       type: String,
       require: true
     },
-    Action: {
+    action: {
       type: String,
       require: true
     }    
