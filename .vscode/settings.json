@@ -5,10 +5,30 @@
         "cartcontroller",
         "deleteitem",
         "itemid",
+        "SLMC",
+        "doctorfee",
+        "doctorrouter",
+        "fullname",
+        "ispassword",
+        "cardlogin",
+        "deleteprofile",
+        "deletpatient",
+        "forgotpassword",
+        "patientauth",
         "patientcontroller",
         "patientrouter",
         "patientsignin",
         "patientsignup",
         "updateitem"
+        "phoneno",
+        "signin",
+        "slmcreg",
+        "speciality"
+        "productcontroller",
+        "productrouter",
+        "viewproduct"
+        "resetpassword",
+        "updatepatient",
+        "updateprofile"
     ]
 }
