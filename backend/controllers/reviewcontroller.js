@@ -7,9 +7,8 @@ exports.createReview = async(req,res) => {
 
     try{
         //creating a new review
-         await Review.create({patientID, feedback, date});
-       
-        //joining the Review object and token
+         await Review.create({patientID, feedback, date})
+        
         res.status(200).json({success:true,message:"review added"})
      }catch(error){
          res.status(500).json({message: "unable to create the review",error:error.message});
@@ -24,7 +23,7 @@ exports.updateReview = async(req,res)=>{
     const updateReview={feedback,date}
 
     try{
-        //find review by patient ID
+        //find review by review ID
         await Review.findByIdAndUpdate(reviewID,updateReview);
 
         res.status(200).json({message: "review updated"})
