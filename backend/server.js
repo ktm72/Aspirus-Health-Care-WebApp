@@ -4,7 +4,13 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const dotenv = require("dotenv").config();
 const PatientRouter = require("./routes/patientrouter");
+const DoctorRouter = require("./routes/doctorrouter");
 const AppointmentRouter = require("./routes/appointmentrouter");
+const PrescriptionRouter = require("./routes/prescriptionrouter");
+const ProductRouter = require("./routes/productrouter");
+const CartRouter = require("./routes/cartrouter");
+const ReviewRouter = require("./routes/reviewrouter.js");
+const PaymentRouter = require("./routes/paymentrouter.js");
 
 const app = express();
 
@@ -34,8 +40,20 @@ connection.once("open", function() {
 
 //when http://localhost:8070/patient ran it will execute patientrouter.js file
 app.use("/patient",PatientRouter);
+//when http://localhost:8070/doctor ran it will execute doctorrouter.js file
+app.use("/doctor",DoctorRouter);
 //when http://localhost:8070/appointment ran it will execute appointmentrouter.js file
 app.use("/appointment",AppointmentRouter);
+//when http://localhost:8070/prescription ran it will execute prescriptionrouter.js file
+app.use("/prescription",PrescriptionRouter);
+//when http://localhost:8070/product ran it will execute productrouter.js file
+app.use("/product",ProductRouter);
+//when http://localhost:8070/cart ran it will execute patientrouter.js file
+app.use("/cart",CartRouter);
+//when http://localhost:8070/review ran it will execute reviewrouter.js file
+app.use("/review",ReviewRouter);
+//when http://localhost:8070/payment ran it will execute paymentrouter.js file
+app.use("/payment",PaymentRouter);
 
 //running the app in previously defined port
 const server = app.listen(PORT,() =>{
