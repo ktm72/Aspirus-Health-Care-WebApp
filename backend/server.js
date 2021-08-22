@@ -8,7 +8,7 @@ const PatientRouter = require("./routes/patientrouter");
 const app = express();
 
 //defining a port to run the application
-//use port 8080 or use any other port if the 8070 is unavailable 
+//use port 8070 or use any other port if the 8070 is unavailable 
 const PORT = process.env.PORT || 8080;
 
 app.use(cors());
@@ -31,7 +31,7 @@ connection.once("open", function() {
     console.log("Aspirus Health Care db connection success");
 }); 
 
-//when http://localhost:8080/patient ran it will execute patientrouter.js file
+//when http://localhost:8070/patient ran it will execute patientrouter.js file
 app.use("/patient",PatientRouter);
 
 //running the app in previously defined port
