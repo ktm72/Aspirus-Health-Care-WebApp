@@ -5,6 +5,7 @@ const cors = require("cors");
 const dotenv = require("dotenv").config();
 const PatientRouter = require("./routes/patientrouter");
 const DoctorRouter = require("./routes/doctorrouter");
+const AppointmentRouter = require("./routes/appointmentrouter");
 const PrescriptionRouter = require("./routes/prescriptionrouter");
 const ProductRouter = require("./routes/productrouter");
 const CartRouter = require("./routes/cartrouter");
@@ -41,6 +42,8 @@ connection.once("open", function() {
 app.use("/patient",PatientRouter);
 //when http://localhost:8070/doctor ran it will execute doctorrouter.js file
 app.use("/doctor",DoctorRouter);
+//when http://localhost:8070/appointment ran it will execute appointmentrouter.js file
+app.use("/appointment",AppointmentRouter);
 //when http://localhost:8070/prescription ran it will execute prescriptionrouter.js file
 app.use("/prescription",PrescriptionRouter);
 //when http://localhost:8070/product ran it will execute productrouter.js file
