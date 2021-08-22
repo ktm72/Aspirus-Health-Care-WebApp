@@ -8,6 +8,8 @@ const DoctorRouter = require("./routes/doctorrouter");
 const PrescriptionRouter = require("./routes/prescriptionrouter");
 const ProductRouter = require("./routes/productrouter");
 const CartRouter = require("./routes/cartrouter");
+const ReviewRouter = require("./routes/reviewrouter.js");
+const PaymentRouter = require("./routes/paymentrouter.js");
 
 const app = express();
 
@@ -45,6 +47,10 @@ app.use("/prescription",PrescriptionRouter);
 app.use("/product",ProductRouter);
 //when http://localhost:8080/cart ran it will execute patientrouter.js file
 app.use("/cart",CartRouter);
+//when http://localhost:8080/review ran it will execute reviewrouter.js file
+app.use("/review",ReviewRouter);
+//when http://localhost:8080/payment ran it will execute paymentrouter.js file
+app.use("/payment",PaymentRouter);
 
 //running the app in previously defined port
 const server = app.listen(PORT,() =>{
