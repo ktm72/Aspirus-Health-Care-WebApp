@@ -16,9 +16,12 @@
         "forgotpassword",
         "patientauth",
         "patientcontroller",
+        "patientid",
         "patientrouter",
         "patientsignin",
         "patientsignup",
+        "paymentcontroller",
+        "reviewcontroller"
         "updateitem"
         "phoneno",
         "signin",
