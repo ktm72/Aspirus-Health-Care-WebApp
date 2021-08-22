@@ -65,10 +65,10 @@ exports.patientsignup = async(req,res) => {
 exports.updatePatient = async(req,res) => {
     let patientID = req.params.id;
 
-    const {phone, password} = req.body;
+    const {firstname, lastname, email, phone, password} = req.body;
 
     //object with provided data
-    const updatePatient = {phone, password}
+    const updatePatient = {firstname, lastname, email, phone, password}
 
     try {
         //find patient by patientID and update the patient with provided data
