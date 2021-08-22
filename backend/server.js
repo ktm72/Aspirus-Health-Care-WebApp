@@ -39,17 +39,17 @@ connection.once("open", function() {
 
 //when http://localhost:8070/patient ran it will execute patientrouter.js file
 app.use("/patient",PatientRouter);
-//when http://localhost:8080/doctor ran it will execute doctorrouter.js file
+//when http://localhost:8070/doctor ran it will execute doctorrouter.js file
 app.use("/doctor",DoctorRouter);
-//when http://localhost:8080/prescription ran it will execute prescriptionrouter.js file
+//when http://localhost:8070/prescription ran it will execute prescriptionrouter.js file
 app.use("/prescription",PrescriptionRouter);
-//when http://localhost:8080/product ran it will execute productrouter.js file
+//when http://localhost:8070/product ran it will execute productrouter.js file
 app.use("/product",ProductRouter);
-//when http://localhost:8080/cart ran it will execute patientrouter.js file
+//when http://localhost:8070/cart ran it will execute patientrouter.js file
 app.use("/cart",CartRouter);
-//when http://localhost:8080/review ran it will execute reviewrouter.js file
+//when http://localhost:8070/review ran it will execute reviewrouter.js file
 app.use("/review",ReviewRouter);
-//when http://localhost:8080/payment ran it will execute paymentrouter.js file
+//when http://localhost:8070/payment ran it will execute paymentrouter.js file
 app.use("/payment",PaymentRouter);
 
 //running the app in previously defined port
