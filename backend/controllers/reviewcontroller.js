@@ -1,4 +1,3 @@
-const jwt=require('jsonwebtoken');
 const Review=require('../models/Review');
 
 //create a review
