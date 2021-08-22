@@ -61,7 +61,6 @@ exports.updateprescription = async (req, res) => {
     //sending the successful status
     res.status(200).json({success: true, message: "Prescription Updated" })
   } catch (error) {
-    console.log(error);
     res.status(500).json({success:false, message: "Updating Prescription failed", error: error.message });
   }
 }
