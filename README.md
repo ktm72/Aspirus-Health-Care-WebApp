@@ -4,13 +4,13 @@
   </p>
 
 # Contributors
-  ####Minindu Senadheera
-  ####Joshua Amarasinghe
-  ####Tharindu Doloswala
-  ####Ashen Ravisara
-  ####Onara Pathiraja
-  ####Sathinka Wijesinghe
-  ####Pasan Withanage
+  #### Minindu Senadheera
+  #### Joshua Amarasinghe
+  #### Tharindu Doloswala
+  #### Ashen Ravisara
+  #### Onara Pathiraja
+  #### Sathinka Wijesinghe
+  #### Pasan Withanage
   <a href="https://github.com/JMAT-Technologies/Aspirus-Health-Care-WebApp/graphs/contributors">
     <img src="https://contrib.rocks/image?repo=JMAT-Technologies/Aspirus-Health-Care-WebApp" />
   </a>
