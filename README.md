@@ -7,7 +7,7 @@
   #### [@Minindu Senadheera](https://github.com/MininduSenadheera)
   #### [@Joshua Amarasinghe](https://github.com/JoshuaAmarasinghe)
   #### [@Tharindu Doloswala](https://github.com/dasundoloswala)
-  #### [@Ashe Ravisara](https://github.com/Ashen-Ravisara)
+  #### [@Ashen Ravisara](https://github.com/Ashen-Ravisara)
   #### [@Onara Pathiraja](https://github.com/OnaraPathiraja014)
   #### [@Sathinka Wijesinghe](https://github.com/sathinka)
   #### [@Pasan Withanage](https://github.com/pasan2232)
