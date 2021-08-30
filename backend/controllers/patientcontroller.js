@@ -46,7 +46,7 @@ exports.patientsignup = async(req,res) => {
         const checkPatient = await Patient.findOne({email})
 
         if(checkPatient)
-            return res.status(500).json({message: "User with this email already exists"})
+            return res.status(409).json({message: "User with this email already exists"})
 
         //creating a new patient
         const patient = await Patient.create({firstname, lastname, email, dob, gender, nic, phone, password});
@@ -114,7 +114,7 @@ exports.forgotPassword = async (req, res) => {
         await patient.save();
     
         // Create reset url to email to provided email
-        const resetPasswordUrl = `http://localhost:3000/passwordreset/${resetPasswordToken}`;
+        const resetPasswordUrl = `http://localhost:3000/patient/passwordreset/${resetPasswordToken}`;
     
         // HTML Message
         const message = `
@@ -129,8 +129,7 @@ exports.forgotPassword = async (req, res) => {
     
             res.status(200).json({ success: true, data: "Email Sent" });
         } catch (error) {
-            console.log(error);
-    
+            
             //if the email sending failed remove reset token
             patient.resetPasswordToken = undefined;
             patient.resetPasswordExpire = undefined;
