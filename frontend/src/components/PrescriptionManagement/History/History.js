@@ -2,15 +2,15 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './History.css';
 
-function PrescriptionHistory() {
+function History() {
 
-  const [prescriptionArr, setPrescription] = useState([])
+  const [prescriptionArr, setPrescriptionsArr] = useState([])
 
   useEffect(() => {
     function getData() {
       axios.get("http://localhost:8070/prescription/")
         .then((res) => {
-          setPrescription(res.data)
+          setPrescriptionsArr(res.data)
         }).catch((err) => {
           alert(err)
         })
@@ -19,52 +19,50 @@ function PrescriptionHistory() {
   }, [])
 
   return (
-    <div>
-      <h1>Appointment History</h1>
-      <div>
-        <span>Appointment History</span>
-      </div>
-      <div>
-        <table>
-          <thead>
-            <tr>
-              <th>Doctor Name</th>
-              <th>Doctor ID</th>
-              <th>Patient ID</th>
-              <th>Dose </th>
-              <th>Current Status</th>
-              <th>Action</th>
+
+
+  <div>
+    <h3 class="">Prescription History</h3>
+      <table class="styled-table">
+        <thead>
+          <tr>
+            <th>Doctor Name</th>
+            <th>Doctor ID</th>
+            <th>Patient ID</th>
+            <th>Dose </th>
+            <th>Current Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {prescriptionArr.map((Prescription, key) => (
+            <tr key={key}>
+              <td>
+                {Prescription.dose}
+              </td>
+              <td>
+                {Prescription.dose}
+              </td>
+              <td>
+                {Prescription.doctorID}
+              </td>
+              <td>
+                {Prescription.patientID}
+              </td>
+              <td>
+                {Prescription.dose}
+              </td>
+              <td>
+                {Prescription.action}
+              </td>
             </tr>
-          </thead>
-          <tbody>
-            {prescriptionArr.map((prescriptions, key) => (
-              <tr key={key}>
-                <td>
-                  { }
-                </td>
-                <td>
-                  <p>not in table</p>
-                </td>
-                <td>
-                  {prescriptions.doctorID}
-                </td>
-                <td>
-                  <p> {prescriptions.patientID}</p>
-                </td>
-                <td>
-                  <p>{prescriptions.dose}</p>
-                </td>
-                <td>
-                  <p> {prescriptions.action}</p>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </div>
+          ))}
+        </tbody>
+      </table>
+  </div>
   )
 }
 
-export default PrescriptionHistory
+export default History
 
