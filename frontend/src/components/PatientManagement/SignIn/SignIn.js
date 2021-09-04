@@ -1,8 +1,11 @@
 import React, {useState, useEffect} from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import IconButton from "@material-ui/core/IconButton";
+import Visibility from "@material-ui/icons/Visibility";
+import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import GoogleLogin from 'react-google-login';
 import axios from 'axios';
-import './Login.css';
+import './SignIn.css';
 
 function Login() {
 
@@ -34,7 +37,7 @@ function Login() {
         
         try {
             //getting data from backend
-            const {data} = await axios.post("http://localhost:8080/patient/signin", {email, password}, config);
+            const {data} = await axios.post("http://localhost:8070/patient/signin", {email, password}, config);
 
             //setting the patient authorization token
             localStorage.setItem("patientAuthToken", `Patient ${data.token}`)
@@ -64,9 +67,9 @@ function Login() {
 
     return (
         <div class="container">
-            <div class="cardlogin">
-                <form class="box" onSubmit={signIn}>
-                    <h1>Patient Login</h1>
+            <div class="card-form">
+                <form class="boxSignIn" onSubmit={signIn}>
+                    <h1 className="form-h1">Patient Login</h1>
                     <p class="text-muted"> All your health needs at one place!</p> 
                     <input 
                         type="email" 
@@ -78,7 +81,7 @@ function Login() {
                     />
 
                     <input
-                        type={showPassword ? "password" : "text"} 
+                        type={showPassword ? "text" : "password"} 
                         name="password"
                         id="password" 
                         placeholder="Password" 
@@ -86,9 +89,14 @@ function Login() {
                         handleShowPassword={handleShowPassword}  
                         required 
                     />
-                    
-                    <Link class="forgot" to="/patientforgotpw">Forgot password?</Link> 
-                    <input type="submit" value="Sign In" />
+                    <span class="showhide">
+                        <IconButton onClick={handleShowPassword} >
+                            {showPassword ? <Visibility /> : <VisibilityOff />}
+                        </IconButton>
+                    </span>
+
+                    <Link class="forgot" to="/patient/forgotpassword">Forgot password?</Link> 
+                    <input className="form-submit-btn" type="submit" value="Sign In" />
 
                     <p className="text-muted">or</p>
 
@@ -101,7 +109,7 @@ function Login() {
                     />
                     <br></br><br></br><br></br>
                     <div className="text-muted">
-                        <p>Don't have an account? <Link to="/patientsignup">Sign Up</Link></p>
+                        <p>Don't have an account? <Link to="/patient/signup">Sign Up</Link></p>
                         <p>Are you a doctor? <Link to="/doctorsignin"> Click here</Link></p>
                     </div>
                 </form>
