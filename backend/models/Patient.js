@@ -44,6 +44,11 @@ const PatientSchema = new Schema({
         match: /^(?:7|0|(?:\+94))[0-9]{9,10}$/
     },
 
+    address: {
+        type: String,
+        required: true,
+    },
+
     profilePicture: {
         type: String,
         required: false,

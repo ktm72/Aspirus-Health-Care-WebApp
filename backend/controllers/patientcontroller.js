@@ -39,7 +39,7 @@ exports.patientsignin = async(req, res) => {
 
 //patient sign up controller
 exports.patientsignup = async(req,res) => {
-    const {firstname, lastname, email, dob, gender, nic, phone, password} = req.body;
+    const {firstname, lastname, email, dob, gender, nic, phone, address, password} = req.body;
 
     try {
         //checking email already exists
@@ -49,7 +49,7 @@ exports.patientsignup = async(req,res) => {
             return res.status(409).json({message: "User with this email already exists"})
 
         //creating a new patient
-        const patient = await Patient.create({firstname, lastname, email, dob, gender, nic, phone, password});
+        const patient = await Patient.create({firstname, lastname, email, dob, gender, nic, phone, address, password});
 
         //creating a token
         const token = jwt.sign({email: patient.email, id: patient._id}, process.env.JWT_SECRET, {expiresIn: "1h"})
@@ -65,10 +65,10 @@ exports.patientsignup = async(req,res) => {
 exports.updatePatient = async(req,res) => {
     let patientID = req.params.id;
 
-    const {firstname, lastname, email, phone, password} = req.body;
+    const {firstname, lastname, email, phone, address, password} = req.body;
 
     //object with provided data
-    const updatePatient = {firstname, lastname, email, phone, password}
+    const updatePatient = {firstname, lastname, email, phone, address, password}
 
     try {
         //find patient by patientID and update the patient with provided data
