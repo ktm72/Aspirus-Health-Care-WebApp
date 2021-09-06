@@ -39,7 +39,8 @@ exports.patientsignin = async(req, res) => {
 
 //patient sign up controller
 exports.patientsignup = async(req,res) => {
-    const {firstname, lastname, email, dob, gender, nic, phone, address, password} = req.body;
+    const {firstname, lastname, email, gender, nic, phone, address, password} = req.body;
+    const dob = Date(req.body.dob)
 
     try {
         //checking email already exists
@@ -65,10 +66,10 @@ exports.patientsignup = async(req,res) => {
 exports.updatePatient = async(req,res) => {
     let patientID = req.params.id;
 
-    const {firstname, lastname, email, phone, address, password} = req.body;
+    const {firstname, lastname, email, phone, address} = req.body;
 
     //object with provided data
-    const updatePatient = {firstname, lastname, email, phone, address, password}
+    const updatePatient = {firstname, lastname, email, phone, address}
 
     try {
         //find patient by patientID and update the patient with provided data
