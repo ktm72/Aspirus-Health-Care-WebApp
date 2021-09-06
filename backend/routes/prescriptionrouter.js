@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const { addprescription, deleteprescription, updateprescription, viewprescription } = require('../controllers/prescriptioncontroller.js')
-const {viewoneprescription } = require('../controllers/prescriptioncontroller.js')
+const {viewoneprescription} = require('../controllers/prescriptioncontroller.js')
 
 //add new prescription
 router.post('/add', addprescription);
@@ -12,9 +12,10 @@ router.delete('/delete/:id', deleteprescription);
 router.put('/update/:id', updateprescription);
 
 //view prescription
-router.get('/', viewprescription);
+router.get('/:patientid', viewprescription);
 
 //view one prescription
 router.get('/:id', viewoneprescription);
+
 
 module.exports = router;
