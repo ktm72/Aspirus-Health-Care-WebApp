@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import IconButton from "@material-ui/core/IconButton";
 import Visibility from "@material-ui/icons/Visibility";
@@ -8,18 +8,12 @@ import axios from 'axios';
 import './SignIn.css';
 
 function Login() {
+    const CLIENT_ID = process.env.REACT_APP_Google_ClientID;
 
     const [showPassword, setShowPassword] = useState()
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const history = useHistory();
-
-    //if already a authentication token is available do not need to login again
-    useEffect(() => {
-        if(localStorage.getItem("patientAuthToken")){
-            history.push('/')
-        }
-    },[history])
 
     //show hide password
     function handleShowPassword(){
@@ -41,6 +35,8 @@ function Login() {
 
             //setting the patient authorization token
             localStorage.setItem("patientAuthToken", `Patient ${data.token}`)
+            //setting user
+            localStorage.setItem("user", JSON.stringify(data.result))
             
             history.push('/')
         } catch (error) {
@@ -56,12 +52,20 @@ function Login() {
         }
     }
 
-    const googleSuccess = (res) => {
-        console.log(res);
+    const googleSuccess = async (res) => {
+        const result = res?.profileObj;
+        const token = res?.tokenId;
+
+        //setting the patient authorization token
+        localStorage.setItem("patientAuthToken", `Patient ${token}`)
+        //setting user
+        localStorage.setItem("user", JSON.stringify(result))
+
+        history.push('/')
     }
 
-    const googleFailure = () => {
-        console.log("do something here");
+    const googleFailure = (error) => {
+        alert("Something went wrong");
     }
  
 
@@ -101,7 +105,7 @@ function Login() {
                     <p className="text-muted">or</p>
 
                     <GoogleLogin
-                        clientId="googleid"
+                        clientId={CLIENT_ID}
                         onSuccess={googleSuccess}
                         onFailure={googleFailure}
                         cookiePolicy={'single_host_origin'}
