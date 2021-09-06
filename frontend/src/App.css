@@ -44,5 +44,10 @@ Link:hover {
 }
 
 body{
-  background-color: darkgray;
+  background-color: #F6F7FB;
+  color: #474D58;
+}
+
+::-webkit-scrollbar{
+  display: none;
 }
