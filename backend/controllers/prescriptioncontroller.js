@@ -23,8 +23,10 @@ exports.addprescription = async (req, res) => {
   //exception handling
   newPrescription.save().then(() => {
     //saving the object to the db 
-    res.status(200).json({success:true, message: "New Prescription Added"})
+    
+    res.status(200).json({success:true, message: "New Prescription Added"})//success message
   }).catch((error) => {
+    //error message
     res.status(500).json({success:false, message: "Adding Prescription failed", error: error.message})
   })
 }
@@ -34,8 +36,10 @@ exports.deleteprescription = async (req, res) => {
   let prescriptionID = req.params.id;
 
   await Prescription.findByIdAndDelete(prescriptionID).then(() => {
+    //success message
     res.status(200).json({success:true, message: "Prescription Deleted" });
   }).catch((error) => {
+    //error message
     res.status(500).send({success:false, message: "Deleting Prescription failed", error: error.message });
   })
 }
@@ -61,12 +65,30 @@ exports.updateprescription = async (req, res) => {
     //sending the successful status
     res.status(200).json({success: true, message: "Prescription Updated" })
   } catch (error) {
+    //error message
     res.status(500).json({success:false, message: "Updating Prescription failed", error: error.message });
   }
 }
 
 //view prescription
-exports.viewprescription = async (req, res) => { //fetch data
+//fetch data
+//exports.viewprescription = async (req, res) => {
+  //get patient id 
+ // let patientID = req.params.id;
+  //find  patient id and prescription
+ //   await Prescription.findById(patientID).then((prescription) => {
+      //success message
+ //     res.status(200).json({success: true, status: "Prescription fetched", prescription });
+//}).catch((error) => {
+       //error message
+ //     res.status(500).json({success:false, status: "Fetching Prescription failed", error: error.message });
+//    })
+//  }
+
+
+//view prescription
+//fetch data
+exports.viewprescription = async (req, res) => { 
 
   //calling Prescription model
   Prescription.find().then((prescription) => {
@@ -76,13 +98,17 @@ exports.viewprescription = async (req, res) => { //fetch data
   })
 }
 
+
 //view one prescription
 exports.viewoneprescription = async (req, res) => {
   let prescriptionID = req.params.id;
 
   await Prescription.findById(prescriptionID).then((prescription) => {
+    //success message
     res.status(200).json({success: true, status: "Prescription fetched", prescription });
   }).catch((error) => {
+    //error message
     res.status(500).json({success:false, status: "Fetching Prescription failed", error: error.message });
   })
 }
+
