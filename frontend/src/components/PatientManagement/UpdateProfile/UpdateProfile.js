@@ -115,13 +115,17 @@ function UpdateProfile(props) {
 
     return (
         <div className="container" >
-            <div className="cardSignUp">
+            <div class="row">
+                <div class="col-12">
+                    <div class="pb-2 px-3 d-flex flex-wrap align-items-center justify-content-between">
+                        <h2>Update Profile</h2>
+                    </div>
+                </div>
+            </div>
+            <div className="">
                 <form onSubmit={Update} encType="multipart/form-data" className="boxUpdate">
-                    
                     <div className="row">
                         <div className="col-8">
-                            <h1 className="form-h1">Edit Profile</h1>
-                            <br></br>
                             <div className="row">
                                 <div className="col-md-6 mb-4">
                                     <div className="form-group">
@@ -245,7 +249,6 @@ function UpdateProfile(props) {
                         </div>
                         <div className="col-4 d-flex justify-content-center">
                             <div>
-                            <br></br><br></br>
                                 {previewSource ? 
                                     <img src={previewSource} alt="preview" className="previewImg"/>
                                 :
@@ -272,7 +275,7 @@ function UpdateProfile(props) {
                     <div className="row">
                         <div className="col-md-12">
                             <div className="form-group">
-                                <input className="form-submit-btn" type="submit" value="Update" />
+                                <input className="form-submit-btn mb-0" type="submit" value="Update" />
                             </div> 
                         </div>
                     </div> 
