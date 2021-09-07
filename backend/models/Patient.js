@@ -62,12 +62,44 @@ const PatientSchema = new Schema({
         select: false
     },
 
+    weight: {
+        type: Number,
+        required: false,
+        default: 0
+    },
+
+    height: {
+        type: Number,
+        required: false,
+        default: 0
+    },
+
+    bmi: {
+        type: Number,
+        required: false,
+        default: 0
+    },
+
+    bloodGroup: {
+        type: String,
+        required: false,
+        default: 'null'
+    },
+
+    bloodPressure: {
+        type: Number,
+        required: false,
+        default: 0
+    },
+
     resetPasswordToken: String,
     resetPasswordExpire: Date,
 })
 
-//hashing the password before saving the patient to the database
+//this function run before saving data to database
 PatientSchema.pre("save", async function(next){
+
+    //hashing the password
     //checking if the password is already hashed
     if (!this.isModified("password")){
         next();
