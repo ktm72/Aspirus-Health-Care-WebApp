@@ -93,10 +93,15 @@ function SignUp() {
 
     return (
             <div className="container" >
+                <div class="row">
+                    <div class="col-12">
+                        <div class="pb-2 px-3 d-flex flex-wrap align-items-center justify-content-between">
+                            <h2>Sign Up</h2>
+                        </div>
+                    </div>
+                </div>
                 <div className="card-form">
                     <form onSubmit={register} class="boxSignUp">
-                        <h1 className="form-h1">Sign Up</h1>
-                        <br></br>
                         <div className="row">
                             <div className="col-8">
                                 <div className="row">
