@@ -58,13 +58,10 @@ function Profile() {
 
     return (
         <div class="container">
-            <br></br><br></br>
             <div class="row">
                 <div class="col-12">
-                    <div class="pb-4 d-flex flex-wrap align-items-center justify-content-between">
-                        <div class="d-flex align-items-center">
-                            <h3 >My Profile</h3>
-                        </div>
+                    <div class="pb-2 px-3 d-flex flex-wrap align-items-center justify-content-between">
+                        <h2 >My Profile</h2>
                     </div>
                 </div>
             </div>
