@@ -59,6 +59,7 @@ exports.patientsignup = async(req,res) => {
         res.status(200).json({success: true, result: patient, token})
     } catch (error) {
         res.status(500).json({message: "Something went wrong", error: error.message})
+        console.log(error)
     }
 }
 
@@ -66,10 +67,22 @@ exports.patientsignup = async(req,res) => {
 exports.updatePatient = async(req,res) => {
     let patientID = req.params.id;
 
-    const {firstname, lastname, email, phone, address} = req.body;
+    const {firstname, lastname, email, phone, address, bloodGroup} = req.body;
+    const weight = Number(req.body.weight)
+    const height = Number(req.body.height)
+    const bloodPressure = Number(req.body.bloodPressure)
+    let bmi
+
+    if(weight != undefined && height != undefined){
+        bmi = weight / (height * height)
+        bmi = bmi.toFixed(2);
+    }
 
     //object with provided data
-    const updatePatient = {firstname, lastname, email, phone, address}
+    const updatePatient = {
+        firstname, lastname, email, phone, address,
+        weight, height, bloodPressure, bloodGroup, bmi
+    }
 
     try {
         //find patient by patientID and update the patient with provided data
