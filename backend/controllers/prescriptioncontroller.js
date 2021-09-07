@@ -3,20 +3,32 @@ let Prescription = require("../models/Prescription");
 
 //add new prescription
 exports.addprescription = async (req, res) => {
-    //constant variables for the attributes
+  //constant variables for the attributes
+  const doctorName = req.body.doctorName;  
   const doctorID = req.body.doctorID;
+  const patientName = req.body.patientName;  
   const patientID = req.body.patientID;
-  const productID = req.body.productID;
+  const date = req.body.date;
+  const productTitle = req.body.productTitle;
   const dose = req.body.dose;
+  const disp = req.body.disp;
+  const sig = req.body.sig;  
+  const refill = req.body.refill;
   const action = req.body.action;
 
   //object
   const newPrescription = new Prescription({
     //initializing properties
+    doctorName,
     doctorID,
+    patientName,
     patientID,
-    productID,
+    date,
+    productTitle,
     dose,
+    disp,
+    sig,
+    refill,
     action
   })
 
@@ -49,13 +61,18 @@ exports.updateprescription = async (req, res) => {
   //fetch id from url
   let prescriptionID = req.params.id;
 
-  const { doctorID, patientID, productID, dose, action } = req.body;
+  const { doctorName, doctorID, patientName, patientID, producTitle, dose, disp, sig, refill, action } = req.body;
 
   const updatePrescription = {
+    doctorName,
     doctorID,
+    patientName,
     patientID,
-    productID,
+    producTitle,
     dose,
+    disp,
+    sig,
+    refill,
     action
   }
   //check whether there's a prescription for the ID
@@ -72,32 +89,20 @@ exports.updateprescription = async (req, res) => {
 
 //view prescription
 //fetch data
-//exports.viewprescription = async (req, res) => {
-  //get patient id 
- // let patientID = req.params.id;
-  //find  patient id and prescription
- //   await Prescription.findById(patientID).then((prescription) => {
+exports.viewprescription = async(req,res) => {
+  //get patient id
+  let patientID = req.params.id;
+
+  try {
+      //find Prescription by patient id
+      const prescription = await Prescription.find({patientID});
       //success message
- //     res.status(200).json({success: true, status: "Prescription fetched", prescription });
-//}).catch((error) => {
-       //error message
- //     res.status(500).json({success:false, status: "Fetching Prescription failed", error: error.message });
-//    })
-//  }
-
-
-//view prescription
-//fetch data
-exports.viewprescription = async (req, res) => { 
-
-  //calling Prescription model
-  Prescription.find().then((prescription) => {
-    res.status(200).json(prescription)
-  }).catch((error) => {
-    res.status(500).json({success:false, message: "Fetching Prescription failed", error: error.message });
-  })
+      res.status(200).json({success: true, result:prescription})
+  }catch(error){
+      //error message
+      res.status(500).json({message: "fetching Prescription failed", error: error.message})
+  }
 }
-
 
 //view one prescription
 exports.viewoneprescription = async (req, res) => {
@@ -111,4 +116,3 @@ exports.viewoneprescription = async (req, res) => {
     res.status(500).json({success:false, status: "Fetching Prescription failed", error: error.message });
   })
 }
-
