@@ -12,10 +12,9 @@ router.delete('/delete/:id', deleteprescription);
 router.put('/update/:id', updateprescription);
 
 //view prescription
-router.get('/:patientid', viewprescription);
+router.get('/:id', viewprescription);
 
 //view one prescription
 router.get('/:id', viewoneprescription);
-
 
 module.exports = router;
