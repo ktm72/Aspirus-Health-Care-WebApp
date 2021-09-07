@@ -10,7 +10,7 @@ function App() {
       <Router>
         <div>
           <Route path="/patient/login" exact component={Login} />
-          <Route path="/prescription/history/" exact component={History} />
+          <Route path="/prescription/history/:id" exact component={History} />
           <Route path="/prescription/add" exact component={Add} />
         </div>
       </Router>
