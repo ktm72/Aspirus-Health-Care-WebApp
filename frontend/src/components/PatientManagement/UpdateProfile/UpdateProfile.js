@@ -38,8 +38,8 @@ function UpdateProfile(props) {
 
     //fetching user data
     useEffect(()=>{
-        function fetchUser(){
-            axios.get(`http://localhost:8070/patient/${props.match.params.id}`).then((res)=>{
+        async function fetchUser(){
+            await axios.get(`http://localhost:8070/patient/${props.match.params.id}`).then((res)=>{
                 setFirstName(res.data.result.firstname)
                 setLastName(res.data.result.lastname)
                 setEmail(res.data.result.email)

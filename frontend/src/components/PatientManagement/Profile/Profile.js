@@ -19,8 +19,8 @@ function Profile() {
     const location = useLocation();
 
     useEffect(() => {
-        function fetchUser(){
-            axios.get(`http://localhost:8070/patient/${user._id}`).then((res)=>{
+        async function fetchUser(){
+            await axios.get(`http://localhost:8070/patient/${user._id}`).then((res)=>{
                 //setting user
                 localStorage.setItem("user", JSON.stringify(res.data.result))
 
