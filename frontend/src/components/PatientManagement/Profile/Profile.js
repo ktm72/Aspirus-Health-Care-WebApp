@@ -54,7 +54,6 @@ function Profile() {
             }
         }
     }
-    
 
     return (
         <div class="container">
@@ -66,16 +65,15 @@ function Profile() {
                 </div>
             </div>
             <div className="row">
-                <div class="col-xl-3">
-                    <div className="white-card">
+                <div className="col-xl-3">
+                    <div className="white-card ">
                         <div class="profile_img">
-                            <img src="../images/userimg.jpg" class="rounded-circle" alt="profile pic"/>
+                            <img src="/images/userimg.jpg" class="rounded-circle" alt="profile pic"/>
                         </div>
                         <h4>{user.firstname +` `+ user.lastname}</h4>
                         <p>{user.email}</p>
                         <Link class="btn btn-sm btn-primary" to={`/patient/updateprofile/${user._id}`}>Edit Profile</Link>
                     </div>
-                        
                 </div>
                 <div className="col-xl-4">
                     <div class="row">
@@ -93,7 +91,7 @@ function Profile() {
                             </div>
                         </div>
                         <div class="col-lg-6">
-                            <div class="white-card-sm1">
+                            <div class="orange-card-sm">
                                 <div class="d-flex align-items-center justify-content-between">
                                     <BarChartIcon fontSize="large"/>
                                     <IconButton onClick={editCardData}><EditIcon fontSize="small" style={{ color: 'white'}}/></IconButton>
@@ -151,7 +149,28 @@ function Profile() {
                         </div>
                     </div>
                 </div>
-                <div class="col-md-2">
+                <div className="col-xl-2">
+                    <div class="green-card-sm">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <BarChartIcon fontSize="large"/>
+                            <IconButton onClick={editCardData}><EditIcon fontSize="small" style={{ color: 'white'}}/></IconButton>
+                        </div>
+                        <div class="card-body">
+                            <h4>{user.sugarLevel + ` mg/dL`}</h4>
+                            <p>Sugar Level</p>
+                        </div>
+                    </div>
+                    <div class="white-card-sm">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <BarChartIcon fontSize="large"/>
+                        </div>
+                        <div class="card-body mt-1">
+                            <h4>Age - {user.age}</h4><br></br>
+                            <h5>Gender - {user.gender}</h5>
+                        </div>
+                    </div>
+                </div>
+                <div className="col-xl-2">
                     <center>
                         <button class="btn btn-primary mb-3">Upload Report <CloudUploadIcon/> </button>
                         <button class="btn btn-primary mb-3" onClick={ResetPassword}>Reset Password <LockIcon/> </button>
