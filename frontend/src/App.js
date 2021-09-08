@@ -1,24 +1,29 @@
 import { BrowserRouter as Router,Route } from 'react-router-dom';
 import './App.css';
+import Header from './components/Header/Header'
 import PatientSignIn from './components/PatientManagement/SignIn/SignIn';
 import PatientSignUp from './components/PatientManagement/SignUp/SignUp';
-import ForgotPassword from './components/PatientManagement/ForgotPassword/ForgotPassword';
-import ResetPassword from './components/PatientManagement/ResetPassword/ResetPassword';
-import Profile from './components/PatientManagement/Profile/Profile';
-import UpdateProfile from './components/PatientManagement/UpdateProfile/UpdateProfile'
-
+import PatientForgotPassword from './components/PatientManagement/ForgotPassword/ForgotPassword';
+import PatientResetPassword from './components/PatientManagement/ResetPassword/ResetPassword';
+import PatientProfile from './components/PatientManagement/Profile/Profile';
+import PatientUpdateProfile from './components/PatientManagement/UpdateProfile/UpdateProfile';
+import DoctorProfile from './components/DoctorProfile/DoctorProfile';
+import Covid from './components/Home/Covid/Covid';
 
 function App() {
   return (
     <div className="App">
       <Router>
         <div>
+          <Header/>
+          <Route path="/" exact component={Covid} />
           <Route path="/patient/signin" exact component={PatientSignIn} />
           <Route path="/patient/signup" exact component={PatientSignUp} />
-          <Route path="/patient/forgotpassword" exact component={ForgotPassword} />
-          <Route path="/patient/resetpassword" exact component={ResetPassword} />
-          <Route path="/patient/profile" exact component={Profile} />
-          <Route path="/patient/update/profile" exact component={UpdateProfile} />
+          <Route path="/patient/forgotpassword" exact component={PatientForgotPassword} />
+          <Route path="/patient/resetpassword" exact component={PatientResetPassword} />
+          <Route path="/patient/profile" exact component={PatientProfile} />
+          <Route path="/patient/updateprofile/:id" exact component={PatientUpdateProfile} />
+          <Route path="/doctor" exact component={DoctorProfile} />
         </div>
       </Router>
     </div>
