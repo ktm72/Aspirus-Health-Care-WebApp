@@ -40,7 +40,11 @@ exports.patientsignin = async(req, res) => {
 //patient sign up controller
 exports.patientsignup = async(req,res) => {
     const {firstname, lastname, email, gender, nic, phone, address, password} = req.body;
-    const dob = Date(req.body.dob)
+    const dob = new Date(req.body.dob)
+
+    const today = new Date().getFullYear()
+    const year = dob.getFullYear()
+    const age = today - year
 
     try {
         //checking email already exists
@@ -50,7 +54,7 @@ exports.patientsignup = async(req,res) => {
             return res.status(409).json({message: "User with this email already exists"})
 
         //creating a new patient
-        const patient = await Patient.create({firstname, lastname, email, dob, gender, nic, phone, address, password});
+        const patient = await Patient.create({firstname, lastname, email, dob, age, gender, nic, phone, address, password});
 
         //creating a token
         const token = jwt.sign({email: patient.email, id: patient._id}, process.env.JWT_SECRET, {expiresIn: "1h"})
@@ -71,6 +75,7 @@ exports.updatePatient = async(req,res) => {
     const weight = Number(req.body.weight)
     const height = Number(req.body.height)
     const bloodPressure = Number(req.body.bloodPressure)
+    const sugarLevel = Number(req.body.sugarLevel)
     let bmi
 
     if(weight != undefined && height != undefined){
@@ -81,7 +86,7 @@ exports.updatePatient = async(req,res) => {
     //object with provided data
     const updatePatient = {
         firstname, lastname, email, phone, address,
-        weight, height, bloodPressure, bloodGroup, bmi
+        weight, height, bloodPressure, bloodGroup, sugarLevel, bmi, 
     }
 
     try {

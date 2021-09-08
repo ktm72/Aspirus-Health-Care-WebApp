@@ -27,6 +27,11 @@ const PatientSchema = new Schema({
         required: true
     },
 
+    age: {
+        type: Number,
+        required: true
+    },
+
     gender: {
         type: String,
         required: true,
@@ -87,6 +92,12 @@ const PatientSchema = new Schema({
     },
 
     bloodPressure: {
+        type: Number,
+        required: false,
+        default: 0
+    },
+
+    sugarLevel: {
         type: Number,
         required: false,
         default: 0
