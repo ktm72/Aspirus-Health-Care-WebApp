@@ -83,7 +83,6 @@ function SignUp() {
                 }
                 else{
                     alert("User Registration failed")
-                    console.log(error)
                 } 
             }
         }else{
