@@ -70,7 +70,7 @@ function Login() {
  
 
     return (
-        <div class="container">
+        <div class="container" align="center">
             <div class="card-form">
                 <form class="boxSignIn" onSubmit={signIn}>
                     <h1 className="form-h1">Patient Login</h1>
