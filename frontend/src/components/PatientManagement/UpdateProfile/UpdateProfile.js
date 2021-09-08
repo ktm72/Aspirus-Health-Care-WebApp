@@ -20,6 +20,7 @@ function UpdateProfile(props) {
     const [weight, setWeight] = useState("");
     const [bloodGroup, setBloodGroup] = useState("");
     const [bloodPressure, setBloodPressure] = useState("");
+    const [sugarLevel, setSugarLevel] = useState("");
     const bloodGroups = [
         { value: 'A-', label: 'A-',},
         { value: 'O+', label: 'O+',},
@@ -48,9 +49,9 @@ function UpdateProfile(props) {
                 setWeight(res.data.result.weight)
                 setBloodGroup(res.data.result.bloodGroup)
                 setBloodPressure(res.data.result.bloodPressure)
+                setSugarLevel(res.data.result.sugarLevel)
             }).catch((error)=>{
                 alert("Failed to fetch item data")
-                console.log(error)
             })
         }
         fetchUser()
@@ -85,7 +86,7 @@ function UpdateProfile(props) {
         // updatedPatient.append("phone", phone);
         // updatedPatient.append("address", address);
 
-        const updatedPatient = {firstname,lastname,email,phone,address,height,weight,bloodGroup,bloodPressure}
+        const updatedPatient = {firstname,lastname,email,phone,address,height,weight,bloodGroup,bloodPressure,sugarLevel}
 
         //header with authorization token
         const config = {
@@ -96,7 +97,6 @@ function UpdateProfile(props) {
         };
 
         try {
-            console.log(weight)
             await axios.put(`http://localhost:8070/patient/updateprofile/${props.match.params.id}`,updatedPatient, config);
                 alert("Updated Successfully")
                 history.push('/patient/profile')
@@ -106,7 +106,6 @@ function UpdateProfile(props) {
                 history.push('/patient/signin')
             } else{
                 alert("Updating Failed")
-                console.log(error)
             }
         }    
     }
@@ -177,7 +176,7 @@ function UpdateProfile(props) {
                                         />
                                     </div>
                                 </div>
-                                <div className="col-md-3 mb-4">
+                                <div className="col-md-4 mb-4">
                                     <div className="form-group">
                                         <TextField 
                                             id="bloodGroup"
@@ -199,22 +198,7 @@ function UpdateProfile(props) {
                                         </TextField>
                                     </div>
                                 </div>
-                                <div className="col-md-3 mb-4">
-                                    <div className="form-group">
-                                        <OutlinedInput 
-                                            type="text" id="bloodPressure" required placeholder="Blood Pressure" fullWidth
-                                            value={bloodPressure}
-                                            endAdornment={
-                                                <InputAdornment position="end">
-                                                    mm/Hg
-                                                </InputAdornment>
-                                            }
-                                            onChange={(event)=> {setBloodPressure(event.target.value)}}
-                                            inputProps={{style: {padding: 12}}}
-                                        />
-                                    </div>
-                                </div>
-                                <div className="col-md-3 mb-4">
+                                <div className="col-md-4 mb-4">
                                     <div className="form-group">
                                         <OutlinedInput 
                                             type="text" id="height" placeholder="Height" fullWidth
@@ -230,7 +214,7 @@ function UpdateProfile(props) {
                                         />
                                     </div>
                                 </div>
-                                <div className="col-md-3 mb-4">
+                                <div className="col-md-4 mb-4">
                                     <div className="form-group">
                                         <OutlinedInput 
                                             type="text" id="weight" placeholder="Weight" fullWidth
@@ -241,6 +225,36 @@ function UpdateProfile(props) {
                                                 </InputAdornment>
                                             }
                                             onChange={(event)=> {setWeight(event.target.value)}}
+                                            inputProps={{style: {padding: 12}}}
+                                        />
+                                    </div>
+                                </div>
+                                <div className="col-md-6 mb-4">
+                                    <div className="form-group">
+                                        <OutlinedInput 
+                                            type="text" id="bloodPressure" required placeholder="Blood Pressure" fullWidth
+                                            value={bloodPressure}
+                                            endAdornment={
+                                                <InputAdornment position="end">
+                                                    mm/Hg
+                                                </InputAdornment>
+                                            }
+                                            onChange={(event)=> {setBloodPressure(event.target.value)}}
+                                            inputProps={{style: {padding: 12}}}
+                                        />
+                                    </div>
+                                </div>
+                                <div className="col-md-6 mb-4">
+                                    <div className="form-group">
+                                        <OutlinedInput 
+                                            type="text" id="sugarLevel" required placeholder="Sugar Level" fullWidth
+                                            value={sugarLevel}
+                                            endAdornment={
+                                                <InputAdornment position="end">
+                                                    mg/dL
+                                                </InputAdornment>
+                                            }
+                                            onChange={(event)=> {setSugarLevel(event.target.value)}}
                                             inputProps={{style: {padding: 12}}}
                                         />
                                     </div>
