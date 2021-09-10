@@ -109,11 +109,11 @@ function UpdateProfile(props) {
 
     return (
         <div className="container" align="center">
-            <div class="row">
+            <div className="row">
                 <div className="col-1">
                 </div>
-                 <div class="col-11">
-                    <div class="pb-2 px-5 d-flex align-items-center justify-content-between">
+                 <div className="col-11">
+                    <div className="pb-2 px-5 d-flex align-items-center justify-content-between">
                         <h2>Update Profile</h2>
                     </div>
                 </div>

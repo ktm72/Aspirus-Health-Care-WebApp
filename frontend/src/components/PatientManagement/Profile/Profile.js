@@ -73,10 +73,10 @@ function Profile() {
     }
 
     return (
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="pb-2 px-3 d-flex flex-wrap align-items-center justify-content-between">
+        <div className="container">
+            <div className="row">
+                <div className="col-12">
+                    <div className="pb-2 px-3 d-flex flex-wrap align-items-center justify-content-between">
                         <h2 >My Profile</h2>
                     </div>
                 </div>
@@ -84,48 +84,48 @@ function Profile() {
             <div className="row">
                 <div className="col-xl-3">
                     <div className="white-card ">
-                        <div class="profile_img">
-                            <img src="/images/userimg.jpg" class="rounded-circle" alt="profile pic"/>
+                        <div className="profile_img">
+                            <img src="/images/userimg.jpg" className="rounded-circle" alt="profile pic"/>
                         </div>
                         <h4>{user.firstname +` `+ user.lastname}</h4>
                         <p>{user.email}</p>
-                        <Link class="btn btn-sm btn-primary" to={`/patient/updateprofile/${user._id}`}>Edit Profile</Link>
+                        <Link className="btn btn-sm btn-primary" to={`/patient/updateprofile/${user._id}`}>Edit Profile</Link>
                     </div>
                 </div>
                 <div className="col-xl-4">
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="white-card-sm ">
-                                <div class="d-flex align-items-center justify-content-between">
+                    <div className="row">
+                        <div className="col-lg-6">
+                            <div className="white-card-sm ">
+                                <div className="d-flex align-items-center justify-content-between">
                                     <p></p>
                                     <IconButton onClick={editCardData}><EditIcon fontSize="small"/></IconButton>
                                 </div>
-                                <div class="card-body">
+                                <div className="card-body">
                                     <h4>{user.bloodGroup}</h4>
                                     <p>Blood Group</p>
                                 </div>
                                 <HeartIcon className="heart" style={{ color: red[500], fontSize: 60 }}/>
                             </div>
                         </div>
-                        <div class="col-lg-6">
-                            <div class="orange-card-sm">
-                                <div class="d-flex align-items-center justify-content-between">
+                        <div className="col-lg-6">
+                            <div className="orange-card-sm">
+                                <div className="d-flex align-items-center justify-content-between">
                                     <BarChartIcon fontSize="large"/>
                                     <IconButton onClick={editCardData}><EditIcon fontSize="small" style={{ color: 'white'}}/></IconButton>
                                 </div>
-                                <div class="card-body">
+                                <div className="card-body">
                                     <h4>{user.bloodPressure + ` mm/Hg`}</h4>
                                     <p>Blood Pressure</p>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-12">
-                            <div class="white-card-sm mb-0">
-                                <div class="card-head d-flex align-items-center justify-content-between">
-                                    <h4 class="mb-0 text-white">Body Mass Index</h4>
+                        <div className="col-lg-12">
+                            <div className="white-card-sm mb-0">
+                                <div className="card-head d-flex align-items-center justify-content-between">
+                                    <h4 className="mb-0 text-white">Body Mass Index</h4>
                                     <IconButton onClick={editCardData}><EditIcon fontSize="small" style={{ color: 'white'}}/></IconButton>
                                 </div>
-                                <div class="card-body d-flex justify-content-between">
+                                <div className="card-body d-flex justify-content-between">
                                     <div>
                                         <center>
                                         <p>Height</p>
@@ -156,7 +156,7 @@ function Profile() {
                                     </div>
                                 </div>
                             </div>
-                            <div class="d-flex align-items-center justify-content-between">
+                            <div className="d-flex align-items-center justify-content-between">
                                 <p></p>
                                 <p className="text-muted"><CircleIcon fontSize="small" style={{ color: orange[500] }}/>Underweight</p>
                                 <p className="text-muted"><CircleIcon fontSize="small" style={{ color: green[500] }}/>Normal</p>
@@ -167,21 +167,21 @@ function Profile() {
                     </div>
                 </div>
                 <div className="col-xl-2">
-                    <div class="green-card-sm">
-                        <div class="d-flex align-items-center justify-content-between">
+                    <div className="green-card-sm">
+                        <div className="d-flex align-items-center justify-content-between">
                             <BarChartIcon fontSize="large"/>
                             <IconButton onClick={editCardData}><EditIcon fontSize="small" style={{ color: 'white'}}/></IconButton>
                         </div>
-                        <div class="card-body">
+                        <div className="card-body">
                             <h4>{user.sugarLevel + ` mg/dL`}</h4>
                             <p>Sugar Level</p>
                         </div>
                     </div>
-                    <div class="white-card-sm">
-                        <div class="d-flex align-items-center justify-content-between">
+                    <div className="white-card-sm">
+                        <div className="d-flex align-items-center justify-content-between">
                             <BarChartIcon fontSize="large"/>
                         </div>
-                        <div class="card-body mt-1">
+                        <div className="card-body mt-1">
                             <h4>Age - {user.age}</h4><br></br>
                             <h5>Gender - {user.gender}</h5>
                         </div>
@@ -189,11 +189,11 @@ function Profile() {
                 </div>
                 <div className="col-xl-2">
                     <center>
-                        <button class="btn btn-lg mb-3" style={{ backgroundColor: '#11998e', color: 'white'}}>
+                        <button className="btn btn-lg mb-3" style={{ backgroundColor: '#11998e', color: 'white'}}>
                             Generate Report <CloudDownloadIcon/> 
                         </button>
-                        <button class="btn btn-primary mb-3" onClick={ResetPassword}>Reset Password <LockIcon/> </button>
-                        <button class="btn btn-danger mb-3" onClick={deleteAccount}>Delete Account <DeleteIcon/> </button>
+                        <button className="btn btn-primary mb-3" onClick={ResetPassword}>Reset Password <LockIcon/> </button>
+                        <button className="btn btn-danger mb-3" onClick={deleteAccount}>Delete Account <DeleteIcon/> </button>
                     </center>
                 </div>
             </div>

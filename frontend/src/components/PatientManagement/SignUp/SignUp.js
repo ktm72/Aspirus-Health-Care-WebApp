@@ -92,17 +92,17 @@ function SignUp() {
 
     return (
             <div className="container" align="center">
-                <div class="row">
+                <div className="row">
                     <div className="col-1">
                     </div>
-                    <div class="col-11">
-                        <div class="pb-2 px-5 d-flex align-items-center justify-content-between">
+                    <div className="col-11">
+                        <div className="pb-2 px-5 d-flex align-items-center justify-content-between">
                             <h2>Sign Up</h2>
                         </div>
                     </div>
                 </div>
                 <div className="card-form">
-                    <form onSubmit={register} class="boxSignUp">
+                    <form onSubmit={register} className="boxSignUp">
                         <div className="row">
                             <div className="col-8">
                                 <div className="row">
@@ -178,7 +178,7 @@ function SignUp() {
                                             <label>Gender</label> &nbsp;
                                             <div className="form-check form-check-inline">
                                                 <input 
-                                                    class="form-check-input" type="radio" name="gender" id="male" value="Male" required
+                                                    className="form-check-input" type="radio" name="gender" id="male" value="Male" required
                                                     onChange={(event)=> {setGender(event.target.value)}}
                                                 />
                                                 <label className="form-check-label" for="male">Male</label>

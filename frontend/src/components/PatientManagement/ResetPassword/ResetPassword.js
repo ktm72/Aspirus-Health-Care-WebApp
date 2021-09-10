@@ -52,10 +52,10 @@ function ResetPassword() {
 
     return (
         <div className="container" align="center">
-            <div class="card-form">
-                <form class="boxReset" onSubmit={reset}>
+            <div className="card-form">
+                <form className="boxReset" onSubmit={reset}>
                     <h1 className="form-h1">Reset Password</h1>
-                    <p class="text-muted"> Enter the new password </p> 
+                    <p className="text-muted"> Enter the new password </p> 
 
                     <input
                         type={showPassword ? "text" : "password"} 
@@ -66,7 +66,7 @@ function ResetPassword() {
 
                         required 
                     />
-                    <span class="showhide">
+                    <span className="showhide">
                         <IconButton onClick={handleShowPassword} >
                             {showPassword ? <Visibility /> : <VisibilityOff />}
                         </IconButton>
@@ -80,7 +80,7 @@ function ResetPassword() {
                         onChange={(event)=> {setConfirmPassword(event.target.value)}} 
                         required 
                     />
-                    <span class="showhide">
+                    <span className="showhide">
                         <IconButton onClick={handleShowPassword} >
                             {showPassword ? <Visibility /> : <VisibilityOff />}
                         </IconButton>

@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
-import { IconButton } from '@material-ui/core';
 import BarChartIcon from '@material-ui/icons/BarChart';
-import RefreshIcon from '@material-ui/icons/Refresh';
 import { orange, green, red } from '@material-ui/core/colors';
 import CountUp from 'react-countup';
 import './Covid.css'

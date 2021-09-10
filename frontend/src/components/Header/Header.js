@@ -52,9 +52,9 @@ function Header() {
     
     return (
         <header>
-            <div class="container-fluid">
-                <nav class="navbar navbar-inverse navbar-expand-lg navbar-light fixed-top">
-                    <div class="container-fluid">
+            <div className="container-fluid">
+                <nav className="navbar navbar-inverse navbar-expand-lg navbar-light fixed-top">
+                    <div className="container-fluid">
                         <ul>
                             <IconButton>
                                 <DehazeIcon fontSize="large"/>

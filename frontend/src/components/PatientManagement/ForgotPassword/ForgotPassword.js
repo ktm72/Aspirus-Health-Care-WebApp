@@ -26,10 +26,10 @@ function ForgotPassword() {
 
     return (
         <div className="container" align="center">
-            <div class="card-form">
-                <form class="boxForgot" onSubmit={sendEmail}>
+            <div className="card-form">
+                <form className="boxForgot" onSubmit={sendEmail}>
                     <h1 className="form-h1">Forgot Password</h1>
-                    <p class="text-muted"> Enter your registered email</p> 
+                    <p className="text-muted"> Enter your registered email</p> 
                     <input 
                         type="email" 
                         name="email" 

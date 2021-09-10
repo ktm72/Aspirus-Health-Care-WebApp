@@ -70,11 +70,11 @@ function Login() {
  
 
     return (
-        <div class="container" align="center">
-            <div class="card-form">
-                <form class="boxSignIn" onSubmit={signIn}>
+        <div className="container" align="center">
+            <div className="card-form">
+                <form className="boxSignIn" onSubmit={signIn}>
                     <h1 className="form-h1">Patient Login</h1>
-                    <p class="text-muted"> All your health needs at one place!</p> 
+                    <p className="text-muted"> All your health needs at one place!</p> 
                     <input 
                         type="email" 
                         name="email" 
@@ -93,13 +93,13 @@ function Login() {
                         handleShowPassword={handleShowPassword}  
                         required 
                     />
-                    <span class="showhide">
+                    <span className="showhide">
                         <IconButton onClick={handleShowPassword} >
                             {showPassword ? <Visibility /> : <VisibilityOff />}
                         </IconButton>
                     </span>
 
-                    <Link class="forgot" to="/patient/forgotpassword">Forgot password?</Link> 
+                    <Link className="forgot" to="/patient/forgotpassword">Forgot password?</Link> 
                     <input className="form-submit-btn" type="submit" value="Sign In" />
 
                     <p className="text-muted">or</p>
