@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-import { Button,IconButton } from '@material-ui/core';
+import { IconButton } from '@material-ui/core';
 import DehazeIcon from '@material-ui/icons/Dehaze';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import Badge from '@material-ui/core/Badge';
