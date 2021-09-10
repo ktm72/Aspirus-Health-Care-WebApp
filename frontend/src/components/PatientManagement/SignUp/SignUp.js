@@ -91,10 +91,12 @@ function SignUp() {
     }
 
     return (
-            <div className="container" >
+            <div className="container" align="center">
                 <div class="row">
-                    <div class="col-12">
-                        <div class="pb-2 px-3 d-flex flex-wrap align-items-center justify-content-between">
+                    <div className="col-1">
+                    </div>
+                    <div class="col-11">
+                        <div class="pb-2 px-5 d-flex align-items-center justify-content-between">
                             <h2>Sign Up</h2>
                         </div>
                     </div>
@@ -267,7 +269,7 @@ function SignUp() {
                         
                         <p>Already have an account? <Link to="/patient/signin">Sign In</Link></p>
                     </form>             
-                </div>                    
+                </div>                   
             </div>
     )
 }
