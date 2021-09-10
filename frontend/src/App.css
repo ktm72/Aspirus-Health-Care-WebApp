@@ -17,12 +17,6 @@ Link:hover {
   border: none;
 }
 
-.form-h1{
-  color: #4D7FF0;
-  font-weight: 500
-}
-
-
 .form-submit-btn{background-image: linear-gradient(to right, #0092FA 0%, #12C4FA  51%, #0092FA  100%)}
 .form-submit-btn {
     border: 0;
@@ -51,3 +45,4 @@ body{
 ::-webkit-scrollbar{
   display: none;
 }
+
