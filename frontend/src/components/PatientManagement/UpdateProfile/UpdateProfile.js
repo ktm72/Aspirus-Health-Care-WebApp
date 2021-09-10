@@ -8,8 +8,6 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import axios from 'axios';
 import './UpdateProfile.css';
 
-
-
 function UpdateProfile(props) {
     const [firstname,setFirstName] = useState("");
     const [lastname,setLastName] = useState("");
@@ -33,7 +31,6 @@ function UpdateProfile(props) {
     ];
 
     const history = useHistory();
-
     const [previewSource, setPreviewSource] = useState();
 
     //fetching user data
@@ -51,7 +48,7 @@ function UpdateProfile(props) {
                 setBloodPressure(res.data.result.bloodPressure)
                 setSugarLevel(res.data.result.sugarLevel)
             }).catch((error)=>{
-                alert("Failed to fetch item data")
+                alert("Failed to fetch user data")
             })
         }
         fetchUser()
@@ -110,13 +107,13 @@ function UpdateProfile(props) {
         }    
     }
 
-
-
     return (
-        <div className="container" >
+        <div className="container" align="center">
             <div class="row">
-                <div class="col-12">
-                    <div class="pb-2 px-3 d-flex flex-wrap align-items-center justify-content-between">
+                <div className="col-1">
+                </div>
+                 <div class="col-11">
+                    <div class="pb-2 px-5 d-flex align-items-center justify-content-between">
                         <h2>Update Profile</h2>
                     </div>
                 </div>
