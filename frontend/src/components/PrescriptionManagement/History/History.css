@@ -1,15 +1,13 @@
-table {
-  font-family:  sans-serif;
+.blue-table table {
   font-weight: 400;
-  font-style: normal;
   border-collapse: collapse;
   width: 100%;
   border-radius: 15px;
   border: 10px
 }
-tr:nth-child(even){background-color: #f2f2f2}
+.blue-table tr:nth-child(even){background-color: #f2f2f2}
 
-th {
+.blue-table th {
   font-size: 18px;
   text-align: left;
   padding: 12px 12px 12px 12px;
@@ -17,15 +15,14 @@ th {
   color: white;
 }
 
-table,
-td {
+.blue-table table,
+.blue-table td {
   padding: 8px 8px 8px 20px;
   border: 100px
 }
 
-
-.table100.ver1 {
-  border-radius: 10px;
+.box-view-prescription {
+  border-radius: 15px;
   overflow: hidden;
   box-shadow: 0 0px 40px 0px rgba(0, 0, 0, 0.15);
   -moz-box-shadow: 0 0px 40px 0px rgba(0, 0, 0, 0.15);

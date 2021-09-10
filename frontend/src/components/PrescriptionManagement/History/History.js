@@ -1,27 +1,35 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import IconButton from '@material-ui/core/IconButton';
-// import VisibilityRoundedIcon from '@material-ui/icons/VisibilityRounded';
+import OpenInNewIcon from '@material-ui/icons/OpenInNew';
 import DeleteIcon from '@material-ui/icons/DeleteForever';
-import { red } from '@material-ui/core/colors';
-import './css/History.css';
+import EditIcon from '@material-ui/icons/Edit';
+import { red, teal, grey } from '@material-ui/core/colors';
+import { useHistory } from 'react-router-dom';
+import './History.css';
 
 function History(props) {
 
   const [prescriptionArr, setPrescriptionsArr] = useState([])
+  const history = useHistory()
+  const [isDoctor,setIsDoctor]=useState(false)
 
-  useEffect(() => {
+  useEffect(() => { 
+    if(localStorage.getItem("doctorAuthToken")){
+      setIsDoctor(true)
+    }else{
+      setIsDoctor(false)
+    }
+
     async function getPrescription() {
-      axios.get(`http://localhost:8070/prescription/${props.match.params.id}`).then((res) => {
+      await axios.get(`http://localhost:8070/prescription/${props.match.params.id}`).then((res) => {
         setPrescriptionsArr(res.data.result)
-        console.log(res.data.result)
       }).catch((err) => {
         alert(err)
       })
     }
     getPrescription();
   }, [props])
-
 
   async function onDelete(id) {
     const config = {
@@ -37,25 +45,35 @@ function History(props) {
     })
   }
 
+  function update(id) {
+    history.push(`/prescription/update/${id}`)
+  }
+
   return (
-    <div class="container">
-      <div>
-        <h3>Prescription List</h3>
-        <div class="table100 ver1 m-b-110">
+    <div className="container" >
+      <div className="row">
+        <div className="col-12">
+          <div className="pb-2 px-3 d-flex flex-wrap align-items-center justify-content-between">
+            <h2>Prescription History</h2>
+          </div>
+        </div>
+      </div>
+      <div className="blue-table">
+        <div className="blue-table, box-view-prescription">
           <table>
-            <thead>
+            <thead >
               <tr>
-                <th>Doctor Name</th>
-                <th>Patient Name</th>
-                <th>Problem</th>
-                <th>Drug</th>
-                <th>Sig</th>
-                <th>disp</th>
-                <th>Status</th>
+                <th style={{ textAlign: 'center' }}>Doctor Name</th>
+                <th style={{ textAlign: 'center' }}>Patient Name</th>
+                <th style={{ textAlign: 'center' }}>Problem</th>
+                <th style={{ textAlign: 'center' }}>Drug</th>
+                <th style={{ textAlign: 'center' }}>Sig</th>
+                <th style={{ textAlign: 'center' }}>Date</th>
+                <th style={{ textAlign: 'center' }}>Status</th>
               </tr>
             </thead>
 
-            <tbody>
+            <tbody style={{ textAlign: 'center' }}>
               {prescriptionArr.map((Prescription, key) => (
                 <tr key={key}>
                   <td>
@@ -74,13 +92,21 @@ function History(props) {
                     {Prescription.sig}
                   </td>
                   <td>
-                    {Prescription.disp}
+                    {Prescription.date}
                   </td>
                   <td>
                     <div>
-                      <IconButton onClick={() => onDelete(Prescription._id)}>
-                        <DeleteIcon style={{color:red[500]}} ></DeleteIcon>
+                      <IconButton>
+                        <OpenInNewIcon style={{ color: teal[500] }} ></OpenInNewIcon>
                       </IconButton>
+                      <IconButton onClick={() => onDelete(Prescription._id)}>
+                        <DeleteIcon style={{ color: red[500] }} ></DeleteIcon>
+                      </IconButton>
+                      {isDoctor &&
+                        <IconButton onClick={() => update(Prescription._id)}>
+                          <EditIcon style={{ color: grey[500] }} ></EditIcon>
+                        </IconButton>
+                      }
                     </div>
                   </td>
                 </tr>
