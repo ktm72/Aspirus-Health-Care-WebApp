@@ -1,19 +1,25 @@
 {
     "cSpell.words": [
         "Aspirus",
-        "additem",
-        "cartcontroller",
-        "deleteitem",
-        "itemid",
         "SLMC",
-        "doctorfee",
-        "doctorrouter",
-        "fullname",
-        "ispassword",
+        "additem",
+        "appointmentrouter",
         "cardlogin",
+        "cartcontroller",
+        "cartrouter",
+        "confirmpassword",
+        "deleteitem",
         "deleteprofile",
         "deletpatient",
+        "doctorfee",
+        "doctorrouter",
+        "doctorsignin",
+        "firstname",
         "forgotpassword",
+        "fullname",
+        "ispassword",
+        "itemid",
+        "lastname",
         "patientauth",
         "patientcontroller",
         "patientid",
@@ -21,17 +27,22 @@
         "patientsignin",
         "patientsignup",
         "paymentcontroller",
-        "reviewcontroller"
-        "updateitem"
+        "paymentrouter",
         "phoneno",
-        "signin",
-        "slmcreg",
-        "speciality"
+        "prescriptionrouter",
         "productcontroller",
         "productrouter",
-        "viewproduct"
+        "profilepic",
         "resetpassword",
+        "reviewcontroller",
+        "reviewrouter",
+        "showhide",
+        "signin",
+        "slmcreg",
+        "speciality",
+        "updateitem",
         "updatepatient",
-        "updateprofile"
+        "updateprofile",
+        "viewproduct"
     ]
 }
