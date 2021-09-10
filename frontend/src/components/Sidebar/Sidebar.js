@@ -32,7 +32,7 @@ function Sidebar() {
                 <li key={index} className={item.cName}>
                   <Link to={item.path}>
                     {item.icon}
-                    <span class="nav-span">{item.title}</span>
+                    <span className="nav-span">{item.title}</span>
                   </Link>
                 </li>
               );
