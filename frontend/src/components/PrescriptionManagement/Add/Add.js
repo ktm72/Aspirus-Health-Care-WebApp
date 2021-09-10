@@ -1,14 +1,14 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import axios from "axios";
-import './css/Add.css';
+import './Add.css';
+import { OutlinedInput } from '@material-ui/core';
 
-export default function Add(){
+export default function Add() {
 
   const [doctorID, setDoctorID] = useState("");
   const [doctorName, setDoctorName] = useState("");
   const [patientID, setPatientID] = useState("");
   const [patientName, setPatientName] = useState("");
-  const [date, setDate] = useState("");
   const [productTitle, setProductTitle] = useState("");
   const [dose, setDose] = useState("");
   const [disp, setDisp] = useState("");
@@ -16,121 +16,150 @@ export default function Add(){
   const [refill, setRefill] = useState("");
   const [action, setAction] = useState("");
 
-  function sendData(e){
-      e.preventDefault();  
+  function sendData(e) {
 
-      const newPrescription ={
-        doctorName,
-        doctorID,
-        patientName,
-        patientID,
-        date,
-        productTitle,
-        dose,
-        disp,
-        sig,
-        refill,
-        action
-      }
-      
-      axios.post("http://localhost:8070/prescription/add",newPrescription)
-          .then(()=>{
-              alert("prescription added")
-          }).catch((err)=>{
-              alert(err)
-          })
+    e.preventDefault();
+
+    const newPrescription = {
+      doctorName,
+      doctorID,
+      patientName,
+      patientID,
+      productTitle,
+      dose,
+      disp,
+      sig,
+      refill,
+      action
+    }
+
+    axios.post("http://localhost:8070/prescription/add", newPrescription)
+      .then(() => {
+        alert("prescription added")
+      }).catch((err) => {
+        alert(err)
+      })
   }
 
   return (
-    <div  class ="container">
+    <div className="container">
+      <div className="row">
+        <div className="col-12">
+          <div className="pb-2 px-3 d-flex flex-wrap align-items-center justify-content-between">
+            <h2>Add Prescription </h2>
+          </div>
+        </div>
+      </div>
       <div>
-        <h3>Add Prescription</h3>
-        <form onSubmit = {sendData}>
-        
-          <div>
-            <label>Doctor ID</label>
-            <input type="text" class=" " placeholder="Doctor ID" onChange={(e)=>{
-                setDoctorID(e.target.value);
-            }}/>
+        <form onSubmit={sendData} className="box-add-prescription">
+          <div className="row">
+            <div className="col-xl-6 mb-4">
+              <div className="form-group">
+                <OutlinedInput type="text" placeholder="Doctor ID"
+                  onChange={(e) => { setDoctorID(e.target.value); }}
+                  required fullWidth
+                  inputProps={{style: {padding: 12}}}
+                />
+              </div>
+            </div>
+            <div className="col-xl-6 mb-4">
+              <div className="form-group">
+                <OutlinedInput type="text" placeholder="Doctor Name"
+                  onChange={(e) => { setDoctorName(e.target.value); }}
+                  required fullWidth
+                  inputProps={{style: {padding: 12}}}
+                />
+              </div>
+            </div>
+
+            <div className="col-xl-6 mb-4">
+              <div className="form-group">
+                <OutlinedInput type="text" placeholder="Patient ID"
+                  onChange={(e) => { setPatientID(e.target.value); }}
+                  required fullWidth
+                  inputProps={{style: {padding: 12}}}
+                />
+              </div>
+            </div>
+            <div className="col-xl-6 mb-4">
+              <div className="form-group">
+                <OutlinedInput type="text" placeholder="Patient Name"
+                  onChange={(e) => { setPatientName(e.target.value); }}
+                  required fullWidth
+                  inputProps={{style: {padding: 12}}}
+                />
+              </div>
+            </div>
           </div>
 
-          <div>
-            <label>Doctor Name</label>
-            <input type="text" class=" " placeholder="Doctor Name"  onChange={(e)=>{
-                setDoctorName(e.target.value);
-            }}/>
-          </div>
+          <div className="row">
+            <div className="col-xl-6 mb-4">
+              <div className="form-group">
+                <OutlinedInput type="text" placeholder="Drug name"
+                  onChange={(e) => { setProductTitle(e.target.value); }}
+                  required fullWidth
+                  inputProps={{style: {padding: 12}}}
+                />
+              </div>
+            </div>
 
-          <div>
-            <label>Patient ID</label>
-            <input type="text" class=" " placeholder="Patient ID" onChange={(e)=>{
-                setPatientID(e.target.value);
-            }} />
-          </div>
-          
-          <div>
-            <label>Patient Name</label>
-            <input type="text" class=" " placeholder="Patient Name" onChange={(e)=>{
-                setPatientName(e.target.value);
-            }}/>
-          </div>
+            <div className="col-xl-6 mb-4">
+              <div className="form-group">
+                <OutlinedInput type="text" placeholder="Dosage"
+                  onChange={(e) => {
+                    setDose(e.target.value);
+                  }}
+                  required fullWidth
+                  inputProps={{style: {padding: 12}}}
+                />
+              </div>
+            </div>
 
-          <div>
-            <label>Date</label>
-            <input type="Date" placeholder="Date" onChange={(e)=>{
-                setDate(e.target.value);
-            }}/>
-          </div>
+            <div className="col-xl-6 mb-4">
+              <div className="form-group">
+                <OutlinedInput type="text" placeholder="Dispense number"
+                  onChange={(e) => { setDisp(e.target.value); }}
+                  required fullWidth
+                  inputProps={{style: {padding: 12}}}
+                />
+              </div>
+            </div>
 
-          <div>
-            <label>Drug</label>
-            <input type="text" placeholder="Drug name" onChange={(e)=>{
-                setProductTitle(e.target.value);
-            }}/>
-          </div>
-
-          <div>
-            <label>Dose</label>
-            <input type="text" placeholder="Dosage" onChange={(e)=>{
-                setDose(e.target.value);
-            }}/>
-          </div>
-
-          <div>
-            <label>Disp</label>
-            <input type="text" placeholder="Dispense number" onChange={(e)=>{
-                setDisp(e.target.value);
-            }}/>
-          </div>
-          
-          <div>
-            <label>Sig</label>
-            <input type="text" placeholder="Instructions"  onChange={(e)=>{
-                setSig(e.target.value);
-            }}/>
-          </div>
-
-          <div>
-            <label>Refill</label>
-            <input type="text" placeholder="Number of refills allowed"  onChange={(e)=>{
-                setRefill(e.target.value);
-            }}/>
-          </div>
-
-          <div>
-            <label>Action</label>
-            <input type="text" placeholder="Issue"  onChange={(e)=>{
-                setAction(e.target.value);
-            }}/>
-          </div>
-                   
-          <br/><br/>
-          <div>
-            <button type="submit"  >Submit</button>
+            <div className="col-xl-6 mb-4">
+              <div className="form-group">
+                <OutlinedInput type="text" placeholder="Instructions"
+                  onChange={(e) => { setSig(e.target.value); }}
+                  required fullWidth
+                  inputProps={{style: {padding: 12}}}
+                />
+              </div>
+            </div>
+            <div className="col-xl-6 mb-4">
+              <div className="form-group">
+                <OutlinedInput type="text" placeholder="No. of refills"
+                  onChange={(e) => { setRefill(e.target.value); }}
+                  required fullWidth
+                  inputProps={{style: {padding: 12}}}
+                />
+              </div>
+            </div>
+            <div className="col-xl-6 mb-4">
+              <div className="form-group">
+                <OutlinedInput type="text" placeholder="Issue"
+                  onChange={(e) => { setAction(e.target.value); }}
+                  required fullWidth
+                  inputProps={{style: {padding: 12}}}
+                />
+              </div>
+            </div>
+            <div>
+              <input type="submit" value="Add" className="form-submit-btn" />
+            </div>
           </div>
         </form>
       </div>
     </div>
+
   )
 }
 
