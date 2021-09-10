@@ -25,7 +25,7 @@ function ForgotPassword() {
     }
 
     return (
-        <div className="container">
+        <div className="container" align="center">
             <div class="card-form">
                 <form class="boxForgot" onSubmit={sendEmail}>
                     <h1 className="form-h1">Forgot Password</h1>
