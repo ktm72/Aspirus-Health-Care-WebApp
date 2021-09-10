@@ -34,7 +34,7 @@ function ResetPassword() {
                 alert("Password Reset Successful")
                 setPassword("");
                 setConfirmPassword("");
-                localStorage.removeItem("patientAuthToken");
+                localStorage.clear()
                 history.push('/');
             } catch (error) {
                 if(error.response.status === 400){
@@ -51,7 +51,7 @@ function ResetPassword() {
     }
 
     return (
-        <div className="container">
+        <div className="container" align="center">
             <div class="card-form">
                 <form class="boxReset" onSubmit={reset}>
                     <h1 className="form-h1">Reset Password</h1>
