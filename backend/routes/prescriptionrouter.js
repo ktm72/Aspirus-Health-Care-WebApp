@@ -15,6 +15,6 @@ router.put('/update/:id', updateprescription);
 router.get('/:id', viewprescription);
 
 //view one prescription
-router.get('/:id', viewoneprescription);
+router.get('/view/:id', viewoneprescription);
 
 module.exports = router;
