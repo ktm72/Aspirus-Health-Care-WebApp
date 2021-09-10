@@ -4,7 +4,7 @@ import IconButton from "@material-ui/core/IconButton";
 import CircleIcon from '@material-ui/icons/FiberManualRecord';
 import HeartIcon from '@material-ui/icons/FavoriteOutlined';
 import BarChartIcon from '@material-ui/icons/BarChart';
-import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 import DeleteIcon from '@material-ui/icons/Delete';
 import LockIcon from '@material-ui/icons/Lock';
 import EditIcon from '@material-ui/icons/Edit';
@@ -28,7 +28,6 @@ function Profile() {
 
             }).catch((error)=>{
                 alert("Failed to fetch item data")
-                console.log(error)
             })
         }
         fetchUser()
@@ -53,6 +52,24 @@ function Profile() {
                 alert("Something went wrong")
             }
         }
+    }
+
+    async function deleteAccount(){
+        //header with authorization token
+        const config = {
+            headers: {
+                "content-Type": "application/json",
+                Authorization: `${localStorage.getItem("patientAuthToken")}`,
+            },
+        };
+
+        await axios.delete(`http://localhost:8070/patient/deleteprofile/${user._id}`, config).then(() => {
+            alert("Account deleted successfully")
+            localStorage.clear()
+            history.push('/patient/signin')
+        }).catch((error) => {
+            alert(`Failed to delete the Account`)
+        })
     }
 
     return (
@@ -172,9 +189,11 @@ function Profile() {
                 </div>
                 <div className="col-xl-2">
                     <center>
-                        <button class="btn btn-primary mb-3">Upload Report <CloudUploadIcon/> </button>
+                        <button class="btn btn-lg mb-3" style={{ backgroundColor: '#11998e', color: 'white'}}>
+                            Generate Report <CloudDownloadIcon/> 
+                        </button>
                         <button class="btn btn-primary mb-3" onClick={ResetPassword}>Reset Password <LockIcon/> </button>
-                        <button class="btn btn-danger mb-3">Delete Account <DeleteIcon/> </button>
+                        <button class="btn btn-danger mb-3" onClick={deleteAccount}>Delete Account <DeleteIcon/> </button>
                     </center>
                 </div>
             </div>
