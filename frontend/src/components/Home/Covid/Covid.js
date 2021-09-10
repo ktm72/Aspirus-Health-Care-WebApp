@@ -5,6 +5,7 @@ import { IconButton } from '@material-ui/core';
 import BarChartIcon from '@material-ui/icons/BarChart';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import { orange, green, red } from '@material-ui/core/colors';
+import CountUp from 'react-countup';
 import './Covid.css'
 
 function Covid() {
@@ -36,10 +37,6 @@ function Covid() {
         fetchData()
     },[location]);
 
-    function refresh(){
-        <Covid/>
-    }
-
     return (
         <div className="container">
             <div className="covid-card">
@@ -47,12 +44,7 @@ function Covid() {
                     <div className="row">
                         <div className="col-12 d-flex justify-content-between">
                             <h3>Covid-19 Statistics (SL) <BarChartIcon/></h3>
-                            <p>
-                                Last Updated at: {time}
-                                <IconButton onClick={refresh()}>
-                                    <RefreshIcon style={{ color: 'white'}}/>
-                                </IconButton>
-                            </p>
+                            <p>Last Updated at: {time}</p>
                         </div>
                     </div>
                 </div>
@@ -60,29 +52,29 @@ function Covid() {
                     <div className="col-xl-9">
                         <div className="row mb-4 px-5">
                             <div className="col-xl-4">
-                                <h3 style={{ color: red[500]}}>{deaths}</h3>
+                                <h3 style={{ color: red[500]}}><CountUp end={deaths} duration={1}/></h3>
                                 <h5>Deaths</h5>
                             </div>
                             <div className="col-xl-4">
-                                <h3 style={{ color: orange[300]}}>{cases}</h3>
+                                <h3 style={{ color: orange[300]}}><CountUp end={cases} duration={1}/></h3>
                                 <h5>Cases</h5>
                             </div>
                             <div className="col-xl-4">
-                                <h3 style={{ color: green[300]}}>{hospital}</h3>
+                                <h3 style={{ color: green[300]}}><CountUp end={hospital} duration={1}/></h3>
                                 <h5>In Hospitals</h5>
                             </div>
                         </div>
                         <div className="row px-5 mb-4">
                             <div className="col-xl-4" >
-                                <h3 style={{ color: red[500]}}>{totalDeaths}</h3>
+                                <h3 style={{ color: red[500]}}><CountUp end={totalDeaths} duration={1}/></h3>
                                 <h5>Total Deaths</h5>
                             </div>
                             <div className="col-xl-4">
-                                <h3 style={{ color: orange[300]}}>{totalCases}</h3>
+                                <h3 style={{ color: orange[300]}}><CountUp end={totalCases} duration={1}/></h3>
                                 <h5>Total Cases</h5>
                             </div>
                             <div className="col-xl-4">
-                                <h3 style={{ color: green[300]}}>{totalRecoveries}</h3>
+                                <h3 style={{ color: green[300]}}><CountUp end={totalRecoveries} duration={1}/></h3>
                                 <h5>Total Recovered</h5>
                             </div>   
                         </div>
