@@ -9,6 +9,10 @@ import PatientResetPassword from './components/PatientManagement/ResetPassword/R
 import PatientProfile from './components/PatientManagement/Profile/Profile';
 import PatientUpdateProfile from './components/PatientManagement/UpdateProfile/UpdateProfile';
 import Covid from './components/Home/Covid/Covid';
+import AddPrescription from './components/PrescriptionManagement/Add/Add';
+import PrescriptionHistory from './components/PrescriptionManagement/History/History';
+import UpdatePrescription from './components/PrescriptionManagement/Update/Update';
+import Sidebar from './components/Sidebar/Sidebar';
 
 function App() {
   return (
@@ -16,6 +20,7 @@ function App() {
       <Router>
         <div>
             <Header/>
+            <Sidebar/>   
             <Route path="/" exact component={Covid} />
             <Route path="/patient/signin" exact component={PatientSignIn} />
             <Route path="/patient/signup" exact component={PatientSignUp} />
@@ -23,6 +28,9 @@ function App() {
             <Route path="/patient/resetpassword" exact component={PatientResetPassword} />
             <PatientPrivateRoute path="/patient/profile" exact component={PatientProfile} />
             <PatientPrivateRoute path="/patient/updateprofile/:id" exact component={PatientUpdateProfile} />
+            <Route path="/prescription/history/:id" exact component={PrescriptionHistory} />
+            <Route path="/prescription/add" exact component={AddPrescription} />
+            <Route path="/prescription/update/:id" exact component={UpdatePrescription} />  
         </div>
       </Router>
     </div>
