@@ -8,7 +8,11 @@ import PatientForgotPassword from './components/PatientManagement/ForgotPassword
 import PatientResetPassword from './components/PatientManagement/ResetPassword/ResetPassword';
 import PatientProfile from './components/PatientManagement/Profile/Profile';
 import PatientUpdateProfile from './components/PatientManagement/UpdateProfile/UpdateProfile';
-import Covid from './components/Home/Covid/Covid';
+import DoctorLogin from './components/DoctorManagement/DoctorLogin/DoctorLogin';
+import DoctorSignUp from './components/DoctorManagement/DoctorSignUp/DoctorSignUp';
+import DoctorProfile from './components/DoctorManagement/DoctorProfile/DoctorProfile';
+import DoctorUpdate from './components/DoctorManagement/DoctorUpdateProfile/DoctorUpdate';
+import DoctorPrivateRoute from './Routes/DoctorPrivateRoute';
 import AddPrescription from './components/PrescriptionManagement/Add/Add';
 import PrescriptionHistory from './components/PrescriptionManagement/History/History';
 import UpdatePrescription from './components/PrescriptionManagement/Update/Update';
@@ -17,6 +21,7 @@ import Items from './components/PharmacyManagement/Items/Items'
 import SingleItem from './components/PharmacyManagement/SingleItem/SingleItem'
 import UpdateProduct from './components/PharmacyManagement/UpdateProduct/UpdateProduct'
 import Footer from './components/Footer/Footer';
+import Homepage from './components/Home/Homepage';
 
 function App() {
   return (
@@ -24,13 +29,17 @@ function App() {
       <Router>
         <div>
             <Header/>
-            <Route path="/" exact component={Covid} />
+            <Route path="/" exact component={Homepage} />
             <Route path="/patient/signin" exact component={PatientSignIn} />
             <Route path="/patient/signup" exact component={PatientSignUp} />
             <Route path="/patient/forgotpassword" exact component={PatientForgotPassword} />
             <Route path="/patient/resetpassword" exact component={PatientResetPassword} />
             <PatientPrivateRoute path="/patient/profile" exact component={PatientProfile} />
             <PatientPrivateRoute path="/patient/updateprofile/:id" exact component={PatientUpdateProfile} />
+            <Route path="/doctor/signin" exact component={DoctorLogin}/>  
+            <Route path="/doctor/signup" exact component={DoctorSignUp}/>  
+            <DoctorPrivateRoute path="/doctor/profile" exact component={DoctorProfile}/>
+            <DoctorPrivateRoute path="/doctor/update/:id" exact component={DoctorUpdate}/> 
             <Route path="/prescription/history/:id" exact component={PrescriptionHistory} />
             <Route path="/prescription/add" exact component={AddPrescription} />
             <Route path="/prescription/update/:id" exact component={UpdatePrescription} />  

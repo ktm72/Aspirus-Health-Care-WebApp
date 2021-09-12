@@ -35,7 +35,13 @@ exports.signinDoctor = async(req,res) => {
 //doctor signup
 exports.signupDoctor = async(req,res) => {
 
-    const {title, name, email, speciality, gender, languages, phoneno, qualification, doctorfee, availableDay, availableTimeTo, availableTimeFrom, slmcreg, practicingLocations, password, nameOfAccountHolder, accountNo, bankName, bankBranch } = req.body;
+    const {title, name, email, speciality, gender, languages, phoneno, qualification, doctorfee, availableDay, slmcreg, practicingLocations, password, nameOfAccountHolder, accountNo, bankName, bankBranch } = req.body;
+    
+    let to=new Date(req.body.availableTimeTo)
+    let from=new Date(req.body.availableTimeFrom)
+    
+    const availableTimeTo = (to.getHours() + ":" + to.getMinutes())
+    const availableTimeFrom = (from.getHours() + ":" + from.getMinutes())
 
     try {
         //creating a new doctor
@@ -47,17 +53,23 @@ exports.signupDoctor = async(req,res) => {
         //joining the doctor  object and token as the response
         res.status(200).json({result: doctor, token})
     }catch (error) {
-            res.status(500).json({message: "Something went wrong", error: error.message})
-     }
-    
+        res.status(500).json({message: "Something went wrong", error: error.message})
+    } 
 }
 
 //doctor update
 exports.updateDoctor = async(req,res) => {
 
     let doctorID = req.params.id;
-    const { name, email, speciality, languages, phoneno, qualification, doctorfee, availableDay, availableTimeTo, availableTimeFrom, practicingLocations, password, nameOfAccountHolder, accountNo, bankName, bankBranch } = req.body;
-    const updateDoctor= { name, email, speciality, languages, phoneno, qualification, doctorfee, availableDay, availableTimeTo, availableTimeFrom, practicingLocations, password, nameOfAccountHolder, accountNo, bankName, bankBranch } 
+    const { name, speciality, languages, qualification, doctorfee, availableDay, practicingLocations, } = req.body;
+
+    let to=new Date(req.body.availableTimeTo)
+    let from=new Date(req.body.availableTimeFrom)
+    
+    const availableTimeTo = (to.getHours() + ":" + to.getMinutes())
+    const availableTimeFrom = (from.getHours() + ":" + from.getMinutes())
+
+    const updateDoctor= { name, speciality, languages, qualification, doctorfee, availableDay, availableTimeTo, availableTimeFrom, practicingLocations} 
     
     try{
         //find doctor by ID  

@@ -1,0 +1,28 @@
+.docLogin {
+    width: 30%;
+    padding: 40px;
+    background: rgb(255, 255, 255);
+    text-align: center;
+    transition: 0.25s;
+    border-radius: 15px;
+    align-items: center;
+    box-shadow: 0px 24px 48px 0 rgba(0,0,0,0.1);
+} 
+
+.docLogin Input[type="email"],.docLogin Input[type="text"],
+.docLogin Input[type="password"] {
+    border-bottom: none;
+    border: 0;
+    background: none;
+    display: block;
+    margin: 20px auto;
+    text-align: center;
+    border: 2px solid #12C4FA;
+    padding: 10px 10px;
+    width: 320px;
+    outline: none;
+    color: black;
+    border-radius: 24px;
+    
+} 
+
