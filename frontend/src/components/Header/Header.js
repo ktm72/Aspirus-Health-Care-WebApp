@@ -8,7 +8,6 @@ import PersonIcon from '@material-ui/icons/Person';
 import EventAvailableIcon from '@material-ui/icons/EventAvailable';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import LocalHospitalIcon from '@material-ui/icons/LocalHospital';
-import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
 import FeedbackIcon from '@material-ui/icons/Feedback';
