@@ -39,17 +39,22 @@ exports.patientsignin = async(req, res) => {
 
 //patient sign up controller
 exports.patientsignup = async(req,res) => {
-    const {firstname, lastname, email, dob, gender, nic, phone, password} = req.body;
+    const {firstname, lastname, email, gender, nic, phone, address, password} = req.body;
+    const dob = new Date(req.body.dob)
+
+    const today = new Date().getFullYear()
+    const year = dob.getFullYear()
+    const age = today - year
 
     try {
         //checking email already exists
         const checkPatient = await Patient.findOne({email})
 
         if(checkPatient)
-            return res.status(500).json({message: "User with this email already exists"})
+            return res.status(409).json({message: "User with this email already exists"})
 
         //creating a new patient
-        const patient = await Patient.create({firstname, lastname, email, dob, gender, nic, phone, password});
+        const patient = await Patient.create({firstname, lastname, email, dob, age, gender, nic, phone, address, password});
 
         //creating a token
         const token = jwt.sign({email: patient.email, id: patient._id}, process.env.JWT_SECRET, {expiresIn: "1h"})
@@ -58,6 +63,7 @@ exports.patientsignup = async(req,res) => {
         res.status(200).json({success: true, result: patient, token})
     } catch (error) {
         res.status(500).json({message: "Something went wrong", error: error.message})
+        console.log(error)
     }
 }
 
@@ -65,10 +71,23 @@ exports.patientsignup = async(req,res) => {
 exports.updatePatient = async(req,res) => {
     let patientID = req.params.id;
 
-    const {firstname, lastname, email, phone, password} = req.body;
+    const {firstname, lastname, email, phone, address, bloodGroup} = req.body;
+    const weight = Number(req.body.weight)
+    const height = Number(req.body.height)
+    const bloodPressure = Number(req.body.bloodPressure)
+    const sugarLevel = Number(req.body.sugarLevel)
+    let bmi
+
+    if(weight != undefined && height != undefined){
+        bmi = weight / (height * height)
+        bmi = bmi.toFixed(2);
+    }
 
     //object with provided data
-    const updatePatient = {firstname, lastname, email, phone, password}
+    const updatePatient = {
+        firstname, lastname, email, phone, address,
+        weight, height, bloodPressure, bloodGroup, sugarLevel, bmi, 
+    }
 
     try {
         //find patient by patientID and update the patient with provided data
@@ -114,7 +133,7 @@ exports.forgotPassword = async (req, res) => {
         await patient.save();
     
         // Create reset url to email to provided email
-        const resetPasswordUrl = `http://localhost:3000/passwordreset/${resetPasswordToken}`;
+        const resetPasswordUrl = `http://localhost:3000/patient/passwordreset/${resetPasswordToken}`;
     
         // HTML Message
         const message = `
@@ -129,8 +148,7 @@ exports.forgotPassword = async (req, res) => {
     
             res.status(200).json({ success: true, data: "Email Sent" });
         } catch (error) {
-            console.log(error);
-    
+            
             //if the email sending failed remove reset token
             patient.resetPasswordToken = undefined;
             patient.resetPasswordExpire = undefined;
