@@ -20,6 +20,7 @@ import AddProducts from './components/PharmacyManagement/AddProduct/AddProducts'
 import Items from './components/PharmacyManagement/Items/Items'
 import SingleItem from './components/PharmacyManagement/SingleItem/SingleItem'
 import UpdateProduct from './components/PharmacyManagement/UpdateProduct/UpdateProduct'
+import Footer from './components/Footer/Footer';
 import Homepage from './components/Home/Homepage';
 
 function App() {
@@ -46,6 +47,7 @@ function App() {
             <Route path="/pharmacy/items" exact component={Items}/>
             <Route path="/pharmacy/item/:id" exact component={SingleItem}/>
             <Route path="/pharmacy/item/update/:id" exact component={UpdateProduct}/>
+            <Footer/>
         </div>
       </Router>
     </div>
