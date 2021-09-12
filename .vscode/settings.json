@@ -21,15 +21,15 @@
         "patientsignin",
         "patientsignup",
         "paymentcontroller",
-        "reviewcontroller"
-        "updateitem"
+        "reviewcontroller",
+        "updateitem",
         "phoneno",
         "signin",
         "slmcreg",
-        "speciality"
+        "speciality",
         "productcontroller",
         "productrouter",
-        "viewproduct"
+        "viewproduct",
         "resetpassword",
         "updatepatient",
         "updateprofile"
