@@ -66,7 +66,7 @@ const DoctorSchema =new Schema({
     },
 
     availableDay:{
-        type:String,
+        type:[String],
         required:true
     },
 
@@ -113,12 +113,6 @@ const DoctorSchema =new Schema({
     profilePicture:{
         type:String,
         required:false
-    },
-
-    nic:{
-        type:String,
-        required:false,
-        unique:true
     },
 
     slmccertificate:{
