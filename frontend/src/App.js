@@ -12,6 +12,10 @@ import Covid from './components/Home/Covid/Covid';
 import AddPrescription from './components/PrescriptionManagement/Add/Add';
 import PrescriptionHistory from './components/PrescriptionManagement/History/History';
 import UpdatePrescription from './components/PrescriptionManagement/Update/Update';
+import AddProducts from './components/PharmacyManagement/AddProduct/AddProducts'
+import Items from './components/PharmacyManagement/Items/Items'
+import SingleItem from './components/PharmacyManagement/SingleItem/SingleItem'
+import UpdateProduct from './components/PharmacyManagement/UpdateProduct/UpdateProduct'
 
 function App() {
   return (
@@ -29,6 +33,10 @@ function App() {
             <Route path="/prescription/history/:id" exact component={PrescriptionHistory} />
             <Route path="/prescription/add" exact component={AddPrescription} />
             <Route path="/prescription/update/:id" exact component={UpdatePrescription} />  
+            <Route path="/pharmacy/addProduct" exact component={AddProducts}/>
+            <Route path="/pharmacy/items" exact component={Items}/>
+            <Route path="/pharmacy/item/:id" exact component={SingleItem}/>
+            <Route path="/pharmacy/item/update/:id" exact component={UpdateProduct}/>
         </div>
       </Router>
     </div>
