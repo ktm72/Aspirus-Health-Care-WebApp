@@ -8,7 +8,6 @@ import PatientForgotPassword from './components/PatientManagement/ForgotPassword
 import PatientResetPassword from './components/PatientManagement/ResetPassword/ResetPassword';
 import PatientProfile from './components/PatientManagement/Profile/Profile';
 import PatientUpdateProfile from './components/PatientManagement/UpdateProfile/UpdateProfile';
-import Covid from './components/Home/Covid/Covid';
 import AddPrescription from './components/PrescriptionManagement/Add/Add';
 import PrescriptionHistory from './components/PrescriptionManagement/History/History';
 import UpdatePrescription from './components/PrescriptionManagement/Update/Update';
@@ -16,6 +15,7 @@ import AddProducts from './components/PharmacyManagement/AddProduct/AddProducts'
 import Items from './components/PharmacyManagement/Items/Items'
 import SingleItem from './components/PharmacyManagement/SingleItem/SingleItem'
 import UpdateProduct from './components/PharmacyManagement/UpdateProduct/UpdateProduct'
+import Homepage from './components/Home/Homepage';
 
 function App() {
   return (
@@ -23,7 +23,7 @@ function App() {
       <Router>
         <div>
             <Header/>
-            <Route path="/" exact component={Covid} />
+            <Route path="/" exact component={Homepage} />
             <Route path="/patient/signin" exact component={PatientSignIn} />
             <Route path="/patient/signup" exact component={PatientSignUp} />
             <Route path="/patient/forgotpassword" exact component={PatientForgotPassword} />
