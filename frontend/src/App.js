@@ -8,6 +8,11 @@ import PatientForgotPassword from './components/PatientManagement/ForgotPassword
 import PatientResetPassword from './components/PatientManagement/ResetPassword/ResetPassword';
 import PatientProfile from './components/PatientManagement/Profile/Profile';
 import PatientUpdateProfile from './components/PatientManagement/UpdateProfile/UpdateProfile';
+import DoctorLogin from './components/DoctorManagement/DoctorLogin/DoctorLogin';
+import DoctorSignUp from './components/DoctorManagement/DoctorSignUp/DoctorSignUp';
+import DoctorProfile from './components/DoctorManagement/DoctorProfile/DoctorProfile';
+import DoctorUpdate from './components/DoctorManagement/DoctorUpdateProfile/DoctorUpdate';
+import DoctorPrivateRoute from './Routes/DoctorPrivateRoute';
 import AddPrescription from './components/PrescriptionManagement/Add/Add';
 import PrescriptionHistory from './components/PrescriptionManagement/History/History';
 import UpdatePrescription from './components/PrescriptionManagement/Update/Update';
@@ -30,6 +35,10 @@ function App() {
             <Route path="/patient/resetpassword" exact component={PatientResetPassword} />
             <PatientPrivateRoute path="/patient/profile" exact component={PatientProfile} />
             <PatientPrivateRoute path="/patient/updateprofile/:id" exact component={PatientUpdateProfile} />
+            <Route path="/doctor/signin" exact component={DoctorLogin}/>  
+            <Route path="/doctor/signup" exact component={DoctorSignUp}/>  
+            <DoctorPrivateRoute path="/doctor/profile" exact component={DoctorProfile}/>
+            <DoctorPrivateRoute path="/doctor/update/:id" exact component={DoctorUpdate}/> 
             <Route path="/prescription/history/:id" exact component={PrescriptionHistory} />
             <Route path="/prescription/add" exact component={AddPrescription} />
             <Route path="/prescription/update/:id" exact component={UpdatePrescription} />  
