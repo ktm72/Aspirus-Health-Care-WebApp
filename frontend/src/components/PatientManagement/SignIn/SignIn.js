@@ -114,7 +114,7 @@ function Login() {
                     <br></br><br></br><br></br>
                     <div className="text-muted">
                         <p>Don't have an account? <Link to="/patient/signup">Sign Up</Link></p>
-                        <p>Are you a doctor? <Link to="/doctorsignin"> Click here</Link></p>
+                        <p>Are you a doctor? <Link to="/doctor/signin"> Click here</Link></p>
                     </div>
                 </form>
             </div>
