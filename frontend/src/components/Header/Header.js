@@ -14,6 +14,7 @@ import FeedbackIcon from '@material-ui/icons/Feedback';
 import Badge from '@material-ui/core/Badge';
 import Avatar from '@material-ui/core/Avatar';
 import onClickOutside from "react-onclickoutside";
+import { blue } from '@material-ui/core/colors';
 import { Button } from '@material-ui/core';
 import axios from 'axios';
 import './Header.css';
@@ -134,10 +135,10 @@ function Header() {
     return (
         <header>
             <div className="container-fluid">
-                <nav className="navbar navbar-inverse navbar-expand-lg navbar-light fixed-top">
-                    <div className="container-fluid">
+                <nav className="navbar navbar-inverse navbar-expand-lg navbar-light fixed-top header-bg">
+                    <div className="container-fluid ">
                         <ul>
-                            {sidebar ? <p></p> :
+                            {sidebar ? <IconButton><DehazeIcon fontSize="large" style={{ color: blue[0] }}/></IconButton> :
                             <IconButton onClick={showSidebar}>
                                 <DehazeIcon fontSize="large"/>
                             </IconButton>
