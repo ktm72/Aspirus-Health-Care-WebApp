@@ -25,7 +25,7 @@ function ProductDetails(props) {
     useEffect(() => {
         if(localStorage.getItem("adminAuthToken")){
             setIsAdmin(true)
-          }
+        }
       async function getProductDetails() {
         axios.get(`http://localhost:8070/product/item/${props.match.params.id}`).then((res) => {
           setId(res.data.product._id)  
@@ -73,7 +73,7 @@ function ProductDetails(props) {
         <div className = "container" align="center">
             <div className="detailProductCard">     
                 <div className="detailProduct">
-                                <img src="/images/dw.jpg " alt="productDeatils" />
+                                <img src="/images/dw.jpg " alt="productDetails" />
                     <div className="box-detailProduct">
                             <div className="row">
                                 <h2>{name}</h2>
