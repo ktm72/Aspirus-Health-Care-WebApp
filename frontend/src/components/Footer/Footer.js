@@ -1,9 +1,8 @@
 import React from 'react'
-import axios from 'axios';
 import './Footer.css'
-import { blue, red, yellow} from '@material-ui/core/colors';
+import { blue} from '@material-ui/core/colors';
 import {Link } from 'react-router-dom'; 
-import { Button,IconButton } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import Rating from '@material-ui/lab/Rating';
 import PhoneIcon from '@material-ui/icons/Phone';
 import EmailIcon from '@material-ui/icons/Email';
