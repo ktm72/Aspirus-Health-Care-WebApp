@@ -111,7 +111,7 @@ function Header() {
     }, [user._id,location])
 
     function profile() {
-        history.push(`/patient/profile/`)
+        history.push(`/${user._id}/profile/`)
     }
 
     function cart() {
