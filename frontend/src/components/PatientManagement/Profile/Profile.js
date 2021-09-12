@@ -8,7 +8,9 @@ import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 import DeleteIcon from '@material-ui/icons/Delete';
 import LockIcon from '@material-ui/icons/Lock';
 import EditIcon from '@material-ui/icons/Edit';
-import { orange, green, red } from '@material-ui/core/colors';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import { Button } from '@material-ui/core';
+import { orange, green, red, blue } from '@material-ui/core/colors';
 import axios from 'axios';
 import './Profile.css';
 
@@ -18,6 +20,7 @@ function Profile() {
     const history = useHistory();
     const location = useLocation();
 
+    //getting user data
     useEffect(() => {
         async function fetchUser(){
             await axios.get(`http://localhost:8070/patient/${user._id}`).then((res)=>{
@@ -34,10 +37,12 @@ function Profile() {
         
     },[user._id,location])
 
+    //redirecting to update page
     function editCardData() {
         history.push(`/patient/updateprofile/${user._id}`)
     }
 
+    //reset password
     async function ResetPassword(){
         let email = user.email
         try {
@@ -54,8 +59,8 @@ function Profile() {
         }
     }
 
+    //delete account
     async function deleteAccount(){
-        //header with authorization token
         const config = {
             headers: {
                 "content-Type": "application/json",
@@ -63,13 +68,21 @@ function Profile() {
             },
         };
 
-        await axios.delete(`http://localhost:8070/patient/deleteprofile/${user._id}`, config).then(() => {
-            alert("Account deleted successfully")
-            localStorage.clear()
-            history.push('/patient/signin')
-        }).catch((error) => {
-            alert(`Failed to delete the Account`)
-        })
+        if(window.confirm('Are you sure?\nThis action cannot be undone')){
+            await axios.delete(`http://localhost:8070/patient/deleteprofile/${user._id}`, config).then(() => {
+                alert("Account deleted successfully")
+                localStorage.clear()
+                history.push('/patient/signin')
+            }).catch((error) => {
+                alert(`Failed to delete the Account`)
+            })
+        }
+    }
+
+    //logout
+    async function logout(){
+        localStorage.clear();
+        history.push('/')
     }
 
     return (
@@ -187,13 +200,24 @@ function Profile() {
                         </div>
                     </div>
                 </div>
-                <div className="col-xl-2">
+                <div className="col-xl-3 px-4">
                     <center>
-                        <button className="btn btn-lg mb-3" style={{ backgroundColor: '#11998e', color: 'white'}}>
-                            Generate Report <CloudDownloadIcon/> 
-                        </button>
-                        <button className="btn btn-primary mb-3" onClick={ResetPassword}>Reset Password <LockIcon/> </button>
-                        <button className="btn btn-danger mb-3" onClick={deleteAccount}>Delete Account <DeleteIcon/> </button>
+                        <Button color="primary" variant="contained" className="mb-4 mt-4" fullWidth disableElevation size="large"
+                            style={{ backgroundColor: blue[500], color: 'white'}} onClick={logout} endIcon={<ExitToAppIcon/>}>
+                            Log Out  
+                        </Button>
+                        <Button variant="contained" className="mb-4" fullWidth disableElevation size="large" 
+                            style={{ backgroundColor: green[400], color: 'white' }} endIcon={<CloudDownloadIcon/>}>
+                            Generate Report
+                        </Button>
+                        <Button color="primary" variant="contained" className="mb-4" fullWidth disableElevation size="large"
+                            style={{ backgroundColor: blue[500], color: 'white'}} onClick={ResetPassword} endIcon={<LockIcon/>}>
+                            Reset Password
+                        </Button>
+                        <Button color="secondary" variant="contained" fullWidth disableElevation size="large" 
+                            onClick={deleteAccount} endIcon={<DeleteIcon/>}>
+                            Delete Account
+                        </Button>
                     </center>
                 </div>
             </div>

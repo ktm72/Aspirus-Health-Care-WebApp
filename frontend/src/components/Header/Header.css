@@ -1,14 +1,4 @@
-/*everything below here is just setting up the page, so dont worry about it */
-@media (min-width: 768px) {
-  .navbar {
-    text-align: center !important;
-    float: none;
-    display: inline-block;
- }
-}
-
 nav {
-  background: none !important;
   text-transform: uppercase;
 }
 

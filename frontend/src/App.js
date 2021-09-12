@@ -12,7 +12,6 @@ import Covid from './components/Home/Covid/Covid';
 import AddPrescription from './components/PrescriptionManagement/Add/Add';
 import PrescriptionHistory from './components/PrescriptionManagement/History/History';
 import UpdatePrescription from './components/PrescriptionManagement/Update/Update';
-import Sidebar from './components/Sidebar/Sidebar';
 
 function App() {
   return (
@@ -20,7 +19,6 @@ function App() {
       <Router>
         <div>
             <Header/>
-            <Sidebar/>   
             <Route path="/" exact component={Covid} />
             <Route path="/patient/signin" exact component={PatientSignIn} />
             <Route path="/patient/signup" exact component={PatientSignUp} />
