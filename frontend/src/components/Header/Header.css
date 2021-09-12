@@ -1,0 +1,11 @@
+nav {
+  text-transform: uppercase;
+}
+
+header{
+  margin-bottom: 100px;
+}
+
+.header-title{
+  letter-spacing: 3px;
+}
