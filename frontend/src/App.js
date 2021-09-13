@@ -17,9 +17,10 @@ import AddPrescription from './components/PrescriptionManagement/Add/Add';
 import PrescriptionHistory from './components/PrescriptionManagement/History/History';
 import UpdatePrescription from './components/PrescriptionManagement/Update/Update';
 import AddProducts from './components/PharmacyManagement/AddProduct/AddProducts'
-import Items from './components/PharmacyManagement/Items/Items'
-import SingleItem from './components/PharmacyManagement/SingleItem/SingleItem'
-import UpdateProduct from './components/PharmacyManagement/UpdateProduct/UpdateProduct'
+import Items from './components/PharmacyManagement/Items/Items';
+import SingleItem from './components/PharmacyManagement/SingleItem/SingleItem';
+import UpdateProduct from './components/PharmacyManagement/UpdateProduct/UpdateProduct';
+import Cart from './components/CartManagement/Cart';
 import AddPayment from './components/PaymentManagement/AddPayment/AddPayment';
 import AllPayments from './components/PaymentManagement/AllPayments/AllPayments';
 import CreateReview from './components/ReviewManagement/CreateReview/CreateReview';
@@ -53,6 +54,7 @@ function App() {
             <Route path="/pharmacy/items" exact component={Items}/>
             <Route path="/pharmacy/item/:id" exact component={SingleItem}/>
             <Route path="/pharmacy/item/update/:id" exact component={UpdateProduct}/>
+            <PatientPrivateRoute path="/cart/:id/:type" exact component={Cart}/>
             <Route path= "/patient/payment" exact component= {AddPayment}/>
             <Route path="/patient/payment/:patientID" exact component = {AllPayments}/>
             <Route path="/patient/review" exact component={CreateReview}/>
