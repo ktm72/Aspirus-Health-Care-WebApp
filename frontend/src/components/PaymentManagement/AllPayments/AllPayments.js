@@ -38,7 +38,7 @@ export default function AllPayments(props){
             <div className="row">
                 <div className="col-12">
                     <div className="pb-2 px-3 d-flex flex-wrap align-items-center justify-content-between">
-                     <h2>Payment Details</h2>
+                     <h2>Payment History</h2>
                     </div>
                 </div>
             </div>

@@ -46,7 +46,7 @@ export default function DisplayReview(props){
             <div classNameName="row">
                 <div className="col-12">
                     <div className="pb-2 px-3 d-flex flex-wrap align-items-center justify-content-between">
-                     <h2>Review Details</h2>
+                     <h2>Review History</h2>
                     </div>
                 </div>
             </div>
