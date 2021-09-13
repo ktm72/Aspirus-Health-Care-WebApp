@@ -46,9 +46,9 @@ function App() {
             <Route path="/doctor/signup" exact component={DoctorSignUp}/>  
             <DoctorPrivateRoute path="/doctor/profile" exact component={DoctorProfile}/>
             <DoctorPrivateRoute path="/doctor/update/:id" exact component={DoctorUpdate}/> 
-            <Route path="/prescription/history/:id" exact component={PrescriptionHistory} />
-            <Route path="/prescription/add" exact component={AddPrescription} />
-            <Route path="/prescription/update/:id" exact component={UpdatePrescription} />  
+            <PatientPrivateRoute path="/prescription/history/:id" exact component={PrescriptionHistory} />
+            <DoctorPrivateRoute path="/prescription/add" exact component={AddPrescription} />
+            <DoctorPrivateRoute path="/prescription/update/:id" exact component={UpdatePrescription} />  
             <Route path="/pharmacy/addProduct" exact component={AddProducts}/>
             <Route path="/pharmacy/items" exact component={Items}/>
             <Route path="/pharmacy/item/:id" exact component={SingleItem}/>
