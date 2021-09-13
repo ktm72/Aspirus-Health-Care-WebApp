@@ -56,11 +56,10 @@ function Footer() {
                             <img src="https://img.icons8.com/color/48/000000/twitter-circled--v2.png" alt="twitter"/>
                         </span>
                     </div>
-
                 </div>
-                    <div className="col-xl-12 text-center "> 
-                        <p class ="mb-0"> ASPIRUS Health Care © 2021 - All Rights Reserved</p>
-                   </div>
+                <div className="col-xl-12 text-center "> 
+                    <p className ="mb-0"> ASPIRUS Health Care © 2021 - All Rights Reserved</p>
+                </div>
             </div>
         </footer>
     )
