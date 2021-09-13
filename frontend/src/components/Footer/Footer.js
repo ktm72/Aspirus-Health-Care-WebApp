@@ -1,7 +1,7 @@
 import React from 'react'
 import './Footer.css'
 import { blue} from '@material-ui/core/colors';
-import {Link } from 'react-router-dom'; 
+import {Link,useHistory } from 'react-router-dom'; 
 import { Button } from '@material-ui/core';
 import Rating from '@material-ui/lab/Rating';
 import PhoneIcon from '@material-ui/icons/Phone';
@@ -10,6 +10,10 @@ import LocationOnIcon from '@material-ui/icons/LocationOn';
 import RateReviewIcon from '@material-ui/icons/RateReview';
 
 function Footer() {
+    const history=useHistory();
+    function RateUs(){
+        history.push("/patient/review")
+    }
     return (
         <footer className="px-5">
             <div className="">
@@ -46,7 +50,8 @@ function Footer() {
                         <h5> We value your feedback</h5>    
                         <Rating name="size-large" defaultValue={5} size="large"  />
                         <br/><br/>
-                        <Button variant="contained" style={{backgroundColor:blue[500],color:'white'}} endIcon={<RateReviewIcon/>} >
+                        <Button variant="contained" style={{backgroundColor:blue[500],color:'white'}} endIcon={<RateReviewIcon/>}
+                                onClick={RateUs} >
                             Rate US 
                         </Button> 
                         <br/> <br/>
