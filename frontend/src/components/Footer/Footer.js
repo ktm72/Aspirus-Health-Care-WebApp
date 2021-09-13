@@ -11,12 +11,12 @@ import RateReviewIcon from '@material-ui/icons/RateReview';
 
 function Footer() {
     return (
-        <div>
-            <footer className="px-5">
+        <footer className="px-5">
+            <div className="">
                 <div className="row">
                     <div className="col-xl-1" align="center">
                         <br/>
-                        <img src="../imageS/LogoSidebar.png" className="logofooter" alt="logo"/>
+                        <img src="/images/Logo.png" className="logoFooter" alt="logo"/>
                     </div>
                     <div className="col-xl-3"style={{ paddingLeft: 70 }}>
                         <br/>
@@ -61,8 +61,8 @@ function Footer() {
                     <div className="col-xl-12 text-center "> 
                         <p class ="mb-0"> ASPIRUS Health Care © 2021 - All Rights Reserved</p>
                    </div>
-            </footer>
-        </div>
+            </div>
+        </footer>
     )
 }
 
