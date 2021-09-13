@@ -20,12 +20,18 @@ import AddProducts from './components/PharmacyManagement/AddProduct/AddProducts'
 import Items from './components/PharmacyManagement/Items/Items'
 import SingleItem from './components/PharmacyManagement/SingleItem/SingleItem'
 import UpdateProduct from './components/PharmacyManagement/UpdateProduct/UpdateProduct'
+import AddPayment from './components/PaymentManagement/AddPayment/AddPayment';
+import AllPayments from './components/PaymentManagement/AllPayments/AllPayments';
+import CreateReview from './components/ReviewManagement/CreateReview/CreateReview';
+import DisplayReview from './components/ReviewManagement/DisplayReview/DisplayReview';
+import updateReview from './components/ReviewManagement/UpdateReview/UpdateReview';
 import Footer from './components/Footer/Footer';
 import Homepage from './components/Home/Homepage';
 
 function App() {
   return (
     <div className="App">
+     
       <Router>
         <div>
             <Header/>
@@ -47,6 +53,11 @@ function App() {
             <Route path="/pharmacy/items" exact component={Items}/>
             <Route path="/pharmacy/item/:id" exact component={SingleItem}/>
             <Route path="/pharmacy/item/update/:id" exact component={UpdateProduct}/>
+            <Route path= "/patient/payment" exact component= {AddPayment}/>
+            <Route path="/patient/payment/:patientID" exact component = {AllPayments}/>
+            <Route path="/patient/review" exact component={CreateReview}/>
+            <Route path="/patient/review/:patientID" exact component = {DisplayReview}/>
+            <Route path="/patient/review/update/:id" exact component = {updateReview}/>
             <Footer/>
         </div>
       </Router>

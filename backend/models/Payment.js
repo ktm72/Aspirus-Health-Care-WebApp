@@ -5,7 +5,7 @@ const Schema =mongoose.Schema;
 const PaymentSchema=new Schema({
     
     patientID:{
-        type:Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref:'patient',
         required:true
     },
@@ -22,7 +22,7 @@ const PaymentSchema=new Schema({
        
     },
     date:{
-        type:Date,
+        type:String,
         required:true
     }
 

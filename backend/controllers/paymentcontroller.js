@@ -3,13 +3,14 @@ const Payment = require("../models/Payment");
 //Add a payment
 exports.addPayment = async(req,res) => {
     const{ patientID,amount,creditCardNumber } = req.body; 
-    const date = new Date(); 
+    let today = new Date();
+    const date = (today.getDate()+"/"+(today.getMonth()+1)+"/"+today.getFullYear());
     try{
         //creating a new payment
         const payment = await Payment.create({patientID, amount, creditCardNumber,date});
 
         
-        res.status(200).json ({success:true,message:"review added"})
+        res.status(200).json ({success:true,message:"payment added"})
      }catch(error){
          res.status(500).json({message: "unable to add the payment",error:error.message});
      }
@@ -19,7 +20,8 @@ exports.addPayment = async(req,res) => {
 exports.updatePayment = async(req,res)=>{
     let paymentID=req.params.id;
     const{ amount, creditCardNumber} =req.body;
-    const date = new Date(); 
+    let today = new Date();
+    const date = (today.getDate()+"/"+(today.getMonth()+1)+"/"+today.getFullYear());
     const updatePayment={ amount, creditCardNumber, date}
 
     try{
@@ -48,7 +50,7 @@ exports.deletePayment= async(req,res)=>{
 }
 //fetching all payments
 exports.fetchAll = async(req,res)=>{
-    Payment.find().then((payments)=>{
+    Payment.find().populate({path:'patientID',select:['firstname','lastname']}).then((payments)=>{
 
         res.status(200).json(payments)
     }).catch((error)=>{
@@ -56,11 +58,25 @@ exports.fetchAll = async(req,res)=>{
     })
 
 }
+//view payments
+exports.viewPayments = async(req,res) => {
+    //get patient id
+    let patientID = req.params.id;
+    try {
+        //view payments
+        const payments = await Payment.find({patientID}).populate({path:'patientID',select:['firstname','lastname']});
+        //success message
+        res.status(200).json({success: true,result:payments})
+    }catch(error){
+        //error message
+        res.status(500).json({message: "Error with fetching payments", error: error.message})
+    }
+}
 
 exports.fetchOne = async(req,res)=>{
     let paymentID =req.params.id;
 
-    await Payment.findById(paymentID)
+    await Payment.findById(paymentID).populate({path:'patientID',select:['firstname','lastname']})
     .then((payment)=>{
         res.status(200).json(payment)
 
