@@ -1,22 +1,19 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import IconButton from "@material-ui/core/IconButton";
+import Visibility from "@material-ui/icons/Visibility";
+import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import GoogleLogin from 'react-google-login';
 import axios from 'axios';
-import './Login.css';
+import './SignIn.css';
 
 function Login() {
+    const CLIENT_ID = process.env.REACT_APP_Google_ClientID;
 
     const [showPassword, setShowPassword] = useState()
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const history = useHistory();
-
-    //if already a authentication token is available do not need to login again
-    useEffect(() => {
-        if(localStorage.getItem("patientAuthToken")){
-            history.push('/')
-        }
-    },[history])
 
     //show hide password
     function handleShowPassword(){
@@ -34,10 +31,12 @@ function Login() {
         
         try {
             //getting data from backend
-            const {data} = await axios.post("http://localhost:8080/patient/signin", {email, password}, config);
+            const {data} = await axios.post("http://localhost:8070/patient/signin", {email, password}, config);
 
             //setting the patient authorization token
             localStorage.setItem("patientAuthToken", `Patient ${data.token}`)
+            //setting user
+            localStorage.setItem("user", JSON.stringify(data.result))
             
             history.push('/')
         } catch (error) {
@@ -53,21 +52,29 @@ function Login() {
         }
     }
 
-    const googleSuccess = (res) => {
-        console.log(res);
+    const googleSuccess = async (res) => {
+        const result = res?.profileObj;
+        const token = res?.tokenId;
+
+        //setting the patient authorization token
+        localStorage.setItem("patientAuthToken", `Patient ${token}`)
+        //setting user
+        localStorage.setItem("user", JSON.stringify(result))
+
+        history.push('/')
     }
 
-    const googleFailure = () => {
-        console.log("do something here");
+    const googleFailure = (error) => {
+        alert("Something went wrong");
     }
  
 
     return (
-        <div class="container">
-            <div class="cardlogin">
-                <form class="box" onSubmit={signIn}>
-                    <h1>Patient Login</h1>
-                    <p class="text-muted"> All your health needs at one place!</p> 
+        <div className="container" align="center">
+            <div className="card-form">
+                <form className="boxSignIn" onSubmit={signIn}>
+                    <h1 className="form-h1">Patient Login</h1>
+                    <p className="text-muted"> All your health needs at one place!</p> 
                     <input 
                         type="email" 
                         name="email" 
@@ -78,7 +85,7 @@ function Login() {
                     />
 
                     <input
-                        type={showPassword ? "password" : "text"} 
+                        type={showPassword ? "text" : "password"} 
                         name="password"
                         id="password" 
                         placeholder="Password" 
@@ -86,14 +93,19 @@ function Login() {
                         handleShowPassword={handleShowPassword}  
                         required 
                     />
-                    
-                    <Link class="forgot" to="/patientforgotpw">Forgot password?</Link> 
-                    <input type="submit" value="Sign In" />
+                    <span className="showhide">
+                        <IconButton onClick={handleShowPassword} >
+                            {showPassword ? <Visibility /> : <VisibilityOff />}
+                        </IconButton>
+                    </span>
+
+                    <Link className="forgot" to="/patient/forgotpassword">Forgot password?</Link> 
+                    <input className="form-submit-btn" type="submit" value="Sign In" />
 
                     <p className="text-muted">or</p>
 
                     <GoogleLogin
-                        clientId="googleid"
+                        clientId={CLIENT_ID}
                         onSuccess={googleSuccess}
                         onFailure={googleFailure}
                         cookiePolicy={'single_host_origin'}
@@ -101,8 +113,8 @@ function Login() {
                     />
                     <br></br><br></br><br></br>
                     <div className="text-muted">
-                        <p>Don't have an account? <Link to="/patientsignup">Sign Up</Link></p>
-                        <p>Are you a doctor? <Link to="/doctorsignin"> Click here</Link></p>
+                        <p>Don't have an account? <Link to="/patient/signup">Sign Up</Link></p>
+                        <p>Are you a doctor? <Link to="/doctor/signin"> Click here</Link></p>
                     </div>
                 </form>
             </div>

@@ -12,6 +12,6 @@ router.delete('/delete/:id', deleteDoctor);
 
 router.post('/',fetchAll);
 
-router.post('/:id',fetchOne);
+router.get('/:id',fetchOne);
 
 module.exports = router;
