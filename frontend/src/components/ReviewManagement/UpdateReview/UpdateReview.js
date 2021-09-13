@@ -1,6 +1,6 @@
 import React, {useState,useEffect} from 'react';
 import axios from "axios";
-import { IconButton, OutlinedInput } from '@material-ui/core';
+import { IconButton, OutlinedInput, TextField } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import RateReviewIcon from '@material-ui/icons/RateReview';
 import {  blue } from '@material-ui/core/colors';
@@ -54,9 +54,10 @@ function UpdateReview(props){
             <div className="col-12">
               <div className="form-group">
                 <br></br>
-                <OutlinedInput
-                  type="text"
+                <TextField
+                  multiline minRows={3}
                   required fullWidth
+                  variant="outlined"
                   placeholder="Enter Feedback"
                   value={feedback}
                   onChange={(event)=> {setFeedback(event.target.value)}}

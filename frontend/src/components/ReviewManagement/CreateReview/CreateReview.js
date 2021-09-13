@@ -2,7 +2,7 @@ import React,{useState} from "react"
 import axios from "axios";
 import './CreateReview.css';
 import { useHistory } from "react-router-dom";
-import { OutlinedInput } from "@material-ui/core";
+import { OutlinedInput, TextField } from "@material-ui/core";
 export default function CreateReview(){
     const user=JSON.parse(localStorage.getItem('user'));
     const [feedback,setFeedback]= useState("");
@@ -37,7 +37,7 @@ export default function CreateReview(){
                                     <div className="form-group" >
                                         <label className="mb-2">Providing feedback as:</label>
                                         <OutlinedInput 
-                                            type="text" 
+                                            type="email" 
                                             required fullWidth readOnly
                                             value={user.email}
                                             inputProps={{style: {padding: 12}}}
@@ -46,9 +46,9 @@ export default function CreateReview(){
                                 </div>  
                                 <div className="col-md-12 mb-4">
                                     <div className="form-group">
-                                        <OutlinedInput 
-                                            type="text" id="feedback" placeholder="Enter Review"
-                                            required fullWidth
+                                        <TextField 
+                                            multiline minRows={3} id="feedback" placeholder="Enter Review"
+                                            required fullWidth variant="outlined"
                                             onChange={(event)=> {setFeedback(event.target.value)}}
                                             inputProps={{style: {padding: 12}}}
                                         />
