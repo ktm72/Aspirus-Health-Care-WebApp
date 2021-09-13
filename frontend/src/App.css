@@ -46,3 +46,6 @@ body{
   display: none;
 }
 
+.container{
+  min-height: 50vh;
+}

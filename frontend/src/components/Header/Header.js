@@ -111,7 +111,7 @@ function Header() {
     }, [user._id,location])
 
     function profile() {
-        history.push(`/${user._id}/profile/`)
+        history.push(`${URL}/profile/`)
     }
 
     function cart() {
@@ -170,7 +170,7 @@ function Header() {
                 <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>
                     <ul className='nav-menu-items' onClick={showSidebar}>
                         <li className='mb-4 mt-3' align="center">
-                            <img src="/images/LogoSidebar.png" width="150px" alt="logo"/>
+                            <img src="/images/Logo.png" width="150px" alt="logo"/>
                         </li>
                         {SidebarItem.map((item, index) => {
                         return (
