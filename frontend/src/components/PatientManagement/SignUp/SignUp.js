@@ -23,8 +23,16 @@ function SignUp() {
     const [confirmpassword,setConfirmPassword] = useState("");
     const [showPassword, setShowPassword] = useState();
     const history = useHistory();
-
+    const [showMessage, setShowMessage] = useState(false)
     const [previewSource, setPreviewSource] = useState();
+
+    function passwordOnFocus(){
+        setShowMessage(true)
+    }
+
+    function passwordOnBlur(){
+        setShowMessage(false)
+    }
 
     //show hide password
     function handleShowPassword(){
@@ -151,7 +159,12 @@ function SignUp() {
                                             <OutlinedInput 
                                                 type="tel" id="phone" placeholder="phone" required fullWidth
                                                 onChange={(event)=> {setPhone(event.target.value)}}
-                                                inputProps={{style: {padding: 12}}}
+                                                inputProps={{style: {padding: 12}, pattern: "[0-9]{9}"}}
+                                                startAdornment={
+                                                    <InputAdornment position="end">
+                                                        +94
+                                                    </InputAdornment>
+                                                }
                                             />
                                         </div>
                                     </div>
@@ -205,11 +218,13 @@ function SignUp() {
                                                     </IconButton>
                                                     </InputAdornment>
                                                 }
-                                                inputProps={{style: {padding: 12}}}
+                                                inputProps={{style: {padding: 12}, pattern: "[A-Za-z0-9]{8,}"}}
+                                                onFocus={passwordOnFocus}
+                                                onBlur={passwordOnBlur}
                                             />
                                         </div>
                                     </div>
-                                    <div className="col-md-6 mb-4">
+                                    <div className="col-md-6">
                                         <div className="form-group">
                                             <OutlinedInput 
                                                 type={showPassword ? "text" : "password"}
@@ -222,9 +237,18 @@ function SignUp() {
                                                     </IconButton>
                                                     </InputAdornment>
                                                 }
-                                                inputProps={{style: {padding: 12}}}
+                                                inputProps={{style: {padding: 12}, pattern: "[A-Za-z0-9]{8,}"}}
+                                                onFocus={passwordOnFocus}
+                                                onBlur={passwordOnBlur}
                                             />
                                         </div>
+                                    </div>
+                                    <div className="col-xl-12 mb-4">
+                                        {showMessage &&
+                                            <div className="PWmessage">
+                                                <p>Password must contain lowercase letters, uppercase letters, numbers and should consist minimum of 8 characters</p>
+                                            </div>
+                                        }
                                     </div>
                                     <div className="col-md-12">
                                         <div className="form-group">
