@@ -121,6 +121,10 @@ function Header() {
     function signin() {
         history.push('/patient/signin')
     }
+
+    function signup() {
+        history.push('/patient/signup')
+    }
     
     //logout
     async function logout(){
@@ -160,9 +164,14 @@ function Header() {
                                     </IconButton> 
                                 </div>
                                 :
-                                <button className="btn btn-outline-primary" onClick={signin}>
-                                    Sign In
-                                </button>
+                                <div>
+                                    <button className="btn btn-outline-primary mx-2" onClick={signin}>
+                                        Sign In
+                                    </button>
+                                    <button className="btn btn-outline-primary" onClick={signup}>
+                                        Sign Up
+                                    </button>
+                                </div>
                             }
                         </ul>
                     </div>
