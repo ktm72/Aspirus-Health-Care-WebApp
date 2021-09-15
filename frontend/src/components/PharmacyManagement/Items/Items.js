@@ -4,6 +4,7 @@ import './Items.css'
 import axios from 'axios'
 import { orange,red } from '@material-ui/core/colors';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import {AddToCart} from './../../../Utils/CartUtils'
 
 function ProductItem() {
 
@@ -11,8 +12,13 @@ function ProductItem() {
   const [products, setProducts] = useState([])
   const history = useHistory()
   const location = useLocation()
+  const [user, setUser] = useState("");
 
   useEffect(() => { 
+    if(localStorage.getItem("user")){
+      setUser(JSON.parse(localStorage.getItem('user')))
+    }
+
     if(localStorage.getItem("adminAuthToken")){
       setIsAdmin(true)
     }
@@ -55,7 +61,8 @@ function ProductItem() {
                             <h6>Rs.{Product.price}.00</h6>
                             <div align="right">
                               <span> 
-                                  <button className="productBtn" style={{backgroundColor:orange[600]}}> 
+                                  <button className="productBtn" style={{backgroundColor:orange[600]}}
+                                    onClick={()=>AddToCart(Product._id, user._id, Product.price)}> 
                                     <ShoppingCartIcon/> 
                                   </button>
                                   &nbsp;&nbsp;&nbsp;
