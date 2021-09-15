@@ -2,8 +2,10 @@ import React,{useEffect, useState} from 'react'
 import { useHistory,useLocation } from 'react-router';
 import './Items.css'
 import axios from 'axios'
-import { orange,red } from '@material-ui/core/colors';
+import { orange,red,blue } from '@material-ui/core/colors';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import AddIcon from '@material-ui/icons/Add';
+import { Button } from '@material-ui/core';
 import {AddToCart} from './../../../Utils/CartUtils'
 
 function ProductItem() {
@@ -48,8 +50,16 @@ function ProductItem() {
   function view(id){
     history.push(`/pharmacy/item/${id}`)
   }
+  function addProduct(){
+    history.push(`/pharmacy/addProduct`)
+  }
     return (
         <div className="container productGrid" > 
+          {isAdmin && 
+            <Button  className="mx-2 productBtn" style={{backgroundColor:blue[400],color:'white'}} onClick={()=>addProduct()}>
+            Add Product <AddIcon/>
+            </Button> 
+          }
           {products.map((Product,key)=>( 
                 <div key={key}> 
                     <div className="productCard">
