@@ -14,7 +14,8 @@
     vertical-align: middle;
     border-style: none;
     position: relative;
-    max-width: 150px;
+    width: 150px;
+    height: 150px;
     transition: all .15s ease;
     transform: translate(0%, 0%);
     margin-bottom: 20px;

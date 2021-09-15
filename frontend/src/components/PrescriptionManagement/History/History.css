@@ -1,5 +1,4 @@
 .blue-table table {
-  font-weight: 400;
   border-collapse: collapse;
   width: 100%;
   border-radius: 15px;
@@ -8,7 +7,6 @@
 .blue-table tr:nth-child(even){background-color: #f2f2f2}
 
 .blue-table th {
-  font-size: 18px;
   text-align: left;
   padding: 12px 12px 12px 12px;
   background-color: #0376c4;

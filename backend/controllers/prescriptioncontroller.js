@@ -8,14 +8,11 @@ exports.addprescription = async (req, res) => {
   const doctorID = req.body.doctorID;
   const patientName = req.body.patientName;
   const patientID = req.body.patientID;
-  const productTitle = req.body.productTitle;
-  const dose = req.body.dose;
-  const disp = req.body.disp;
-  const sig = req.body.sig;
+  const medicineList = req.body.medicineList;
   const refill = req.body.refill;
   const action = req.body.action;
   let today = new Date();
-  const date = (today.getDate()+"/"+(today.getMonth()+1)+"/"+today.getFullYear());
+  const date = (today.getDate() + "/" + (today.getMonth() + 1) + "/" + today.getFullYear());
 
   //object
   const newPrescription = new Prescription({
@@ -25,12 +22,9 @@ exports.addprescription = async (req, res) => {
     patientName,
     patientID,
     date,
-    productTitle,
-    dose,
-    disp,
-    sig,
     refill,
-    action
+    action,
+    medicineList
   })
 
   //exception handling
@@ -62,19 +56,17 @@ exports.updateprescription = async (req, res) => {
   //fetch id from url
   let prescriptionID = req.params.id;
 
-  const { productTitle, dose, disp, sig, refill, action } = req.body;
+  const { medicineList, refill, action } = req.body;
 
   const updatePrescription = {
-    productTitle,
-    dose,
-    disp,
-    sig,
+    medicineList,
     refill,
     action
   }
   //check whether there's a prescription for the ID
   try {
-    await Prescription.findByIdAndUpdate(prescriptionID, updatePrescription);
+    await Prescription.findByIdAndUpdate(prescriptionID, updatePrescription).populate(
+      { path: 'patientID doctorID', select: ['firstname', 'lastname', 'name'] });
 
     //sending the successful status
     res.status(200).json({ success: true, message: "Prescription Updated" })
@@ -89,12 +81,15 @@ exports.updateprescription = async (req, res) => {
 exports.viewprescription = async (req, res) => {
   //get patient id
   let patientID = req.params.id;
+  let doctorID = req.params.id;
 
   try {
     //find Prescription by patient id
-    const prescription = await Prescription.find({ patientID });
+    const prescription = await Prescription.find({ $or: [{ patientID }, { doctorID }] }).populate(
+      { path: 'patientID doctorID', select: ['firstname', 'lastname', 'age', 'name', 'email', 'title', 'phoneno', 'slmcreg'] });
     //success message
     res.status(200).json({ success: true, result: prescription })
+    
   } catch (error) {
     //error message
     res.status(500).json({ message: "fetching Prescription failed", error: error.message })
@@ -105,11 +100,12 @@ exports.viewprescription = async (req, res) => {
 exports.viewoneprescription = async (req, res) => {
   let prescriptionID = req.params.id;
 
-  await Prescription.findById(prescriptionID).then((prescription) => {
-    //success message
-    res.status(200).json({ success: true, status: "Prescription fetched", prescription });
-  }).catch((error) => {
-    //error message
-    res.status(500).json({ success: false, status: "Fetching Prescription failed", error: error.message });
-  })
+  await Prescription.findById(prescriptionID).populate(
+    { path: 'patientID doctorID', select: ['firstname', 'lastname', 'age', 'name', 'email', 'title', 'phoneno', 'slmcreg'] }).then((prescription) => {
+      //success message
+      res.status(200).json({ success: true, status: "Prescription fetched", prescription });
+    }).catch((error) => {
+      //error message
+      res.status(500).json({ success: false, status: "Fetching Prescription failed", error: error.message });
+    })
 }
