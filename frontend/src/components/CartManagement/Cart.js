@@ -24,7 +24,8 @@ function PrescriptionCart(props) {
 
     const config = {
         headers: {
-            "content-Type": "application/json"
+            "content-Type": "application/json",
+            Authorization: `${localStorage.getItem("patientAuthToken")}`
         }
     };
 
