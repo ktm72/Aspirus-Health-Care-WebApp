@@ -56,11 +56,11 @@ function App() {
             <Route path="/pharmacy/item/:id" exact component={SingleItem}/>
             <Route path="/pharmacy/item/update/:id" exact component={UpdateProduct}/>
             <PatientPrivateRoute path="/cart/:id/:type" exact component={Cart}/>
-            <Route path= "/patient/payment" exact component= {AddPayment}/>
-            <Route path="/patient/payment/:patientID" exact component = {AllPayments}/>
-            <Route path="/patient/review" exact component={CreateReview}/>
-            <Route path="/patient/review/:patientID" exact component = {DisplayReview}/>
-            <Route path="/patient/review/update/:id" exact component = {updateReview}/>
+            <PatientPrivateRoute path= "/patient/payment" exact component= {AddPayment}/>
+            <PatientPrivateRoute path="/patient/payment/:patientID" exact component = {AllPayments}/>
+            <PatientPrivateRoute path="/patient/review" exact component={CreateReview}/>
+            <PatientPrivateRoute path="/patient/review/:patientID" exact component = {DisplayReview}/>
+            <PatientPrivateRoute path="/patient/review/update/:id" exact component = {updateReview}/>
             <Footer/>
         </div>
       </Router>
