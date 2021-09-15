@@ -29,7 +29,7 @@ function Covid() {
                 setTotalRecoveries(res.data.data.local_recovered)
                 setTotalCases(res.data.data.local_total_cases)
             }).catch((error)=>{
-                alert("Failed to fetch item data")
+                console.log(error)
             })
         }
         fetchData()

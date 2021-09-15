@@ -3,7 +3,8 @@ const Review=require('../models/Review');
 //create a review
 exports.createReview = async(req,res) => {
     const{ patientID,feedback } = req.body;
-    const date = new Date();
+    let today = new Date();
+    const date = (today.getDate()+"/"+(today.getMonth()+1)+"/"+today.getFullYear());
 
     try{
         //creating a new review
@@ -19,7 +20,8 @@ exports.createReview = async(req,res) => {
 exports.updateReview = async(req,res)=>{
     let reviewID=req.params.id;
     const{feedback} =req.body;
-    const date = new Date();
+    let today = new Date();
+    const date = (today.getDate()+"/"+(today.getMonth()+1)+"/"+today.getFullYear());
     const updateReview={feedback,date}
 
     try{
@@ -49,7 +51,7 @@ exports.deleteReview= async(req,res)=>{
 exports.fetchAll = async(req,res)=>{
 
     try{
-         const reviews =await Review.find();
+         const reviews =await Review.find().populate({path:'patientID',select:['firstname','lastname']});
 
          res.status(200).json({success:true,result:reviews});
     }catch(error){
@@ -58,10 +60,24 @@ exports.fetchAll = async(req,res)=>{
 
 }
 
+//view reviews
+exports.viewReviews = async(req,res) => {
+    //get patient id
+    let patientID = req.params.id;
+    try {
+        //view reviews
+        const reviews = await Review.find({patientID}).populate({path:'patientID',select:['firstname','lastname']});
+        //success message
+        res.status(200).json({success: true,result:reviews})
+    }catch(error){
+        res.status(500).json({message: "Error with fetching reviews", error: error.message})
+    }
+}
+
 exports.fetchOne = async(req,res)=>{
     let patientID =req.params.id;
     try{ 
-        const review =await Review.findById(patientID)
+        const review =await Review.findById(patientID).populate({path:'patientID',select:['firstname','lastname']})
     
         res.status(200).json(review)
     }catch(error){

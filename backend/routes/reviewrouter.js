@@ -1,5 +1,5 @@
 const router=require("express").Router();
-const{ createReview ,updateReview ,deleteReview }=require('../controllers/reviewcontroller.js');
+const{ createReview ,updateReview ,deleteReview,viewReviews }=require('../controllers/reviewcontroller.js');
 const{ fetchAll , fetchOne }=require('../controllers/reviewcontroller.js');
 
 router.post('/create', createReview);
@@ -11,5 +11,7 @@ router.delete('/delete/:id',deleteReview);
 router.post('/',fetchAll);
 
 router.post('/:id',fetchOne);
+
+router.get('/:id',viewReviews);
 
 module.exports =router;

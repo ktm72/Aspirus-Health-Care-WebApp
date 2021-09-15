@@ -60,7 +60,7 @@ exports.updateProduct = async (req, res) => {
 }
 
 //view Product
-exports.viewProduct = async (req, res) => { 
+exports.viewAllProducts = async (req, res) => { 
  
   //calling Product model
   Product.find().then((product) => {
@@ -70,6 +70,23 @@ exports.viewProduct = async (req, res) => {
   })
 }
  
+
+//view Only OTC Products
+exports.viewOtcProducts = async(req,res) => {
+
+  let type = "OTC"
+  try {
+      //find type by product id and type
+      const product = await Product.find({type});
+      //success message
+      res.status(200).json({success: true,result:product})
+  }catch(error){
+      //error message
+      res.status(500).json({message: "Error with fetching product", error: error.message})
+  }
+}
+
+
 //view oneProduct
 exports.viewOneProduct = async (req, res) => {
   let productId = req.params.id;
