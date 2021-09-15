@@ -5,7 +5,7 @@ const Schema =mongoose.Schema;
 const ReviewSchema=new Schema({
    
     patientID:{
-        type:Schema.Types.ObjectId,
+        type:mongoose.Schema.Types.ObjectId,
         ref:'patient',
         required:true
     },
@@ -14,7 +14,7 @@ const ReviewSchema=new Schema({
         required: true
     },
     date:{
-        type:Date,
+        type:String,
         required:true
     }
 

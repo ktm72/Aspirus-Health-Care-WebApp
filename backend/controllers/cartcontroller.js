@@ -21,7 +21,7 @@ exports.additem = async(req,res) => {
 exports.updateitem = async(req,res) => {
     //get cart id
     let cartId = req.params.id;
-    
+
     const {quantity} = req.body;
 
     const updateCart = {quantity}
@@ -63,7 +63,8 @@ exports.viewCart = async(req,res) => {
 
     try {
         //find cart by patient id and cart
-        const cart = await Cart.find({patientID,type});
+        const cart = await Cart.find({patientID,type}).populate(
+            {path:'itemid', select:['name','price','description']});
         //success message
         res.status(200).json({success: true,result:cart})
     }catch(error){
