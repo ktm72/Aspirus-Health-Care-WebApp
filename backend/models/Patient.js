@@ -23,7 +23,12 @@ const PatientSchema = new Schema({
     },
 
     dob: {
-        type: String,
+        type: Date,
+        required: true
+    },
+
+    age: {
+        type: Number,
         required: true
     },
 
@@ -44,6 +49,11 @@ const PatientSchema = new Schema({
         match: /^(?:7|0|(?:\+94))[0-9]{9,10}$/
     },
 
+    address: {
+        type: String,
+        required: true,
+    },
+
     profilePicture: {
         type: String,
         required: false,
@@ -57,12 +67,50 @@ const PatientSchema = new Schema({
         select: false
     },
 
+    weight: {
+        type: Number,
+        required: false,
+        default: 0
+    },
+
+    height: {
+        type: Number,
+        required: false,
+        default: 0
+    },
+
+    bmi: {
+        type: Number,
+        required: false,
+        default: 0
+    },
+
+    bloodGroup: {
+        type: String,
+        required: false,
+        default: 'null'
+    },
+
+    bloodPressure: {
+        type: Number,
+        required: false,
+        default: 0
+    },
+
+    sugarLevel: {
+        type: Number,
+        required: false,
+        default: 0
+    },
+
     resetPasswordToken: String,
     resetPasswordExpire: Date,
 })
 
-//hashing the password before saving the patient to the database
+//this function run before saving data to database
 PatientSchema.pre("save", async function(next){
+
+    //hashing the password
     //checking if the password is already hashed
     if (!this.isModified("password")){
         next();
