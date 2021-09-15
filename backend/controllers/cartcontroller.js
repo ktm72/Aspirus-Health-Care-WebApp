@@ -6,6 +6,11 @@ exports.additem = async(req,res) => {
     const {itemid,patientID,quantity,type} = req.body;
 
     try {
+        //checking product already exists
+        const checkItem = await Cart.findOne({itemid,patientID})
+        if(checkItem)
+            return res.status(409).json({message: "Item already exists"})
+
         //creating a new add item
         await Cart.create({itemid,patientID,quantity,type});
         //success message
