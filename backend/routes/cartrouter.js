@@ -1,14 +1,14 @@
 const router = require("express").Router();
 const {additem, updateitem, deleteitem, viewCart} = require('../controllers/cartcontroller.js')
+const patientauth = require('../middleware/patientauth');
 
+router.post('/add',patientauth, additem);
 
-router.post('/add', additem);
+router.put('/update/:id',patientauth, updateitem);
 
-router.put('/update/:id', updateitem);
+router.delete('/delete/:id',patientauth, deleteitem);
 
-router.delete('/delete/:id', deleteitem);
-
-router.get('/:id&:type', viewCart);
+router.get('/:id&:type',patientauth, viewCart);
 
 
 
