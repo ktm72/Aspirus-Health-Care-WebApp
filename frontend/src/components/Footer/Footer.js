@@ -1,7 +1,7 @@
 import React from 'react'
 import './Footer.css'
 import { blue} from '@material-ui/core/colors';
-import {Link } from 'react-router-dom'; 
+import {Link,useHistory } from 'react-router-dom'; 
 import { Button } from '@material-ui/core';
 import Rating from '@material-ui/lab/Rating';
 import PhoneIcon from '@material-ui/icons/Phone';
@@ -10,13 +10,17 @@ import LocationOnIcon from '@material-ui/icons/LocationOn';
 import RateReviewIcon from '@material-ui/icons/RateReview';
 
 function Footer() {
+    const history=useHistory();
+    function RateUs(){
+        history.push("/patient/review")
+    }
     return (
-        <div>
-            <footer className="px-5">
+        <footer className="px-5">
+            <div className="">
                 <div className="row">
                     <div className="col-xl-1" align="center">
                         <br/>
-                        <img src="../imageS/LogoSidebar.png" className="logofooter" alt="logo"/>
+                        <img src="/images/Logo.png" className="logoFooter" alt="logo"/>
                     </div>
                     <div className="col-xl-3"style={{ paddingLeft: 70 }}>
                         <br/>
@@ -46,7 +50,8 @@ function Footer() {
                         <h5> We value your feedback</h5>    
                         <Rating name="size-large" defaultValue={5} size="large"  />
                         <br/><br/>
-                        <Button variant="contained" style={{backgroundColor:blue[500],color:'white'}} endIcon={<RateReviewIcon/>} >
+                        <Button variant="contained" style={{backgroundColor:blue[500],color:'white'}} endIcon={<RateReviewIcon/>}
+                                onClick={RateUs} >
                             Rate US 
                         </Button> 
                         <br/> <br/>
@@ -56,13 +61,12 @@ function Footer() {
                             <img src="https://img.icons8.com/color/48/000000/twitter-circled--v2.png" alt="twitter"/>
                         </span>
                     </div>
-
                 </div>
-                    <div className="col-xl-12 text-center "> 
-                        <p class ="mb-0"> ASPIRUS Health Care © 2021 - All Rights Reserved</p>
-                   </div>
-            </footer>
-        </div>
+                <div className="col-xl-12 text-center "> 
+                    <p className ="mb-0"> ASPIRUS Health Care © 2021 - All Rights Reserved</p>
+                </div>
+            </div>
+        </footer>
     )
 }
 

@@ -111,7 +111,7 @@ function Header() {
     }, [user._id,location])
 
     function profile() {
-        history.push(`/${user._id}/profile/`)
+        history.push(`${URL}/profile/`)
     }
 
     function cart() {
@@ -120,6 +120,10 @@ function Header() {
 
     function signin() {
         history.push('/patient/signin')
+    }
+
+    function signup() {
+        history.push('/patient/signup')
     }
     
     //logout
@@ -160,9 +164,14 @@ function Header() {
                                     </IconButton> 
                                 </div>
                                 :
-                                <button className="btn btn-outline-primary" onClick={signin}>
-                                    Sign In
-                                </button>
+                                <div>
+                                    <button className="btn btn-outline-primary mx-2" onClick={signin}>
+                                        Sign In
+                                    </button>
+                                    <button className="btn btn-outline-primary" onClick={signup}>
+                                        Sign Up
+                                    </button>
+                                </div>
                             }
                         </ul>
                     </div>
@@ -170,7 +179,7 @@ function Header() {
                 <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>
                     <ul className='nav-menu-items' onClick={showSidebar}>
                         <li className='mb-4 mt-3' align="center">
-                            <img src="/images/LogoSidebar.png" width="150px" alt="logo"/>
+                            <img src="/images/Logo.png" width="150px" alt="logo"/>
                         </li>
                         {SidebarItem.map((item, index) => {
                         return (
