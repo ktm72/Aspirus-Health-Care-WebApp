@@ -114,7 +114,7 @@ function PrescriptionCart(props) {
                 <div className="dropdown">
                     <span>{isShopping ? <h2>Shopping Cart</h2> : <h2>Prescription Cart</h2> }</span>
                     <div className="dropdown-content">
-                        {isShopping ? <a href={`/cart/${props.match.params.id}/prescription`}><h5 className="linkColor">Prescription Cart</h5></a> : <a href={`/cart/${props.match.params.id}/Shopping`}><h5 className="linkColor">Shopping Cart</h5></a>}
+                        {isShopping ? <a href={`/cart/${props.match.params.id}/prescription`}><h5 className="linkColor">Prescription Cart</h5></a> : <a href={`/cart/${props.match.params.id}/shopping`}><h5 className="linkColor">Shopping Cart</h5></a>}
                     </div>
                 </div>
                 <div className="row">
@@ -160,7 +160,7 @@ function PrescriptionCart(props) {
                                         <div className="col-sm-4">                                                
                                             <h4>{Item.itemid.name}</h4>
                                             <p className="textShort mb-1">{Item.itemid.description}</p>   
-                                            <Link to={`/pharmacy/item/${Item._id}`}>Show more</Link>
+                                            <Link to={`/pharmacy/item/${Item.itemid._id}`}>Show more</Link>
                                         </div>
                                         <div className="col-sm-2">
                                             <div>
