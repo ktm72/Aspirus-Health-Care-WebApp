@@ -8,7 +8,7 @@ router.put('/update/:id',patientauth, updateitem);
 
 router.delete('/delete/:id',patientauth, deleteitem);
 
-router.get('/:id&:type',patientauth, viewCart);
+router.get('/:id&:type', viewCart);
 
 
 
