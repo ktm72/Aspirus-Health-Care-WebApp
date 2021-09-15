@@ -7,6 +7,7 @@ import {orange,blue,red } from '@material-ui/core/colors';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import EditIcon from '@material-ui/icons/Edit';
+import {AddToCart} from './../../../Utils/CartUtils'
 
 function ProductDetails(props) {
     const [isAdmin,setIsAdmin]=useState(false)
@@ -16,6 +17,8 @@ function ProductDetails(props) {
     const[price,setPrice]=useState("");
     const [products, setProducts] = useState([])
     const history=useHistory()
+    const [user, setUser] = useState("");
+
     const config = {
         headers: {
             "content-Type": "application/json"
@@ -23,6 +26,10 @@ function ProductDetails(props) {
     };
 
     useEffect(() => {
+        if(localStorage.getItem("user")){
+            setUser(JSON.parse(localStorage.getItem('user')))
+        }
+        
         if(localStorage.getItem("adminAuthToken")){
             setIsAdmin(true)
         }
@@ -95,7 +102,8 @@ function ProductDetails(props) {
                                     </div>
                                     : 
                                     <div>
-                                        <button className="mx-2 productBtn" style={{backgroundColor:orange[500]}} >
+                                        <button className="mx-2 productBtn" style={{backgroundColor:orange[500]}} 
+                                        onClick={()=>AddToCart(id, user._id, price)}>
                                            Add To Cart <ShoppingCartIcon/>
                                         </button> 
                                         <button className="mx-2 productBtn" style={{backgroundColor:red[500]}} >
@@ -129,7 +137,7 @@ function ProductDetails(props) {
                                                 <h6>Rs.{Product.price}.00</h6>
                                             <div align="right">
                                                 <span> 
-                                                    <button className="productBtn" style={{backgroundColor:orange[600]}}> 
+                                                    <button className="productBtn" style={{backgroundColor:orange[600]}} onClick={()=>AddToCart(Product._id, user._id, Product.price)}> 
                                                         <ShoppingCartIcon/> 
                                                     </button>
                                                      &nbsp;&nbsp;&nbsp;
