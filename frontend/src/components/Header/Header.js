@@ -62,7 +62,7 @@ function Header() {
         },
         {
           title: 'Cart',
-          path: `/cart/${user._id}/Shopping`,
+          path: `/cart/${user._id}/shopping`,
           icon: <ShoppingCartIcon />,
           cName: 'nav-text'
         },
@@ -91,7 +91,7 @@ function Header() {
             }
             
             async function getCartCount() {
-                await axios.get(`http://localhost:8070/cart/${user._id}&Shopping`).then((res) => {
+                await axios.get(`http://localhost:8070/cart/${user._id}&shopping`).then((res) => {
                     let result = res.data.result;
                     setCartCount(result.length) 
                 })
