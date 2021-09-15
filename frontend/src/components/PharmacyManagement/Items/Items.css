@@ -5,6 +5,7 @@
     border-radius: 15px;
     border: none;
     overflow: hidden;
+    padding-top: 20px;
     box-shadow:0px 24px 48px 0 rgba(0,0,0,0.1);
 }
 .itemProduct{
