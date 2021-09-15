@@ -1,4 +1,5 @@
 import { BrowserRouter as Router,Route } from 'react-router-dom';
+import PrivateRoute from './Routes/PrivateRoute';
 import PatientPrivateRoute from './Routes/PatientPrivateRoute';
 import DoctorPrivateRoute from './Routes/DoctorPrivateRoute';
 import './App.css';
@@ -47,8 +48,8 @@ function App() {
             <Route path="/doctor/signup" exact component={DoctorSignUp}/>  
             <DoctorPrivateRoute path="/doctor/profile" exact component={DoctorProfile}/>
             <DoctorPrivateRoute path="/doctor/update/:id" exact component={DoctorUpdate}/> 
-            <PatientPrivateRoute path="/prescription/history/:id" exact component={PrescriptionHistory} />
-            <Route path="/prescription/view/:id" exact component={ViewOne} />  
+            <PrivateRoute path="/prescription/history/:id" exact component={PrescriptionHistory} />
+            <PrivateRoute path="/prescription/view/:id" exact component={ViewOne} />  
             <DoctorPrivateRoute path="/prescription/add" exact component={AddPrescription} />
             <DoctorPrivateRoute path="/prescription/update/:id" exact component={UpdatePrescription} />  
             <Route path="/pharmacy/addProduct" exact component={AddProducts}/>
