@@ -15,3 +15,16 @@
     max-width: 250px;
     margin-bottom: 20px;
 }
+
+.PWmessage 
+{
+    color: red;
+    position: relative;
+}
+
+.PWmessage p 
+{
+    padding: 1px;
+    font-size: 12px;
+    margin-bottom: 0px;
+}

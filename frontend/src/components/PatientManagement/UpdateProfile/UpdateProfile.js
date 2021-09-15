@@ -149,7 +149,12 @@ function UpdateProfile(props) {
                                             type="tel" id="phone" placeholder="phone" required fullWidth
                                             value={phone}
                                             onChange={(event)=> {setPhone(event.target.value)}}
-                                            inputProps={{style: {padding: 12}}}
+                                            inputProps={{style: {padding: 12}, pattern: "[0-9]{9}" }}
+                                            startAdornment={
+                                                <InputAdornment position="end">
+                                                    +94
+                                                </InputAdornment>
+                                            }
                                         />
                                     </div>
                                 </div>

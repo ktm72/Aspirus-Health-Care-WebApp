@@ -1,5 +1,6 @@
 import { BrowserRouter as Router,Route } from 'react-router-dom';
 import PatientPrivateRoute from './Routes/PatientPrivateRoute';
+import DoctorPrivateRoute from './Routes/DoctorPrivateRoute';
 import './App.css';
 import Header from './components/Header/Header'
 import PatientSignIn from './components/PatientManagement/SignIn/SignIn';
@@ -12,14 +13,20 @@ import DoctorLogin from './components/DoctorManagement/DoctorLogin/DoctorLogin';
 import DoctorSignUp from './components/DoctorManagement/DoctorSignUp/DoctorSignUp';
 import DoctorProfile from './components/DoctorManagement/DoctorProfile/DoctorProfile';
 import DoctorUpdate from './components/DoctorManagement/DoctorUpdateProfile/DoctorUpdate';
-import DoctorPrivateRoute from './Routes/DoctorPrivateRoute';
 import AddPrescription from './components/PrescriptionManagement/Add/Add';
 import PrescriptionHistory from './components/PrescriptionManagement/History/History';
 import UpdatePrescription from './components/PrescriptionManagement/Update/Update';
+import ViewOne from './components/PrescriptionManagement/View/View';
 import AddProducts from './components/PharmacyManagement/AddProduct/AddProducts'
-import Items from './components/PharmacyManagement/Items/Items'
-import SingleItem from './components/PharmacyManagement/SingleItem/SingleItem'
-import UpdateProduct from './components/PharmacyManagement/UpdateProduct/UpdateProduct'
+import Items from './components/PharmacyManagement/Items/Items';
+import SingleItem from './components/PharmacyManagement/SingleItem/SingleItem';
+import UpdateProduct from './components/PharmacyManagement/UpdateProduct/UpdateProduct';
+import Cart from './components/CartManagement/Cart';
+import AddPayment from './components/PaymentManagement/AddPayment/AddPayment';
+import AllPayments from './components/PaymentManagement/AllPayments/AllPayments';
+import CreateReview from './components/ReviewManagement/CreateReview/CreateReview';
+import DisplayReview from './components/ReviewManagement/DisplayReview/DisplayReview';
+import updateReview from './components/ReviewManagement/UpdateReview/UpdateReview';
 import Footer from './components/Footer/Footer';
 import Homepage from './components/Home/Homepage';
 
@@ -40,13 +47,20 @@ function App() {
             <Route path="/doctor/signup" exact component={DoctorSignUp}/>  
             <DoctorPrivateRoute path="/doctor/profile" exact component={DoctorProfile}/>
             <DoctorPrivateRoute path="/doctor/update/:id" exact component={DoctorUpdate}/> 
-            <Route path="/prescription/history/:id" exact component={PrescriptionHistory} />
-            <Route path="/prescription/add" exact component={AddPrescription} />
-            <Route path="/prescription/update/:id" exact component={UpdatePrescription} />  
+            <PatientPrivateRoute path="/prescription/history/:id" exact component={PrescriptionHistory} />
+            <Route path="/prescription/view/:id" exact component={ViewOne} />  
+            <DoctorPrivateRoute path="/prescription/add" exact component={AddPrescription} />
+            <DoctorPrivateRoute path="/prescription/update/:id" exact component={UpdatePrescription} />  
             <Route path="/pharmacy/addProduct" exact component={AddProducts}/>
             <Route path="/pharmacy/items" exact component={Items}/>
             <Route path="/pharmacy/item/:id" exact component={SingleItem}/>
             <Route path="/pharmacy/item/update/:id" exact component={UpdateProduct}/>
+            <PatientPrivateRoute path="/cart/:id/:type" exact component={Cart}/>
+            <PatientPrivateRoute path= "/patient/payment" exact component= {AddPayment}/>
+            <PatientPrivateRoute path="/patient/payment/:patientID" exact component = {AllPayments}/>
+            <PatientPrivateRoute path="/patient/review" exact component={CreateReview}/>
+            <PatientPrivateRoute path="/patient/review/:patientID" exact component = {DisplayReview}/>
+            <PatientPrivateRoute path="/patient/review/update/:id" exact component = {updateReview}/>
             <Footer/>
         </div>
       </Router>
