@@ -40,7 +40,7 @@ function PrescriptionCart(props) {
         
         //Fetch Item 
         async function getData() {
-            await axios.get(`http://localhost:8070/cart/${props.match.params.id}&${props.match.params.type}`).then((res) => {
+            await axios.get(`http://localhost:8070/cart/${props.match.params.id}&${props.match.params.type}`,config).then((res) => {
                 setItems(res.data.result) 
             }).catch((error) => {
               alert("Failed to fetch Items")
