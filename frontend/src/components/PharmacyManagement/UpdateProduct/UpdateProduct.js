@@ -165,7 +165,7 @@ function UpdateProduct(props){
                                 {previewSource ? 
                                     <img src={previewSource} alt="preview" className="previewImgProduct"/>
                                 :
-                                    <img src="/images/d.png" className="updatePreviewImgProduct" alt="product pic"/>
+                                    <img src="/images/product.jpg" className="updatePreviewImgProduct" alt="product pic"/>
                                 }
                                 <div className="form-group">
                                     <label htmlFor="productImg">
