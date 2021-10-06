@@ -43,6 +43,18 @@ function Header() {
           cName: 'nav-text'
         },
         {
+            title: 'Channelling',
+            path: '/channelling',
+            icon: <EventAvailableIcon/>,
+            cName: 'nav-text'
+        },
+        {
+            title: 'Pharmacy',
+            path: '/pharmacy/items',
+            icon: <LocalHospitalIcon/>,
+            cName: 'nav-text'
+        },
+        {
           title: 'Appointments',
           path: '/Appointment',
           icon: <EventAvailableIcon/>,
@@ -52,12 +64,6 @@ function Header() {
           title: 'Prescriptions',
           path: `/prescription/history/${user._id}`,
           icon: <AssignmentIcon/>,
-          cName: 'nav-text'
-        },
-        {
-          title: 'Pharmacy',
-          path: '/pharmacy/items',
-          icon: <LocalHospitalIcon/>,
           cName: 'nav-text'
         },
         {
@@ -135,6 +141,10 @@ function Header() {
     const showSidebar = () => setSidebar(!sidebar);
 
     Header.handleClickOutside = () => setSidebar(false);
+
+    function home(){
+        history.push('/')
+    }
     
     return (
         <header>
@@ -149,7 +159,7 @@ function Header() {
                             }      
                         </ul>
                         <div className="header-title">
-                            <h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Aspirus &nbsp; Health &nbsp; Care</h3>
+                            <h3 onClick={home}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Aspirus &nbsp; Health &nbsp; Care</h3>
                         </div>
                         <ul className="mx-3">
                             {isSignedIn ?
@@ -160,7 +170,7 @@ function Header() {
                                         </Badge>
                                     </IconButton>
                                     <IconButton onClick={profile}>
-                                        <Avatar alt="Remy Sharp" src="/images/userimg.jpg" />
+                                        <Avatar alt="Remy Sharp" src={`${user.imgUrl}`} />
                                     </IconButton> 
                                 </div>
                                 :
