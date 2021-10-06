@@ -3,7 +3,7 @@ const Cart = require('../models/Cart');
 
 //add item
 exports.additem = async(req,res) => {
-    const {itemid,patientID,quantity,type} = req.body;
+    const {itemid,patientID,quantity,type,total} = req.body;
 
     try {
         //checking product already exists
@@ -12,7 +12,7 @@ exports.additem = async(req,res) => {
             return res.status(409).json({message: "Item already exists"})
 
         //creating a new add item
-        await Cart.create({itemid,patientID,quantity,type});
+        await Cart.create({itemid,patientID,quantity,type,total});
         //success message
         res.status(200).json({success: true,message:"Item add to cart"})
 
@@ -27,9 +27,12 @@ exports.updateitem = async(req,res) => {
     //get cart id
     let cartId = req.params.id;
 
-    const {quantity} = req.body;
+    const quantity = Number(req.body.quantity);
+    const Price = Number(req.body.price);
 
-    const updateCart = {quantity}
+    let total = Price * quantity;
+
+    const updateCart = {quantity,total}
     
     try {
         //find a item by ID for update
@@ -69,7 +72,7 @@ exports.viewCart = async(req,res) => {
     try {
         //find cart by patient id and cart
         const cart = await Cart.find({patientID,type}).populate(
-            {path:'itemid', select:['name','price','description']});
+            {path:'itemid', select:['name','price','description','total']});
         //success message
         res.status(200).json({success: true,result:cart})
     }catch(error){

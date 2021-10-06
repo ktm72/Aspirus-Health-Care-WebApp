@@ -19,6 +19,7 @@ function UpdateProfile(props) {
     const [bloodGroup, setBloodGroup] = useState("");
     const [bloodPressure, setBloodPressure] = useState("");
     const [sugarLevel, setSugarLevel] = useState("");
+    const [userImg, setUserImg] = useState("");
     const bloodGroups = [
         { value: 'A-', label: 'A-',},
         { value: 'O+', label: 'O+',},
@@ -31,6 +32,8 @@ function UpdateProfile(props) {
     ];
 
     const history = useHistory();
+    const [fileInputState, setFileInputState] = useState('');
+    const [selectedFile, setSelectedFile] = useState();
     const [previewSource, setPreviewSource] = useState();
 
     //fetching user data
@@ -47,6 +50,7 @@ function UpdateProfile(props) {
                 setBloodGroup(res.data.result.bloodGroup)
                 setBloodPressure(res.data.result.bloodPressure)
                 setSugarLevel(res.data.result.sugarLevel)
+                setUserImg(res.data.result.imgUrl)
             }).catch((error)=>{
                 alert("Failed to fetch user data")
             })
@@ -56,15 +60,18 @@ function UpdateProfile(props) {
 
     //handling the image uploading
     const handleFileInputChange = (event) => {
-        const file = event.target.files[0]
-        previewImage(file);
+        const file = event.target.files[0];
+        previewFile(file);
+        setSelectedFile(file);
+        setFileInputState(event.target.value);
     };
 
+
     //display a preview of uploaded image
-    const previewImage = (file) => {
+    const previewFile = (file) => {
         const reader = new FileReader();
         reader.readAsDataURL(file)
-        reader.onload = () => {
+        reader.onloadend = () => {
             setPreviewSource(reader.result)
         }
     }
@@ -74,16 +81,23 @@ function UpdateProfile(props) {
 
         event.preventDefault();
 
-        //this will needed when handling images
-        //object with data need to be added
-        // const updatedPatient = new FormData();
-        // updatedPatient.append("firstname", firstname);
-        // updatedPatient.append("lastname", lastname);
-        // updatedPatient.append("email", email);
-        // updatedPatient.append("phone", phone);
-        // updatedPatient.append("address", address);
+        let imgUrl
 
-        const updatedPatient = {firstname,lastname,email,phone,address,height,weight,bloodGroup,bloodPressure,sugarLevel}
+        if(previewSource){
+            const formData = new FormData();
+            formData.append("file", selectedFile) 
+            formData.append("upload_preset", "patient_pictures")
+
+            try {
+                await axios.post("https://api.cloudinary.com/v1_1/aspirushealthcare/image/upload", formData).then((res) =>{
+                    imgUrl = res.data.secure_url
+                })
+            } catch (error) {
+                alert(error)
+            }
+        }
+
+        const updatedPatient = {firstname,lastname,email,phone,address,height,weight,bloodGroup,bloodPressure,sugarLevel, imgUrl}
 
         //header with authorization token
         const config = {
@@ -149,12 +163,7 @@ function UpdateProfile(props) {
                                             type="tel" id="phone" placeholder="phone" required fullWidth
                                             value={phone}
                                             onChange={(event)=> {setPhone(event.target.value)}}
-                                            inputProps={{style: {padding: 12}, pattern: "[0-9]{9}" }}
-                                            startAdornment={
-                                                <InputAdornment position="end">
-                                                    +94
-                                                </InputAdornment>
-                                            }
+                                            inputProps={{style: {padding: 12}, pattern: "[0-9]{10}" }}
                                         />
                                     </div>
                                 </div>
@@ -265,10 +274,12 @@ function UpdateProfile(props) {
                         </div>
                         <div className="col-4 d-flex justify-content-center">
                             <div>
-                                {previewSource ? 
+                                { previewSource  ?
                                     <img src={previewSource} alt="preview" className="previewImg"/>
+                                : userImg === ""? 
+                                    <img src="/images/avatar.jpg" alt="preview" className="previewImg"/>
                                 :
-                                    <img src="/images/userimg.jpg" className="previewImg" alt="profile pic"/>
+                                    <img src={`${userImg}`} className="previewImg" alt="profile pic"/>
                                 }
                                 <div className="form-group">
                                     <label htmlFor="profilepic">
@@ -278,6 +289,7 @@ function UpdateProfile(props) {
                                             name="profilepic"
                                             type="file"
                                             onChange={handleFileInputChange}
+                                            value={fileInputState}
                                         />
 
                                         <Button color="primary" variant="contained" component="span">

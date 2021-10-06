@@ -129,7 +129,7 @@ function AddProducts() {
                             {previewSource ? 
                                 <img src={previewSource} alt="preview" className="previewImgProduct"/>
                             :
-                                <img src="/images/d.png" className="previewImgProduct" alt="product pic"/>
+                                <img src="/images/addProduct.png" className="previewImgProduct" alt="product pic"/>
                             }
                             <div className="form-group">
                                 <label htmlFor="productImg">

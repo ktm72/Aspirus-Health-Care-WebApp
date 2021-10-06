@@ -30,6 +30,24 @@ export default function DisplayReview(props){
         getReviews();
     },[props])
 
+    function filterContent(data,searchTerm){
+        const result=data.filter((Review)=>
+            Review.date.toLowerCase().includes(searchTerm)||
+            Review.feedback.toLowerCase().includes(searchTerm)
+        )
+    setReviews(result)
+    }
+
+    function handleSearch(event){
+        const searchTerm=event.currentTarget.value
+        axios.get(`http://localhost:8070/Review/${props.match.params.patientID}`).then((res)=>{
+            filterContent(res.data.result,searchTerm.toLowerCase())
+
+        }).catch((error)=>{
+            alert("Reviews fetching failing")
+        })
+    }
+
     async function deleteReview(id){
         await axios.delete(`http://localhost:8070/review/delete/${id}`,config).then(()=>{
             setReviews( reviews.filter(element => element._id !== id))
@@ -43,13 +61,28 @@ export default function DisplayReview(props){
     }
     return(
         <div className="container">
-            <div classNameName="row">
-                <div className="col-12">
+            <div className="row">
+                <div className="col-4">
                     <div className="pb-2 px-3 d-flex flex-wrap align-items-center justify-content-between">
                      <h2>Review History</h2>
                     </div>
                 </div>
+                <div className="col-3">
+                </div>
+                <div className="col-5">
+                    <div className="px-3 search" align="center">
+                        <input
+                            type="text"
+                            name="search"
+                            id="search"
+                            placeholder="Search reviews"
+                            onChange={handleSearch}
+                            required
+                        />
+                    </div>
+                </div>
             </div>
+            
             <div className="blue-table">
                 <table className="table100 ver1 m-b-110">
                     <thead>                    
