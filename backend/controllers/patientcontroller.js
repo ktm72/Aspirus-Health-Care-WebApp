@@ -39,7 +39,7 @@ exports.patientsignin = async(req, res) => {
 
 //patient sign up controller
 exports.patientsignup = async(req,res) => {
-    const {firstname, lastname, email, gender, nic, phone, address, password} = req.body;
+    const {firstname, lastname, email, gender, nic, phone, address, password, imgUrl} = req.body;
     const dob = new Date(req.body.dob)
 
     const today = new Date().getFullYear()
@@ -48,13 +48,17 @@ exports.patientsignup = async(req,res) => {
 
     try {
         //checking email already exists
-        const checkPatient = await Patient.findOne({email})
+        const checkEmail = await Patient.findOne({email})
+        const checkNIC = await Patient.findOne({nic})
 
-        if(checkPatient)
+        if(checkEmail)
             return res.status(409).json({message: "User with this email already exists"})
+        
+        if(checkNIC)
+            return res.status(409).json({message: "User with this NIC already exists"})
 
         //creating a new patient
-        const patient = await Patient.create({firstname, lastname, email, dob, age, gender, nic, phone, address, password});
+        const patient = await Patient.create({firstname, lastname, email, dob, age, gender, nic, phone, address, password, imgUrl});
 
         //creating a token
         const token = jwt.sign({email: patient.email, id: patient._id}, process.env.JWT_SECRET, {expiresIn: "1h"})
@@ -63,7 +67,6 @@ exports.patientsignup = async(req,res) => {
         res.status(200).json({success: true, result: patient, token})
     } catch (error) {
         res.status(500).json({message: "Something went wrong", error: error.message})
-        console.log(error)
     }
 }
 
@@ -71,7 +74,7 @@ exports.patientsignup = async(req,res) => {
 exports.updatePatient = async(req,res) => {
     let patientID = req.params.id;
 
-    const {firstname, lastname, email, phone, address, bloodGroup} = req.body;
+    const {firstname, lastname, email, phone, address, bloodGroup, imgUrl} = req.body;
     const weight = Number(req.body.weight)
     const height = Number(req.body.height)
     const bloodPressure = Number(req.body.bloodPressure)
@@ -86,7 +89,7 @@ exports.updatePatient = async(req,res) => {
     //object with provided data
     const updatePatient = {
         firstname, lastname, email, phone, address,
-        weight, height, bloodPressure, bloodGroup, sugarLevel, bmi, 
+        weight, height, bloodPressure, bloodGroup, sugarLevel, bmi, imgUrl
     }
 
     try {

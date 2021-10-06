@@ -7,8 +7,9 @@ export const AddToCart = (itemID,id,Price) => {
     const quantity = 1
     const type = "shopping"
     const price = Price
+    let total = quantity*price;
 
-    const cartItem = {itemid, patientID, quantity, type, price}
+    const cartItem = {itemid, patientID, quantity, type, price, total}
     const config = {
         headers: {
             "content-Type": "application/json",
@@ -25,7 +26,8 @@ export const AddToCart = (itemID,id,Price) => {
             alert("Please login")
         }
         else{
-            alert("Product can't be Added")       
+            alert("Product can't be Added")
+            console.log(error)     
         }        
     })
 }

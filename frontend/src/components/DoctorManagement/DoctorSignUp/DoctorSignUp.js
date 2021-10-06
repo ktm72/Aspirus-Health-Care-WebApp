@@ -5,9 +5,12 @@ import Chip from '@material-ui/core/Chip';
 import InputLabel from '@material-ui/core/InputLabel';
 import Input from '@material-ui/core/Input';
 import Select from '@material-ui/core/Select';
+
 import MenuItem from '@material-ui/core/MenuItem';
+import Button from "@material-ui/core/Button";
 import {KeyboardTimePicker, MuiPickersUtilsProvider} from '@material-ui/pickers';
 import 'date-fns';
+import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 import DateFnsUtils from '@date-io/date-fns';
 import './DoctorSignUp.css';
 import axios from "axios";
@@ -23,7 +26,7 @@ function DoctorSignUp(){
     const [email,setEmail]=useState("");
     const [speciality,setSpeciality]=useState("");
     const [gender,setGender]=useState("");
-    const [languages,setLanguages]=useState("");
+    const [languages,setLanguages]=useState([]);
     const [phoneno,setPhone]=useState("");
     const [qualification,setQualification]=useState("");
     const [doctorfee,setFee] =useState("");
@@ -36,6 +39,7 @@ function DoctorSignUp(){
     const [accountNo,setAccount] = useState("");
     const [bankName,setBank] = useState("");
     const [bankBranch,setbranch] = useState("");
+    const [previewSource, setPreviewSource] = useState();
     const history =useHistory();
 
     async function add(event){
@@ -70,6 +74,22 @@ function DoctorSignUp(){
         'Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'
     ]
 
+    const language = [
+        'Sinhala', 'English', 'Tamil'
+    ]
+
+    const previewImage = (file) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file)
+        reader.onload = () => {
+            setPreviewSource(reader.result)
+        }
+    }
+
+    const handleLanguageChange = (event) => {
+        setLanguages(event.target.value);
+    };
+
     const handleChange = (event) => {
         setDay(event.target.value);
       };
@@ -82,7 +102,10 @@ function DoctorSignUp(){
         setTimeFrom(timeFrom);
       };
 
-     
+      const handleFileInputChange = (event) => {
+        const file = event.target.files[0]
+        previewImage(file);
+    };
  
     return(   
          <div className="container" align="center">
@@ -95,8 +118,8 @@ function DoctorSignUp(){
             </div>
             <form  onSubmit={add} className="docSignUp" >
                 <div className="row">
-                    <div className="col-xl-12">
-                        <div className="col-xl-6">
+                    <div className="col-xl-8">
+                        <div className="col-xl-8">
                             <label>Title</label> &nbsp;
                             <div className="form-check form-check-inline">
                                 <input 
@@ -131,7 +154,7 @@ function DoctorSignUp(){
                 </div>
                 <br/>
                 <div className="row">    
-                    <div className="col-xl-6">
+                    <div className="col-xl-4">
                         <OutlinedInput
                             type="text"
                             name="fullname"
@@ -142,7 +165,7 @@ function DoctorSignUp(){
                             inputProps={{style: {padding: 12}}}
                          />
                     </div>
-                    <div className="col-xl-6">
+                    <div className="col-xl-4">
                         <OutlinedInput
                             type="email"
                             name="email"
@@ -176,7 +199,7 @@ function DoctorSignUp(){
                 </div>
                 <br/>
                 <div className="row">    
-                    <div className="col-xl-6">
+                    <div className="col-xl-4">
                         <OutlinedInput
                             type="text"
                             name="speciality"
@@ -187,21 +210,58 @@ function DoctorSignUp(){
                             inputProps={{style: {padding: 12}}}
                         />
                     </div>
-                <div className="col-xl-6">
-                    <OutlinedInput
-                        type="text"
-                        name="languages"
-                        id="languages"
-                        placeholder="languages"
-                        onChange={(e) => setLanguages(e.target.value)}
-                        required fullWidth
-                        inputProps={{style: {padding: 12}}}
-                    />
-                </div>
+                    <div className="col-xl-4">
+                        <InputLabel id="demo-mutiple-chip-label">Languages</InputLabel>
+                            <Select
+                                id="demo-mutiple-chip"
+                                multiple fullWidth
+                                value={languages}
+                                onChange={handleLanguageChange}
+                                input={<Input id="select-multiple-chip"/>}
+                                renderValue={(selected) => (
+                                    <div >
+                                        {selected.map((value) => (
+                                            <Chip key={value} label={value}  />
+                                        ))}
+                                    </div>
+                                )}
+                            >
+                            {language.map((language) => (
+                                <MenuItem key={language} value={language} >
+                                    {language}
+                                </MenuItem>
+                            ))}
+                            </Select>
+                    </div>
+                    <div className="col-4 d-flex justify-content-center">
+                    <div>
+                            {previewSource ? 
+                                <img src={previewSource} alt="preview" className="previewImg"/>
+                            :
+                                <img src="/images/avatar.jpg" className="previewImg" alt="profile pic"/>
+                            }
+                            <div className="form-group">
+                                <label htmlFor="profilepic">
+                                    <input
+                                        style={{ display: 'none' }}
+                                        id="profilepic"
+                                        name="profilepic"
+                                        type="file"
+                                        onChange={handleFileInputChange}
+                                    />
+
+                                    <Button color="primary" variant="contained" component="span">
+                                        <AddAPhotoIcon/> &nbsp; Upload Profile Picture
+                                    </Button>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                <br/>
             </div>
                 <br/>
                 <div className="row">
-                <div className="col-xl-6">
+                <div className="col-xl-4">
                     <OutlinedInput
                         type="tel"
                         name="phoneNo"
@@ -213,7 +273,7 @@ function DoctorSignUp(){
                         inputProps={{style: {padding: 12}}}
                     />
                 </div>
-                <div className="col-xl-6">
+                <div className="col-xl-4">
                     <OutlinedInput
                         type="text"
                         name="qualification"
@@ -227,7 +287,7 @@ function DoctorSignUp(){
             </div>
                 <br/>
                 <div className="row">
-                <div className="col-xl-6">  
+                <div className="col-xl-4">  
                     <OutlinedInput
                         type="text"
                         name="fee"
@@ -241,7 +301,7 @@ function DoctorSignUp(){
             </div>
                 <br/>
                 <div className="row">
-                    <div className="col-xl-12">
+                    <div className="col-xl-8">
                         <InputLabel id="demo-mutiple-chip-label">Available Day</InputLabel>
                             <Select
                                 id="demo-mutiple-chip"
@@ -268,7 +328,7 @@ function DoctorSignUp(){
                 <br/>
                 <div className="row">
                     <MuiPickersUtilsProvider utils={DateFnsUtils} >
-                        <div className="col-xl-6">
+                        <div className="col-xl-4">
                             <KeyboardTimePicker
                                 margin="normal"
                                 id="time-picker"
@@ -280,7 +340,7 @@ function DoctorSignUp(){
                                 }}
                             />
                         </div>                        
-                        <div className="col-xl-6">
+                        <div className="col-xl-4">
                             <KeyboardTimePicker
                                 margin="normal"
                                 id="time-picker"
@@ -296,7 +356,7 @@ function DoctorSignUp(){
                     </div> 
                 <br/>
                 <div className="row">
-                        <div className="col-xl-6">  
+                        <div className="col-xl-4">  
                             <OutlinedInput
                                 type="text"
                                 name="slmcreg"
@@ -308,7 +368,7 @@ function DoctorSignUp(){
                                 inputProps={{style: {padding: 12}}}
                             />
                         </div>
-                        <div className="col-xl-6">  
+                        <div className="col-xl-4">  
                             <div className="form-group"> 
                                 <OutlinedInput
                                     type="text"
@@ -324,7 +384,7 @@ function DoctorSignUp(){
                     </div>
                 <br/>
                 <div className="row">
-                        <div className="col-xl-6">  
+                        <div className="col-xl-4">  
                             <div  className="form-group">
                                 <OutlinedInput
                                     type="password"
@@ -338,7 +398,7 @@ function DoctorSignUp(){
                                 />
                             </div>
                         </div>
-                        <div className="col-xl-6">  
+                        <div className="col-xl-4">  
                             <div className="form-group">
                                 <OutlinedInput
                                     value={confirmPassword}
@@ -355,13 +415,13 @@ function DoctorSignUp(){
                     </div>
                 <br/>
                 <div className="row">
-                    <div className="col-xl-12">
+                    <div className="col-xl-8">
                         <h4> Bank Account Details </h4>
                     </div>
                 </div>
                 <br/>
                 <div className="row">
-                    <div className="col-xl-6">  
+                    <div className="col-xl-4">  
                         <div className="form-group">
                             <OutlinedInput
                                 type="text"
@@ -374,7 +434,7 @@ function DoctorSignUp(){
                             />
                         </div>
                     </div>
-                    <div className="col-xl-6">  
+                    <div className="col-xl-4">  
                         <div className="form-group">
                             <OutlinedInput
                                 type="text"
@@ -390,7 +450,7 @@ function DoctorSignUp(){
                 </div>
                 <br/>
                 <div className="row">  
-                    <div className="col-xl-6">  
+                    <div className="col-xl-4">  
                         <div className="form-group">
                             <OutlinedInput
                                 type="text"
@@ -403,7 +463,7 @@ function DoctorSignUp(){
                             />
                         </div>
                     </div>
-                    <div className="col-xl-6">
+                    <div className="col-xl-4">
                         <div className="form-group">
                             <OutlinedInput
                                 type="text"
@@ -417,7 +477,7 @@ function DoctorSignUp(){
                         </div>
                     </div>
                 </div>  
-                <br/>
+                
                 <div className="row">  
                     <div className="col-xl-12">
                         <input type="submit" className="form-submit-btn" value="Register"  /> 

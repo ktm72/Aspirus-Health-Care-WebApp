@@ -51,7 +51,7 @@ const DoctorSchema =new Schema({
     },
 
     languages:{
-        type:String,
+        type:[String],
         required:true
     },
 

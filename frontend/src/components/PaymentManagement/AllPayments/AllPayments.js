@@ -25,6 +25,26 @@ export default function AllPayments(props){
         getPayments();
     },[props]) 
 
+    function filterContent(data,searchTerm){
+        const result=data.filter((Payment)=>
+            Payment.date.toLowerCase().includes(searchTerm) 
+            
+        )
+    setPayments(result)
+    }
+
+    function handleSearch(event){
+        const searchTerm=event.currentTarget.value
+        axios.get(`http://localhost:8070/payment/${props.match.params.patientID}`).then((res)=>{
+            filterContent(res.data.result,searchTerm.toLowerCase())
+
+        }).catch((error)=>{
+            alert("payment fetching failing")
+        })
+    }
+        
+    
+
     async function deletePayment(id){
         await axios.delete(`http://localhost:8070/payment/delete/${id}`,config).then(()=>{
             setPayments( payments.filter(element => element._id !== id))
@@ -36,9 +56,23 @@ export default function AllPayments(props){
     return(
         <div className="container">
             <div className="row">
-                <div className="col-12">
+                <div className="col-4">
                     <div className="pb-2 px-3 d-flex flex-wrap align-items-center justify-content-between">
                      <h2>Payment History</h2>
+                    </div>
+                </div>
+                <div className="col-3">
+                </div>
+                <div className="col-5">
+                    <div className="px-3 search" align="center">
+                        <input
+                            type="text"
+                            name="search"
+                            id="search"
+                            placeholder="Search Payments"
+                            onChange={handleSearch}
+                            required
+                        />
                     </div>
                 </div>
             </div>
@@ -83,5 +117,6 @@ export default function AllPayments(props){
         </div>
     )
 }
+
 
     

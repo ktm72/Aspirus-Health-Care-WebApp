@@ -54,7 +54,7 @@ function PrescriptionCart(props) {
         setIsCheckAll(!isCheckAll);
         setIsCheck(items.map(item => item._id));
         if (isCheckAll) {
-          setIsCheck([]);
+            setIsCheck([]);
         }
     };
 
@@ -62,39 +62,46 @@ function PrescriptionCart(props) {
         const id = event.currentTarget.id;
         const checked = event.currentTarget.checked;
         setIsCheck([...isCheck, id]);
+
         if (!checked) {
             setIsCheck(isCheck.filter(item => item !== id));
         }
-    };
+    };console.log(isCheck)
 
     //Update Item
-    async function updateQuantity(id, quantity) {
+    async function updateQuantity(id,quantity,price) {
+        
         try {
-            await axios.put(`http://localhost:8070/cart/update/${id}`,{quantity},config)
+            await axios.put(`http://localhost:8070/cart/update/${id}`,{quantity,price},config)
             history.push(`/cart/${props.match.params.id}/${props.match.params.type}`)
+            console.log(price)
         } catch (error) {
             alert("Update failed")
+            console.log(error)
         }                
     }
 
     //Increment Quantity
-    function increment(id) {
+    function increment(id,Price) {
         items.forEach(Item => {
             if(Item._id === id){
-                Item.quantity++
-                updateQuantity(Item._id,Item.quantity)
+                if(Item.quantity<10){
+                    Item.quantity++
+                    updateQuantity(Item._id,Item.quantity,Price)
+                }
             }
         })       
     }
 
     //Decrease Item
-    function decrease(id) {
+    function decrease(id,Price) {
         items.forEach(Item => {
             if(Item._id === id){
-                Item.quantity--
-                updateQuantity(Item._id,Item.quantity)
+                if(Item.quantity>1){
+                    Item.quantity--
+                    updateQuantity(Item._id,Item.quantity,Price)
+                }
             }
-            
         })       
     }
 
@@ -138,8 +145,8 @@ function PrescriptionCart(props) {
                         {/* map */}
                         {items.map((Item, key) => ( 
                             <div key={key}>                                
-                                <div className="cart-box mb-3">                        
-                                    <div className="row align-items-center">
+                                <div className="cart-box mb-3 shadow">                        
+                                    <div className="row align-items-center ">
                                         <div className="col-sm-1">
                                             {/* Check box for item */}
                                             <FormControlLabel                                                    
@@ -166,22 +173,23 @@ function PrescriptionCart(props) {
                                         <div className="col-sm-2">
                                             <div>
                                                 {/* Quantity decrease button */}
-                                                <IconButton onClick={()=>decrease(Item._id)}>
+                                                <IconButton onClick={()=>decrease(Item._id,Item.itemid.price)}>
                                                     <SubIcon style={{fontSize:"small"}}></SubIcon>
                                                 </IconButton>
 
                                                 {/* Quantity */}
-                                                <Input type="text" name="quantity" className="quantity" disableUnderline margin="dense" readOnly value={(Item.quantity)} min="1" max="100"/>
+                                                <Input type="text" name="quantity" className="quantity" disableUnderline margin="dense" readOnly value={(Item.quantity)}/>
                                                 
                                                 {/* Quantity decrease button */}
-                                                <IconButton onClick={()=>increment(Item._id)}>
+                                                <IconButton onClick={()=>increment(Item._id,Item.itemid.price)}>
                                                     <AddIcon style={{fontSize:"small"}}></AddIcon>
                                                 </IconButton>
                                             </div>
                                         </div>
                                         {/* Price */}
                                         <div className="col-sm-2">
-                                            LKR {Item.itemid.price}
+                                            LKR&nbsp;{Item.total}.00
+                                            {}
                                         </div>
                                         <div className="col-sm-1">
                                             <IconButton onClick={()=>deleteItem(Item._id)}>
@@ -195,13 +203,18 @@ function PrescriptionCart(props) {
                     </div>
                     {/* Order Summary Card */}
                     <div className="col-xl-4" >
-                        <div className="cardSummary">
+                        <div className="cardSummary shadow">
                             <h5>Order Summary</h5>
                                 <br/>
                                 <div className="row">
                                     {/* Address */}
                                     <div className="col-xl-12">
                                         Address:<p>69/69, Colombo 69, Sri Lanka</p>
+                                        {isCheck.map(productID => (  
+                                            <li>  
+                                                {productID}  
+                                            </li>  
+                                            ))}
                                     </div>
                                     <hr/>
                                     <div className="col-xl-7">
