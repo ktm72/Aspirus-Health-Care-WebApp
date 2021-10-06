@@ -66,14 +66,14 @@ function History(props) {
           <div className="pb-2 px-3 d-flex flex-wrap align-items-center justify-content-between ">
             <h2>Prescription History</h2>
             {isDoctor &&
-            <IconButton onClick={() => addPrescription()} className="add-btn">
-              <NoteAddIcon></NoteAddIcon>
-            </IconButton>
+              <IconButton onClick={() => addPrescription()} className="add-btn">
+                <NoteAddIcon></NoteAddIcon>
+              </IconButton>
             }
           </div>
         </div>
       </div>
-      <div style={{display: 'flex', justifyContent: 'right'}}>  
+      <div style={{display: 'flex', justifyContent: 'right'}}>
       </div>
       <div className="blue-table ">
         <div className="blue-table, box-view-prescription">
@@ -89,36 +89,36 @@ function History(props) {
             </thead>
             <tbody style={{ textAlign: 'center' }}>
               {prescriptionArr.map((Prescription, key) => (
-                <tr key={key}>
-                  <td>
-                    {Prescription.doctorID.title + ' ' +Prescription.doctorID.name}
-                  </td>
-                  <td>
-                    {Prescription.patientID.firstname + ' ' + Prescription.patientID.lastname}
-                  </td>
-                  <td>
-                    {Prescription.action}
-                  </td>
-                  <td>
-                    {Prescription.date}
-                  </td>
-                  <td>
-                    <div>
-                      <IconButton onClick={() => viewOne(Prescription._id)}>
-                        <OpenInNewIcon style={{ color: teal[500] }}  ></OpenInNewIcon>
-                      </IconButton>
-                      <IconButton onClick={() => onDelete(Prescription._id)}>
-                        <DeleteIcon style={{ color: red[500] }} ></DeleteIcon>
-                      </IconButton>
-                      {isDoctor &&
-                        <IconButton onClick={() => update(Prescription._id)}>
-                          <EditIcon style={{ color: grey[500] }} ></EditIcon>
+                  <tr key={key}>
+                    <td>
+                      {Prescription.doctorID.title + ' ' +Prescription.doctorID.name}
+                    </td>
+                    <td>
+                      {Prescription.patientID.firstname + ' ' + Prescription.patientID.lastname}
+                    </td>
+                    <td>
+                      {Prescription.action}
+                    </td>
+                    <td>
+                      {Prescription.date}
+                    </td>
+                    <td>
+                      <div>
+                        <IconButton onClick={() => viewOne(Prescription._id)}>
+                          <OpenInNewIcon style={{ color: teal[500] }}  ></OpenInNewIcon>
                         </IconButton>
-                      } 
-                    </div>
-                  </td>
-                </tr>
-              ))}
+                        <IconButton onClick={() => onDelete(Prescription._id)}>
+                          <DeleteIcon style={{ color: red[500] }} ></DeleteIcon>
+                        </IconButton>
+                        {isDoctor &&
+                          <IconButton onClick={() => update(Prescription._id)}>
+                            <EditIcon style={{ color: grey[500] }} ></EditIcon>
+                          </IconButton>
+                        }
+                      </div>
+                    </td>
+                  </tr>
+                ))}
             </tbody>
           </table>
         </div>

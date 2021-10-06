@@ -49,3 +49,23 @@ body{
 .container{
   min-height: 53vh;
 }
+
+.search Input[type="text"]{
+    border: 0;
+    background: none;
+    display: block;
+    text-align: center;
+    border: 2px solid #3498db;
+    padding: 10px 20px;
+    width: 400px;
+    outline: none;
+    color: black;
+    border-radius: 24px;
+    transition: 0.25s;
+    text-align:left; 
+}
+
+.search input[type="text"]:focus{
+    width: 500px;
+    border-color: #2ecc71
+}

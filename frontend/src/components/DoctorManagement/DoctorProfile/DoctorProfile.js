@@ -65,7 +65,7 @@ function DoctorProfile() {
         <div className="container">
             <div className="row">
                 <div className="col-12">
-                    <div className="pb-2 px-3 d-flex flex-wrap align-items-center justify-content-between">
+                    <div className="pb-2 px-3">
                         <h2 >My Profile</h2>
                     </div>
                 </div>
@@ -75,7 +75,7 @@ function DoctorProfile() {
                     <div className="row doc-card align-items-center">
                         <div className="col-xl-3">
                             <div className="docProfile_img">
-                                <img src="../images/user-img.png" className="rounded-circle" alt="profile pic"/>
+                                <img src="/images/user-img.png" className="rounded-circle" alt="profile pic"/>
                             </div>
                         </div>
                         <div className="col-xl-4">

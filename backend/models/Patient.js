@@ -67,6 +67,11 @@ const PatientSchema = new Schema({
         select: false
     },
 
+    imgUrl: {
+        type: String,
+        required: false
+    },
+
     weight: {
         type: Number,
         required: false,
