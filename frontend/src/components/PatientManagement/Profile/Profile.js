@@ -13,6 +13,7 @@ import { Button } from '@material-ui/core';
 import { orange, green, red, blue } from '@material-ui/core/colors';
 import axios from 'axios';
 import './Profile.css';
+import ProfileAppointments from '../../AppointmentManagement/ProfileAppointments';
 
 function Profile() {
 
@@ -225,6 +226,13 @@ function Profile() {
                     </center>
                 </div>
             </div>
+            <div className="row mt-3">
+                <div className="col-6">
+                    <ProfileAppointments/>                     
+                </div>
+                <div className="col-6">                   
+                </div>
+            </div>                                
         </div>
     )
 }
