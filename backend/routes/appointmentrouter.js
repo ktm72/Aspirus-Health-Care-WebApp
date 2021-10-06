@@ -9,7 +9,7 @@ router.post('/add',addAppointment);
 router.put('/update/:id',updateAppointment);
 
 //view appointment
-router.get('/',viewAppointment);
+router.get('/:id',viewAppointment);
 
 //view one appointment
 router.get('/:id',viewOneAppointment);

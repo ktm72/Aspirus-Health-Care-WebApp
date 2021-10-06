@@ -52,14 +52,22 @@ exports.updateAppointment = async (req, res) => {
 
 //view appointments
 exports.viewAppointment = async (req, res) => {
-
-    //calling Appointments model
-    Appointment.find().then((appointments) => {
-        res.status(200).json(appointments)
-    }).catch((error) => {
-        res.status(500).json({success:false, message: "Fetching appointment failed", error: error.message });
-    })
-}
+    //get patient id
+    let patientID = req.params.id;
+    let doctorID = req.params.id;
+  
+    try {
+      //find appointment by patient id
+      const appointment = await Appointment.find({ $or: [{ patientID }, { doctorID }] }).populate(
+        { path: 'patientID doctorID', select: ['firstname', 'lastname', 'name',  'title'] });
+      //success message
+      res.status(200).json({ success: true, result: appointment })
+      
+    } catch (error) {
+      //error message
+      res.status(500).json({ message: "fetching Appointment failed", error: error.message })
+    }
+  }
 
 //view one appointment
 exports.viewOneAppointment = async (req, res) => {
