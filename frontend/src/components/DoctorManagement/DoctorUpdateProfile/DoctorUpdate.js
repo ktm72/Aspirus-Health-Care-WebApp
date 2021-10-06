@@ -17,7 +17,7 @@ function DoctorUpdate(props){
     const [name,setName]=useState("");
     const [speciality,setSpeciality] = useState("");
     const [practicingLocations, setLocations] = useState("");
-    const [languages, setLanguages] = useState("");
+    const [languages, setLanguages] = useState([]);
     const [qualification,setQualification] = useState("");
     const [doctorfee, setFee] = useState("");
     const [availableDay, setDay] = useState([]);
@@ -26,6 +26,10 @@ function DoctorUpdate(props){
 
     const dates =[
         'Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'
+    ];
+
+    const language =[
+        'Sinhala', 'Tamil', 'English'
     ];
 
     const history = useHistory();
@@ -87,6 +91,10 @@ function DoctorUpdate(props){
     const handleTimeFromChange = (timeFrom) => {
         setTimeFrom(timeFrom);
     };
+
+    const handleLanguageChange = (event) => {
+        setLanguages(event.target.value);
+    };
     
     return(
         <div className="container" align="center">
@@ -142,15 +150,29 @@ function DoctorUpdate(props){
                     />
                 </div>
                 <br/>
-                <div className="form-group"> 
-                    <OutlinedInput
-                        type="text"
-                        name="language"
-                        id="language"
-                        placeholder="Languages" fullWidth
-                        value={languages}
-                        onChange={(e) => setLanguages(e.target.value)}
-                    />
+                <div className="form-group" > 
+                    <InputLabel id="demo-mutiple-chip-label">Languages</InputLabel>
+                        <Select
+                            labelId="demo-mutiple-chip-label"
+                            id="demo-mutiple-chip"
+                            multiple fullWidth
+                            value={languages}
+                            onChange={handleLanguageChange}
+                            input={<Input id="select-multiple-chip" />}
+                            renderValue={(selected) => (
+                            <div >
+                                {selected.map((value) => (
+                                    <Chip key={value} label={value}  />
+                                ))}
+                            </div>
+                            )}
+                            >
+                            {language.map((lan) => (
+                                <MenuItem key={lan} value={lan} >
+                                {lan}
+                                </MenuItem>
+                            ))}
+                        </Select>
                 </div>
                 <br/>
                 <div className="form-group"> 

@@ -52,7 +52,7 @@ export default function Add() {
     axios.post("http://localhost:8070/prescription/add", newPrescription)
       .then(() => {
         alert("prescription added")
-        history.push(`/prescription/history/${patientID}`)
+        history.push(`/prescription/history/${doctorID}`)
       }).catch((error) => {
         alert("Failed to add a new prescription")
       })

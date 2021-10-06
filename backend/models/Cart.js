@@ -4,14 +4,14 @@ const Schema = mongoose.Schema;
 
 const CartSchema = new Schema({
     itemid : {
-        type : mongoose.Schema.Types.ObjectId,//new added
+        type : mongoose.Schema.Types.ObjectId,
         ref : 'product',
         required : true
 
     },
     
     patientID : {
-        type : mongoose.Schema.Types.ObjectId,//new added
+        type : mongoose.Schema.Types.ObjectId,
         ref : 'patient',
         required : true
     },
@@ -23,6 +23,11 @@ const CartSchema = new Schema({
 
     type : {
         type : String,
+        required : true
+    },
+
+    total : {
+        type : Number,
         required : true
     }
 
