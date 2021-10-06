@@ -72,7 +72,11 @@ function AllDoctors() {
               <div key={key}> 
                   <div className="doctorsCard">
                       <div className="doctorsImg">
-                          <img  src="/images/avatar.jpg" alt="doctor" className="doctorsImgHeight"/>
+                        {Doctor.imgUrl === ""? 
+                          <img src="/images/avatar.jpg" className="doctorsImgHeight" alt="doctor"/>
+                        :
+                          <img src={`${Doctor.imgUrl}`} className="doctorsImgHeight" alt="doctor"/>
+                        }
                       </div>
                       <div className="p-3">
                           <h6>{Doctor.name}</h6>
