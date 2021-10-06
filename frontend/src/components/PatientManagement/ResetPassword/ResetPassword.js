@@ -6,8 +6,7 @@ import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import axios from 'axios';
 import "./ResetPassword.css";
 
-
-function ResetPassword() {
+function ResetPassword(props) {
 
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
@@ -24,13 +23,13 @@ function ResetPassword() {
 
         const config = {
             headers: {
-                "content-Type": "application/json"
+                "Content-Type": "application/json"
             }
         };
         
         if(password === confirmPassword){
             try {
-                await axios.post("http://localhost:8070/patient/resetpassword",password, config);
+                await axios.put(`http://localhost:8070/patient/resetpassword/${props.match.params.token}`, {password}, config);
                 alert("Password Reset Successful")
                 setPassword("");
                 setConfirmPassword("");
@@ -41,7 +40,7 @@ function ResetPassword() {
                     alert("Invalid Token")
                 }
                 else{
-                    alert("Password reset failed")
+                   alert("Password reset failed")
                 }
             }
         }else{
