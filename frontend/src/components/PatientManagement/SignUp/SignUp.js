@@ -24,6 +24,9 @@ function SignUp() {
     const [showPassword, setShowPassword] = useState();
     const history = useHistory();
     const [showMessage, setShowMessage] = useState(false)
+
+    const [fileInputState, setFileInputState] = useState('');
+    const [selectedFile, setSelectedFile] = useState();
     const [previewSource, setPreviewSource] = useState();
 
     function passwordOnFocus(){
@@ -41,45 +44,51 @@ function SignUp() {
 
     //handling the image uploading
     const handleFileInputChange = (event) => {
-        const file = event.target.files[0]
-        previewImage(file);
+        const file = event.target.files[0];
+        previewFile(file);
+        setSelectedFile(file);
+        setFileInputState(event.target.value);
     };
 
     //display a preview of uploaded image
-    const previewImage = (file) => {
+    const previewFile = (file) => {
         const reader = new FileReader();
         reader.readAsDataURL(file)
-        reader.onload = () => {
+        reader.onloadend = () => {
             setPreviewSource(reader.result)
         }
     }
+
+    //header
+    const config = {
+        headers: {
+            "content-Type": "application/json"
+        }
+    };
 
     //add new item
     async function register(event){
         event.preventDefault();
 
-        //header
-        const config = {
-            headers: {
-                "content-Type": "application/json"
+        let imgUrl
+
+        if(previewSource){
+            const formData = new FormData();
+            formData.append("file", selectedFile) 
+            formData.append("upload_preset", "patient_pictures")
+
+            try {
+                await axios.post("https://api.cloudinary.com/v1_1/aspirushealthcare/image/upload", formData).then((res) =>{
+                    imgUrl = res.data.secure_url
+                })
+            } catch (error) {
+                alert(error)
             }
-        };
+        }
 
         if(password === confirmpassword){
-            //this will be needed when handling images
-            //object with data need to be added
-            // const newPatient = new FormData();
-            // newPatient.append("firstname", firstname)
-            // newPatient.append("lastname", lastname)
-            // newPatient.append("email", email)
-            // newPatient.append("phone", phone)
-            // newPatient.append("dob", dob)
-            // newPatient.append("nic", nic)
-            // newPatient.append("address", address)
-            // newPatient.append("gender", gender)
-            // newPatient.append("password", password)
 
-            const newPatient = {firstname,lastname,email,phone,dob,nic,address,gender,password}
+            const newPatient = {firstname,lastname,email,phone,dob,nic,address,gender,password,imgUrl}
 
             try {
                 await axios.post("http://localhost:8070/patient/signup", newPatient , config)
@@ -87,7 +96,7 @@ function SignUp() {
                     history.push('/patient/signin')
             } catch (error) {
                 if(error.response.status === 409){
-                    alert("User with this email address already exists")
+                    alert(error.response.data.message)
                 }
                 else{
                     alert("User Registration failed")
@@ -159,12 +168,7 @@ function SignUp() {
                                             <OutlinedInput 
                                                 type="tel" id="phone" placeholder="phone" required fullWidth
                                                 onChange={(event)=> {setPhone(event.target.value)}}
-                                                inputProps={{style: {padding: 12}, pattern: "[0-9]{9}"}}
-                                                startAdornment={
-                                                    <InputAdornment position="end">
-                                                        +94
-                                                    </InputAdornment>
-                                                }
+                                                inputProps={{style: {padding: 12}, pattern: "[0-9]{10}"}}
                                             />
                                         </div>
                                     </div>
@@ -273,6 +277,7 @@ function SignUp() {
                                                 name="profilepic"
                                                 type="file"
                                                 onChange={handleFileInputChange}
+                                                value={fileInputState}
                                             />
 
                                             <Button color="primary" variant="contained" component="span">

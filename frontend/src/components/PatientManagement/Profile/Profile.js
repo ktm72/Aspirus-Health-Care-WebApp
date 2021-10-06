@@ -98,7 +98,11 @@ function Profile() {
                 <div className="col-xl-3">
                     <div className="white-card ">
                         <div className="profile_img">
-                            <img src="/images/userimg.jpg" className="rounded-circle" alt="profile pic"/>
+                            {user.imgUrl === ""? 
+                                <img src="/images/avatar.jpg" className="rounded-circle" alt="profile pic"/>
+                            :
+                                <img src={`${user.imgUrl}`} className="rounded-circle" alt="profile pic"/>
+                            }
                         </div>
                         <h4>{user.firstname +` `+ user.lastname}</h4>
                         <p>{user.email}</p>
