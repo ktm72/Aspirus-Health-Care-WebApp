@@ -72,12 +72,28 @@ exports.viewCart = async(req,res) => {
     try {
         //find cart by patient id and cart
         const cart = await Cart.find({patientID,type}).populate(
-            {path:'itemid', select:['name','price','description','total']});
+            {path:'itemid', select:['name','price','description','total','imgUrl']});
         //success message
         res.status(200).json({success: true,result:cart})
     }catch(error){
         //error message
         res.status(500).json({message: "Error with fetching product", error: error.message})
+    }
+}
+
+//view one cart
+exports.viewOneCart = async(req,res) => {
+    //get cart id
+    let cartID = req.params.id;
+
+    try {
+        //find cart by patient id and cart
+        const cart = await Cart.findById(cartID)            
+        //success message
+        res.status(200).json({success: true,result:cart})
+    }catch(error){
+        //error message
+        res.status(500).json({message: "Error with fetching cart", error: error.message})
     }
 }
 
