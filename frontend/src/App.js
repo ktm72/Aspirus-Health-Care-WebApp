@@ -33,6 +33,7 @@ import AddAppointment from './components/AppointmentManagement/AddAppointment';
 import ViewAppointment from './components/AppointmentManagement/ViewAppointment';
 import Footer from './components/Footer/Footer';
 import Homepage from './components/Home/Homepage';
+import PaymentReport from './components/PaymentManagement/PaymentReport/PaymentReport';
 
 import VideoConference from './components/VideoConference/VideoConference';
 import PatientReport from './components/PatientManagement/Report/PatientReport';
@@ -66,7 +67,8 @@ function App() {
             <Route path="/pharmacy/item/update/:id" exact component={UpdateProduct}/>
             <PatientPrivateRoute path="/cart/:id/:type" exact component={Cart}/>
             <PatientPrivateRoute path= "/patient/payment" exact component= {AddPayment}/>
-            <PatientPrivateRoute path="/patient/payment/:patientID" exact component = {AllPayments}/>
+            <PatientPrivateRoute path="/patient/payment/:id" exact component = {AllPayments}/>
+            <PatientPrivateRoute path="/patient/payments/report" exact component={PaymentReport}/>
             <PatientPrivateRoute path="/patient/review" exact component={CreateReview}/>
             <PatientPrivateRoute path="/patient/review/:patientID" exact component = {DisplayReview}/>
             <PatientPrivateRoute path="/patient/review/update/:id" exact component = {updateReview}/>      
