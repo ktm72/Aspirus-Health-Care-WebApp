@@ -43,6 +43,11 @@ function Profile() {
         history.push(`/patient/updateprofile/${user._id}`)
     }
 
+    //redirecting to generate report page
+    function GenerateReport() {
+        history.push(`/patient/report`)
+    }
+    
     //reset password
     async function ResetPassword(){
         let email = user.email
@@ -159,17 +164,14 @@ function Profile() {
                                     <div>
                                         <center>
                                         <p>BMI</p>
-                                        <h4>
-                                            {
-                                                user.bmi >= 24.9 ?
-                                                    <CircleIcon fontSize="small" style={{ color: red[500] }} />
-                                                : user.bmi >= 18.5 ?
-                                                    <CircleIcon fontSize="small" style={{ color: green[500] }} />
-                                                : (user.bmi <= 18.5 && user.bmi > 0) &&
-                                                    <CircleIcon fontSize="small" style={{ color: orange[500] }} />
-                                            }
-                                            {user.bmi}
-                                        </h4>
+                                        {
+                                            user.bmi >= 24.9 ?
+                                                <h4 style={{ color: red[500] }}>{user.bmi}</h4>
+                                            : user.bmi >= 18.5 ?
+                                                <h4 style={{ color: green[500] }}>{user.bmi}</h4>
+                                            : (user.bmi <= 18.5 && user.bmi > 0) &&
+                                                <h4 style={{ color: orange[500] }}>{user.bmi}</h4>
+                                        }   
                                         </center>
                                     </div>
                                 </div>
@@ -200,8 +202,8 @@ function Profile() {
                             <BarChartIcon fontSize="large"/>
                         </div>
                         <div className="card-body mt-1">
-                            <h4>Age - {user.age}</h4><br></br>
-                            <h5>Gender - {user.gender}</h5>
+                            <h5>Age - {user.age}</h5><br/>
+                            <h5>Gender- {user.gender}</h5>
                         </div>
                     </div>
                 </div>
@@ -212,7 +214,7 @@ function Profile() {
                             Log Out  
                         </Button>
                         <Button variant="contained" className="mb-4" fullWidth disableElevation size="large" 
-                            style={{ backgroundColor: green[400], color: 'white' }} endIcon={<CloudDownloadIcon/>}>
+                            style={{ backgroundColor: green[400], color: 'white' }} onClick={GenerateReport} endIcon={<CloudDownloadIcon/>}>
                             Generate Report
                         </Button>
                         <Button color="primary" variant="contained" className="mb-4" fullWidth disableElevation size="large"
