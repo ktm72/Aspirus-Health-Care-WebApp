@@ -42,12 +42,13 @@ function ProfileAppointments() {
     return (
         <div className="blue-table ">
           <div className="blue-table, box-view-prescription">
+            {appointments.length > 0 &&
             <table>
               <thead >
                 <tr>
                   <th style={{ textAlign: 'center' }}>{isDoctor ? "Name of the Patient" : "Name of the Doctor" }</th>
                   <th style={{ textAlign: 'center' }}>Date</th>
-                  <th style={{ textAlign: 'center' }}>time</th>
+                  <th style={{ textAlign: 'center' }}>Time</th>
                   <th style={{ textAlign: 'center' }}>Conference</th>
                 </tr>
               </thead>
@@ -77,6 +78,7 @@ function ProfileAppointments() {
                 ))}
               </tbody>
             </table>
+            }
           </div>
         </div>
     )
