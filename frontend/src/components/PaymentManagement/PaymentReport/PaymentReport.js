@@ -7,8 +7,8 @@ import { green} from '@material-ui/core/colors';
 import GetAppIcon from '@material-ui/icons/GetApp';
 import './PaymentReport.css';
 
-export default function PaymentReport(props){
-   
+export default function PaymentReport(){
+    const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
     const [payments,setPayments]=useState([])
 
     let newDate = new Date()
@@ -19,15 +19,15 @@ export default function PaymentReport(props){
     useEffect(()=> {
         async function getPayments(){
 
-            await axios.get(`http://localhost:8070/payment/${props.match.params.patientID}`).then((res)=>{
+            await axios.get(`http://localhost:8070/payment/${user._id}`).then((res)=>{
                 setPayments(res.data.result);
             }).catch((error)=>{
                 alert("fetching failed");
             })    
 
-            }
+        }
         getPayments();
-    },[props]) 
+    },[user]) 
 
     const componentRef = useRef();
     const handlePrint = useReactToPrint({
