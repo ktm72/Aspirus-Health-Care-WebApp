@@ -35,6 +35,7 @@ import Footer from './components/Footer/Footer';
 import Homepage from './components/Home/Homepage';
 
 import VideoConference from './components/VideoConference/VideoConference';
+import PatientReport from './components/PatientManagement/Report/PatientReport';
 
 function App() {
   return (
@@ -49,6 +50,7 @@ function App() {
             <Route path="/patient/passwordreset/:token" exact component={PatientResetPassword} />
             <PatientPrivateRoute path="/patient/profile" exact component={PatientProfile} />
             <PatientPrivateRoute path="/patient/updateprofile/:id" exact component={PatientUpdateProfile} />
+            <PatientPrivateRoute path="/patient/report" exact component={PatientReport}/>
             <PatientPrivateRoute path="/channelling" exact component={AllDoctors} />
             <Route path="/doctor/signin" exact component={DoctorLogin}/>
             <Route path="/doctor/signup" exact component={DoctorSignUp}/>  
@@ -69,7 +71,7 @@ function App() {
             <PatientPrivateRoute path="/patient/review/:patientID" exact component = {DisplayReview}/>
             <PatientPrivateRoute path="/patient/review/update/:id" exact component = {updateReview}/>      
             <Route path="/cart/AddAppointment" exact component={AddAppointment}/>
-            <Route path="/cart/ViewAppointment" exact component={ViewAppointment}/>
+            <Route path="/appointment/:id" exact component={ViewAppointment}/>
             <PrivateRoute path="/video/:id" exact component={VideoConference}/>
             <Footer/>
         </div>
