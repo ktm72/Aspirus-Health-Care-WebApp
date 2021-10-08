@@ -47,6 +47,30 @@ function ProductItem() {
     }
   }, [location,isAdmin])
   
+  function filterContent(data, searchTerm){
+    const result = data.filter((product) => 
+        product.name.toLowerCase().includes(searchTerm) 
+    )
+    setProducts(result)
+  }
+
+  function handleSearch(event){
+    const searchTerm = event.currentTarget.value
+    axios.get(`http://localhost:8070/product/OTC`).then((res) => {
+      filterContent(res.data.result, searchTerm.toLowerCase())
+    }).catch((error) => {
+      alert("Failed to fetch products")
+    })
+  }
+
+  function handleSearchAll(event){
+    const searchTerm = event.currentTarget.value
+    axios.get(`http://localhost:8070/product`).then((res) => {
+      filterContent(res.data, searchTerm.toLowerCase())
+    }).catch((error) => {
+      alert("Admin Failed to fetch products")
+    })
+  }
   function view(id){
     history.push(`/pharmacy/item/${id}`)
   }
@@ -54,39 +78,74 @@ function ProductItem() {
   function addProduct(){
     history.push(`/pharmacy/addProduct`)
   }
-
-  return (
-    <div className="container productGrid" > 
-      {isAdmin && 
-        <Button  className="mx-2 productBtn" style={{backgroundColor:blue[400],color:'white'}} onClick={()=>addProduct()}>
-        Add Product <AddIcon/>
-        </Button> 
-      }
-      {products.map((Product,key)=>( 
-        <div key={key}> 
-          <div className="productCard">
-            <div className="imgBx">
-              <img  src="/images/s.jpg" alt="product" className="itemProduct"/>
-            </div>
-            <div className="p-3">
-              <h7>{Product.name}</h7>
-              <h6>Rs.{Product.price}.00</h6>
-              <div align="right">
-                <span> 
-                  <button className="productBtn" style={{backgroundColor:orange[600]}}
-                    onClick={()=>AddToCart(Product._id, user._id, Product.price)}> 
-                    <ShoppingCartIcon/> 
-                  </button>
-                  &nbsp;&nbsp;&nbsp;
-                  <button className="productBtn" style={{backgroundColor:red[400]}} onClick={()=>view(Product._id)}> View Item </button>
-                </span> 
+    return (
+        <div className="container">
+          <div className="row">
+              <div className="col-4">
+                <div className="pb-2 px-3 d-flex flex-wrap align-items-center justify-content-between">
+                    <h2>Aspirus Pharmacy</h2>
+                </div>
               </div>
-            </div>
+              <div className="col-3">
+              </div>
+              <div className="col-5">
+              {isAdmin === true ?
+                <div className="px-3 search" align="right">
+                  <input 
+                    type="text" 
+                    name="search" 
+                    id="search"
+                    placeholder="Search" 
+                    onChange={handleSearchAll} 
+                    required 
+                  />
+                </div>
+                :
+                <div className="px-3 search" align="right">
+                    <input 
+                      type="text" 
+                      name="search" 
+                      id="search"
+                      placeholder="Search" 
+                      onChange={handleSearch} 
+                      required 
+                    />
+                </div> 
+              }  
           </div>
         </div>
-      ))}
-    </div>
-  )
+        <div className="productGrid"  > 
+          {isAdmin && 
+            <Button  className="mx-2 productBtn" style={{backgroundColor:blue[400],color:'white'}} onClick={()=>addProduct()}>
+            Add Product <AddIcon/>
+            </Button> 
+          }
+          {products.map((Product,key)=>( 
+                <div key={key}> 
+                    <div className="productCard" >
+                        <div className="imgBx">
+                            <img  src={`${Product.imgUrl}`} alt="product" className="itemProduct"/>
+                        </div>
+                        <div className="p-3">
+                            <h7>{Product.name}</h7>
+                            <h6>Rs.{Product.price}.00</h6>
+                            <div align="right">
+                              <span> 
+                                  <button className="productBtn" style={{backgroundColor:orange[600]}}
+                                    onClick={()=>AddToCart(Product._id, user._id, Product.price)}> 
+                                    <ShoppingCartIcon/> 
+                                  </button>
+                                  &nbsp;&nbsp;&nbsp;
+                                  <button className="productBtn" style={{backgroundColor:red[400]}} onClick={()=>view(Product._id)}> View Item </button>
+                              </span> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+          ))} 
+        </div>
+      </div>
+    )      
 }
 
 export default ProductItem

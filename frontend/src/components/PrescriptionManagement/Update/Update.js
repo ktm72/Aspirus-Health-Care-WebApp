@@ -19,14 +19,13 @@ function Update(props) {
   useEffect(() => {
     async function updatePrescription() {
       await axios.get(`http://localhost:8070/prescription/view/${props.match.params.id}`).then((res) => {
-
         setPatientName(res.data.prescription.patientID.firstname + ' ' + res.data.prescription.patientID.lastname)
         setDoctorName(res.data.prescription.doctorID.title + ' ' + res.data.prescription.doctorID.name)
         setRefill(res.data.prescription.refill)
         setAction(res.data.prescription.action)
         setMedicineList(res.data.prescription.medicineList)
       }).catch((error) => {
-        alert("Failed to fetch item data")
+        alert("Failed to fetch prescription data")
       })
     }
     updatePrescription()
