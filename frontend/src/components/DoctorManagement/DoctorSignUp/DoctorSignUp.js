@@ -42,17 +42,54 @@ function DoctorSignUp(){
     const [previewSource, setPreviewSource] = useState();
     const history =useHistory();
 
+    const [fileInputState, setFileInputState] = useState('');
+    const [selectedFile, setSelectedFile] = useState();
+
+    const handleFileInputChange = (event) => {
+        const file = event.target.files[0];
+        previewFile(file);
+        setSelectedFile(file);
+        setFileInputState(event.target.value);
+    };
+
+    //display a preview of uploaded image
+    const previewFile = (file) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file)
+        reader.onloadend = () => {
+            setPreviewSource(reader.result)
+        }
+    }
+
+    
     async function add(event){
         event.preventDefault();
-
         const config={
-            headers:{
+             headers:{
                 "content-Type":"application/json"
             }
         };
 
+        let imgUrl
+
+        if(previewSource){
+            const formData = new FormData();
+            formData.append("file", selectedFile)
+            formData.append("upload_preset", "doctor_pictures")
+
+            try {
+                await axios.post("https://api.cloudinary.com/v1_1/aspirushealthcare/image/upload", formData).then((res) =>{
+                    imgUrl = res.data.secure_url
+                })
+            } catch (error) {
+                alert(error)
+            }
+        }
+
+      
+
         if(password===confirmPassword){
-            const newDoctor= {title, name, email, speciality, gender, languages, phoneno, qualification, doctorfee, availableDay, availableTimeTo, availableTimeFrom, slmcreg, practicingLocations, password, nameOfAccountHolder, accountNo, bankName, bankBranch }
+            const newDoctor= {title, name, email, speciality, gender, languages, phoneno, qualification, doctorfee, availableDay, availableTimeTo, availableTimeFrom, slmcreg, practicingLocations, password, nameOfAccountHolder, accountNo, bankName, bankBranch,imgUrl }
             
             try{
             
@@ -78,13 +115,10 @@ function DoctorSignUp(){
         'Sinhala', 'English', 'Tamil'
     ]
 
-    const previewImage = (file) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file)
-        reader.onload = () => {
-            setPreviewSource(reader.result)
-        }
-    }
+    
+
+    //handling the image uploading
+    
 
     const handleLanguageChange = (event) => {
         setLanguages(event.target.value);
@@ -102,13 +136,10 @@ function DoctorSignUp(){
         setTimeFrom(timeFrom);
       };
 
-      const handleFileInputChange = (event) => {
-        const file = event.target.files[0]
-        previewImage(file);
-    };
+ 
  
     return(   
-         <div className="container" align="center">
+        <div className="container" align="center">
             <div className="row">
                 <div className="col-12">
                     <div className="pb-2 px-3 d-flex flex-wrap align-items-center justify-content-between">
@@ -117,44 +148,45 @@ function DoctorSignUp(){
                 </div>
             </div>
             <form  onSubmit={add} className="docSignUp" >
-                <div className="row">
-                    <div className="col-xl-8">
-                        <div className="col-xl-8">
-                            <label>Title</label> &nbsp;
-                            <div className="form-check form-check-inline">
-                                <input 
-                                    className="form-check-input" type="radio" name="title" id="dr" value="Dr." required
-                                    onChange={(event)=> {setTitle(event.target.value)}}
-                                />
-                                <label className="form-check-label" for="dr">Dr.</label>
+                <div className="row"> 
+                    
+                    <div className="col-8">
+                        <div className="row">
+                            <div className="col-xl-12 mb-3">
+                                <label>Title</label> &nbsp;
+                                <div className="form-check form-check-inline">
+                                    <input 
+                                        className="form-check-input" type="radio" name="title" id="dr" value="Dr." required
+                                        onChange={(event)=> {setTitle(event.target.value)}}
+                                    />
+                                    <label className="form-check-label" for="dr">Dr.</label>
+                                </div>
+                                <div className="form-check form-check-inline">
+                                    <input 
+                                        className="form-check-input" type="radio" name="title" id="mr" value="Mr." required
+                                        onChange={(event)=> {setTitle(event.target.value)}}
+                                    />
+                                    <label className="form-check-label" for="mr">Mr.</label>
+                                </div>
+                                <div className="form-check form-check-inline">
+                                    <input 
+                                        className="form-check-input" type="radio" name="title" id="ms" value="Ms." required
+                                        onChange={(event)=> {setTitle(event.target.value)}}
+                                    />
+                                    <label className="form-check-label" for="prof">Ms.</label>
+                                </div>
+                                <div className="form-check form-check-inline">
+                                    <input 
+                                        className="form-check-input" type="radio" name="title" id="prof" value="Prof." required
+                                        onChange={(event)=> {setTitle(event.target.value)}}
+                                    />
+                                    <label className="form-check-label" for="mr">Prof.</label>
+                                </div>
                             </div>
-                            <div className="form-check form-check-inline">
-                                <input 
-                                    className="form-check-input" type="radio" name="title" id="mr" value="Mr." required
-                                    onChange={(event)=> {setTitle(event.target.value)}}
-                                />
-                                <label className="form-check-label" for="mr">Mr.</label>
-                            </div>
-                            <div className="form-check form-check-inline">
-                                <input 
-                                    className="form-check-input" type="radio" name="title" id="ms" value="Ms." required
-                                    onChange={(event)=> {setTitle(event.target.value)}}
-                                />
-                                <label className="form-check-label" for="prof">Ms.</label>
-                            </div>
-                            <div className="form-check form-check-inline">
-                                <input 
-                                    className="form-check-input" type="radio" name="title" id="prof" value="Prof." required
-                                    onChange={(event)=> {setTitle(event.target.value)}}
-                                />
-                                <label className="form-check-label" for="mr">Prof.</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <br/>
-                <div className="row">    
-                    <div className="col-xl-4">
+
+                            <br/>
+                    
+                            <div className="col-xl-6 mb-3">
                         <OutlinedInput
                             type="text"
                             name="fullname"
@@ -165,7 +197,7 @@ function DoctorSignUp(){
                             inputProps={{style: {padding: 12}}}
                          />
                     </div>
-                    <div className="col-xl-4">
+                            <div className="col-xl-6 mb-3">
                         <OutlinedInput
                             type="email"
                             name="email"
@@ -176,10 +208,10 @@ function DoctorSignUp(){
                             inputProps={{style: {padding: 12}}}
                         />
                     </div>
-                </div>
-                <br/>
-                <div className="row">                      
-                    <div className="form-group">
+                
+                            <br/>
+                                      
+                            <div className="col-xl-12 form-group mb-3">
                         <label>Gender</label> &nbsp;
                         <div className="form-check form-check-inline">
                             <input 
@@ -196,72 +228,47 @@ function DoctorSignUp(){
                             <label className="form-check-label" for="female">Female</label>
                         </div>
                     </div>
-                </div>
-                <br/>
-                <div className="row">    
-                    <div className="col-xl-4">
-                        <OutlinedInput
-                            type="text"
-                            name="speciality"
-                            id="speciality"
-                            placeholder="Speciality"
-                            onChange={(e) => setSpeciality(e.target.value)}
-                            required fullWidth
-                            inputProps={{style: {padding: 12}}}
-                        />
-                    </div>
-                    <div className="col-xl-4">
-                        <InputLabel id="demo-mutiple-chip-label">Languages</InputLabel>
-                            <Select
-                                id="demo-mutiple-chip"
-                                multiple fullWidth
-                                value={languages}
-                                onChange={handleLanguageChange}
-                                input={<Input id="select-multiple-chip"/>}
-                                renderValue={(selected) => (
-                                    <div >
-                                        {selected.map((value) => (
-                                            <Chip key={value} label={value}  />
-                                        ))}
-                                    </div>
-                                )}
-                            >
-                            {language.map((language) => (
-                                <MenuItem key={language} value={language} >
-                                    {language}
-                                </MenuItem>
-                            ))}
-                            </Select>
-                    </div>
-                    <div className="col-4 d-flex justify-content-center">
-                    <div>
-                            {previewSource ? 
-                                <img src={previewSource} alt="preview" className="previewImg"/>
-                            :
-                                <img src="/images/avatar.jpg" className="previewImg" alt="profile pic"/>
-                            }
-                            <div className="form-group">
-                                <label htmlFor="profilepic">
-                                    <input
-                                        style={{ display: 'none' }}
-                                        id="profilepic"
-                                        name="profilepic"
-                                        type="file"
-                                        onChange={handleFileInputChange}
-                                    />
-
-                                    <Button color="primary" variant="contained" component="span">
-                                        <AddAPhotoIcon/> &nbsp; Upload Profile Picture
-                                    </Button>
-                                </label>
+                        
+                            <br/>
+                   
+                            <div className="col-xl-6 mb-3">
+                                <OutlinedInput
+                                    type="text"
+                                    name="speciality"
+                                    id="speciality"
+                                    placeholder="Speciality"
+                                    onChange={(e) => setSpeciality(e.target.value)}
+                                    required fullWidth
+                                    inputProps={{style: {padding: 12}}}
+                                />
                             </div>
-                        </div>
-                    </div>
-                <br/>
-            </div>
-                <br/>
-                <div className="row">
-                <div className="col-xl-4">
+                            <div className="col-xl-6 mb-3">
+                                <InputLabel id="demo-mutiple-chip-label">Languages</InputLabel>
+                                    <Select
+                                        id="demo-mutiple-chip"
+                                        multiple fullWidth
+                                        value={languages}
+                                        onChange={handleLanguageChange}
+                                        input={<Input id="select-multiple-chip"/>}
+                                        renderValue={(selected) => (
+                                            <div >
+                                                {selected.map((value) => (
+                                                    <Chip key={value} label={value}  />
+                                                ))}
+                                            </div>
+                                        )}
+                                    >
+                                    {language.map((language) => (
+                                        <MenuItem key={language} value={language} >
+                                            {language}
+                                        </MenuItem>
+                                    ))}
+                                    </Select>
+                            </div>
+
+                            <br/>
+                
+                            <div className="col-xl-6 mb-3">
                     <OutlinedInput
                         type="tel"
                         name="phoneNo"
@@ -273,7 +280,7 @@ function DoctorSignUp(){
                         inputProps={{style: {padding: 12}}}
                     />
                 </div>
-                <div className="col-xl-4">
+                            <div className="col-xl-6 mb-3">
                     <OutlinedInput
                         type="text"
                         name="qualification"
@@ -284,24 +291,24 @@ function DoctorSignUp(){
                         inputProps={{style: {padding: 12}}}
                     />
                 </div>
-            </div>
-                <br/>
-                <div className="row">
-                <div className="col-xl-4">  
-                    <OutlinedInput
-                        type="text"
-                        name="fee"
-                        id="fee"
-                        placeholder="Consultation Fee"
-                        onChange={(e) => setFee(e.target.value)}
-                        required fullWidth
-                        inputProps={{style: {padding: 12}}}
-                    />
-                </div>
-            </div>
-                <br/>
-                <div className="row">
-                    <div className="col-xl-8">
+           
+                            <br/>
+                
+                            <div className="col-xl-6 mb-3">  
+                                <OutlinedInput
+                                    type="text"
+                                    name="fee"
+                                    id="fee"
+                                    placeholder="Consultation Fee"
+                                    onChange={(e) => setFee(e.target.value)}
+                                    required fullWidth
+                                    inputProps={{style: {padding: 12}}}
+                                />
+                            </div>
+            
+                            <br/>
+                
+                            <div className="col-xl-12 mb-3">
                         <InputLabel id="demo-mutiple-chip-label">Available Day</InputLabel>
                             <Select
                                 id="demo-mutiple-chip"
@@ -324,165 +331,188 @@ function DoctorSignUp(){
                             ))}
                             </Select>
                         </div>
-                    </div>
-                <br/>
-                <div className="row">
-                    <MuiPickersUtilsProvider utils={DateFnsUtils} >
-                        <div className="col-xl-4">
-                            <KeyboardTimePicker
-                                margin="normal"
-                                id="time-picker"
-                                label="Time From"
-                                value={availableTimeFrom}
-                                onChange={handleTimeFromChange}
-                                KeyboardButtonProps={{
-                                    'aria-label': 'change time',
-                                }}
-                            />
-                        </div>                        
-                        <div className="col-xl-4">
-                            <KeyboardTimePicker
-                                margin="normal"
-                                id="time-picker"
-                                label="Time To"
-                                value={availableTimeTo}
-                                onChange={handleTimeToChange}
-                                KeyboardButtonProps={{
-                                'aria-label': 'change time',
-                                }}
-                            />
-                        </div>  
-                    </MuiPickersUtilsProvider>  
-                    </div> 
-                <br/>
-                <div className="row">
-                        <div className="col-xl-4">  
-                            <OutlinedInput
-                                type="text"
-                                name="slmcreg"
-                                id="slmcreg"
-                                placeholder="SLMC registration Number"
-                                onChange={(e) => setSlmc(e.target.value)}
-                                required fullWidth
-                                maxLength="5"
-                                inputProps={{style: {padding: 12}}}
-                            />
-                        </div>
-                        <div className="col-xl-4">  
-                            <div className="form-group"> 
+                  
+                            <br/>
+                                
+                            <MuiPickersUtilsProvider utils={DateFnsUtils} >
+                                <div className="col-xl-6 mb-3">
+                                    <KeyboardTimePicker
+                                        margin="normal"
+                                        id="time-picker"
+                                        label="Time From"
+                                        value={availableTimeFrom}
+                                        onChange={handleTimeFromChange}
+                                        KeyboardButtonProps={{
+                                            'aria-label': 'change time',
+                                        }}
+                                    />
+                                </div>                        
+                                <div className="col-xl-6 mb-3">
+                                    <KeyboardTimePicker
+                                        margin="normal"
+                                        id="time-picker"
+                                        label="Time To"
+                                        value={availableTimeTo}
+                                        onChange={handleTimeToChange}
+                                        KeyboardButtonProps={{
+                                        'aria-label': 'change time',
+                                        }}
+                                    />
+                                </div>  
+                            </MuiPickersUtilsProvider>  
+                    
+                            <br/>
+                
+                            <div className="col-xl-6 mb-3">  
                                 <OutlinedInput
                                     type="text"
-                                    name="location"
-                                    id="location"
-                                    placeholder="Practicing Locations"
-                                    onChange={(e) => setLocation(e.target.value)}
+                                    name="slmcreg"
+                                    id="slmcreg"
+                                    placeholder="SLMC registration Number"
+                                    onChange={(e) => setSlmc(e.target.value)}
                                     required fullWidth
+                                    maxLength="5"
                                     inputProps={{style: {padding: 12}}}
                                 />
                             </div>
-                        </div>
-                    </div>
-                <br/>
-                <div className="row">
-                        <div className="col-xl-4">  
-                            <div  className="form-group">
-                                <OutlinedInput
-                                    type="password"
-                                    onChange={(e) => setPassword(e.target.value)}
-                                    name="password"
-                                    value={password}
-                                    id="password"
-                                    placeholder="Password"
-                                    inputProps={{style: {padding: 12}}}
-                                    required fullWidth
-                                />
+                            <div className="col-xl-6 mb-3">  
+                                <div className="form-group"> 
+                                    <OutlinedInput
+                                        type="text"
+                                        name="location"
+                                        id="location"
+                                        placeholder="Practicing Locations"
+                                        onChange={(e) => setLocation(e.target.value)}
+                                        required fullWidth
+                                        inputProps={{style: {padding: 12}}}
+                                    />
+                                </div>
                             </div>
-                        </div>
-                        <div className="col-xl-4">  
-                            <div className="form-group">
-                                <OutlinedInput
-                                    value={confirmPassword}
-                                    type="password"
-                                    name="con-password"
-                                    id="con-password"
-                                    onChange={(e) => setConfirmPassword(e.target.value)}
-                                    placeholder="confirm Password"
-                                    required fullWidth
-                                    inputProps={{style: {padding: 12}}}
-                                />
-                            </div>
-                        </div>
-                    </div>
-                <br/>
-                <div className="row">
-                    <div className="col-xl-8">
-                        <h4> Bank Account Details </h4>
-                    </div>
-                </div>
-                <br/>
-                <div className="row">
-                    <div className="col-xl-4">  
-                        <div className="form-group">
-                            <OutlinedInput
-                                type="text"
-                                name="acc-holder"
-                                id="acc-holder"
-                                placeholder="Name Of the Account Holder"
-                                onChange={(e) => setHolder(e.target.value)}
-                                required fullWidth
-                                inputProps={{style: {padding: 12}}}
-                            />
-                        </div>
-                    </div>
-                    <div className="col-xl-4">  
-                        <div className="form-group">
-                            <OutlinedInput
-                                type="text"
-                                name="acc-no"
-                                id="acc-no"
-                                placeholder="Account Number"
-                                onChange={(e) => setAccount(e.target.value)}
-                                required fullWidth
-                                inputProps={{style: {padding: 12}}}
-                            />
-                        </div>
-                    </div>
-                </div>
-                <br/>
-                <div className="row">  
-                    <div className="col-xl-4">  
-                        <div className="form-group">
-                            <OutlinedInput
-                                type="text"
-                                name="bank-name"
-                                id="bank-name"
-                                placeholder="Name of the Bank"
-                                onChange={(e) => setBank(e.target.value)}
-                                required fullWidth
-                                inputProps={{style: {padding: 12}}}
-                            />
-                        </div>
-                    </div>
-                    <div className="col-xl-4">
-                        <div className="form-group">
-                            <OutlinedInput
-                                type="text"
-                                name="branch"
-                                id="branch"
-                                placeholder="Bank Branch"
-                                onChange={(e) => setbranch(e.target.value)}
-                                required fullWidth
-                                inputProps={{style: {padding: 12}}}
-                            />
-                        </div>
-                    </div>
-                </div>  
+                    
+                            <br/>
                 
-                <div className="row">  
+                            <div className="col-xl-6 mb-3">  
+                                <div  className="form-group">
+                                    <OutlinedInput
+                                        type="password"
+                                        onChange={(e) => setPassword(e.target.value)}
+                                        name="password"
+                                        value={password}
+                                        id="password"
+                                        placeholder="Password"
+                                        inputProps={{style: {padding: 12}}}
+                                        required fullWidth
+                                    />
+                                </div>
+                            </div>
+                            <div className="col-xl-6 mb-3">  
+                                <div className="form-group">
+                                    <OutlinedInput
+                                        value={confirmPassword}
+                                        type="password"
+                                        name="con-password"
+                                        id="con-password"
+                                        onChange={(e) => setConfirmPassword(e.target.value)}
+                                        placeholder="confirm Password"
+                                        required fullWidth
+                                        inputProps={{style: {padding: 12}}}
+                                    />
+                                </div>
+                            </div>
+                    
+                            <br/>
+                
+                            <div className="col-xl-12 mb-3">
+                                <h4> Bank Account Details </h4>
+                            </div>
+                
+                            <br/>
+                            <div className="col-xl-6 mb-3">  
+                                <div className="form-group">
+                                    <OutlinedInput
+                                        type="text"
+                                        name="acc-holder"
+                                        id="acc-holder"
+                                        placeholder="Name Of the Account Holder"
+                                        onChange={(e) => setHolder(e.target.value)}
+                                        required fullWidth
+                                        inputProps={{style: {padding: 12}}}
+                                    />
+                                </div>
+                            </div>
+                            <div className="col-xl-6 mb-3">  
+                                <div className="form-group">
+                                    <OutlinedInput
+                                        type="text"
+                                        name="acc-no"
+                                        id="acc-no"
+                                        placeholder="Account Number"
+                                        onChange={(e) => setAccount(e.target.value)}
+                                        required fullWidth
+                                        inputProps={{style: {padding: 12}}}
+                                    />
+                                </div>
+                            </div>
+               
+                            <br/>
+                
+                            <div className="col-xl-6 mb-3">  
+                                <div className="form-group">
+                                    <OutlinedInput
+                                        type="text"
+                                        name="bank-name"
+                                        id="bank-name"
+                                        placeholder="Name of the Bank"
+                                        onChange={(e) => setBank(e.target.value)}
+                                        required fullWidth
+                                        inputProps={{style: {padding: 12}}}
+                                    />
+                                </div>
+                            </div>
+                            <div className="col-xl-6 mb-3">
+                                <div className="form-group">
+                                    <OutlinedInput
+                                        type="text"
+                                        name="branch"
+                                        id="branch"
+                                        placeholder="Bank Branch"
+                                        onChange={(e) => setbranch(e.target.value)}
+                                        required fullWidth
+                                        inputProps={{style: {padding: 12}}}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col-4">
+
+                            {previewSource ? 
+                                <img src={previewSource} alt="preview" className="previewImg"/>
+                            :
+                                <img src="/images/avatar.jpg" className="previewImg" alt="profile pic"/>
+                            }
+                            <div className="form-group">
+                                <label htmlFor="profilepic">
+                                    <input
+                                        style={{ display: 'none' }}
+                                        id="profilepic"
+                                        name="profilepic"
+                                        type="file"
+                                        onChange={handleFileInputChange}
+                                        value={fileInputState}
+                                    />
+
+                                    <Button color="primary" variant="contained" component="span">
+                                        <AddAPhotoIcon/> &nbsp; Upload Profile Picture
+                                    </Button>
+                                </label>
+                            </div>
+        
+                        </div>
                     <div className="col-xl-12">
                         <input type="submit" className="form-submit-btn" value="Register"  /> 
                     </div>
-                </div>
+               </div> 
             </form>
         </div>
 

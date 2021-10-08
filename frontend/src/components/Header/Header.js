@@ -56,7 +56,7 @@ function Header() {
         },
         {
           title: 'Appointments',
-          path: '/Appointment',
+          path: `/Appointment/${user._id}`,
           icon: <EventAvailableIcon/>,
           cName: 'nav-text'
         },
