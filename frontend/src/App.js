@@ -1,4 +1,4 @@
-import { BrowserRouter as Router,Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import PrivateRoute from './Routes/PrivateRoute';
 import PatientPrivateRoute from './Routes/PatientPrivateRoute';
 import DoctorPrivateRoute from './Routes/DoctorPrivateRoute';
@@ -33,7 +33,6 @@ import AddAppointment from './components/AppointmentManagement/AddAppointment';
 import ViewAppointment from './components/AppointmentManagement/ViewAppointment';
 import Footer from './components/Footer/Footer';
 import Homepage from './components/Home/Homepage';
-
 import VideoConference from './components/VideoConference/VideoConference';
 
 function App() {
@@ -41,37 +40,38 @@ function App() {
     <div className="App">
       <Router>
         <div>
-            <Header/>
-            <Route path="/" exact component={Homepage} />
-            <Route path="/patient/signin" exact component={PatientSignIn} />
-            <Route path="/patient/signup" exact component={PatientSignUp} />
-            <Route path="/patient/forgotpassword" exact component={PatientForgotPassword} />
-            <Route path="/patient/resetpassword" exact component={PatientResetPassword} />
-            <PatientPrivateRoute path="/patient/profile" exact component={PatientProfile} />
-            <PatientPrivateRoute path="/patient/updateprofile/:id" exact component={PatientUpdateProfile} />
-            <PatientPrivateRoute path="/channelling" exact component={AllDoctors} />
-            <Route path="/doctor/signin" exact component={DoctorLogin}/>
-            <Route path="/doctor/signup" exact component={DoctorSignUp}/>  
-            <DoctorPrivateRoute path="/doctor/profile" exact component={DoctorProfile}/>
-            <DoctorPrivateRoute path="/doctor/update/:id" exact component={DoctorUpdate}/> 
-            <PrivateRoute path="/prescription/history/:id" exact component={PrescriptionHistory} />
-            <PrivateRoute path="/prescription/view/:id" exact component={ViewOne} />  
-            <DoctorPrivateRoute path="/prescription/add" exact component={AddPrescription} />
-            <DoctorPrivateRoute path="/prescription/update/:id" exact component={UpdatePrescription} />  
-            <Route path="/pharmacy/addProduct" exact component={AddProducts}/>
-            <Route path="/pharmacy/items" exact component={Items}/>
-            <Route path="/pharmacy/item/:id" exact component={SingleItem}/>
-            <Route path="/pharmacy/item/update/:id" exact component={UpdateProduct}/>
-            <PatientPrivateRoute path="/cart/:id/:type" exact component={Cart}/>
-            <PatientPrivateRoute path= "/patient/payment" exact component= {AddPayment}/>
-            <PatientPrivateRoute path="/patient/payment/:patientID" exact component = {AllPayments}/>
-            <PatientPrivateRoute path="/patient/review" exact component={CreateReview}/>
-            <PatientPrivateRoute path="/patient/review/:patientID" exact component = {DisplayReview}/>
-            <PatientPrivateRoute path="/patient/review/update/:id" exact component = {updateReview}/>      
-            <Route path="/cart/AddAppointment" exact component={AddAppointment}/>
-            <Route path="/cart/ViewAppointment" exact component={ViewAppointment}/>
-            <Route path="/video" exact component={VideoConference}/>
-            <Footer/>
+          <Header />
+          <Route path="/" exact component={Homepage} />
+          <Route path="/patient/signin" exact component={PatientSignIn} />
+          <Route path="/patient/signup" exact component={PatientSignUp} />
+          <Route path="/patient/forgotpassword" exact component={PatientForgotPassword} />
+          <Route path="/patient/resetpassword" exact component={PatientResetPassword} />
+          <PatientPrivateRoute path="/patient/profile" exact component={PatientProfile} />
+          <PatientPrivateRoute path="/patient/updateprofile/:id" exact component={PatientUpdateProfile} />
+          <PatientPrivateRoute path="/channelling" exact component={AllDoctors} />
+          <Route path="/doctor/signin" exact component={DoctorLogin} />
+          <Route path="/doctor/signup" exact component={DoctorSignUp} />
+          <DoctorPrivateRoute path="/doctor/profile" exact component={DoctorProfile} />
+          <DoctorPrivateRoute path="/doctor/update/:id" exact component={DoctorUpdate} />
+          <PrivateRoute path="/prescription/history/:id" exact component={PrescriptionHistory} />
+          <PrivateRoute path="/prescription/view/:id" exact component={ViewOne} />
+          <DoctorPrivateRoute path="/prescription/add" exact component={AddPrescription} />
+          <DoctorPrivateRoute path="/prescription/update/:id" exact component={UpdatePrescription} />
+          <Route path="/pharmacy/addProduct" exact component={AddProducts} />
+          <Route path="/pharmacy/items" exact component={Items} />
+          <Route path="/pharmacy/item/:id" exact component={SingleItem} />
+          <Route path="/pharmacy/item/update/:id" exact component={UpdateProduct} />
+          <PatientPrivateRoute path="/cart/:id/:type" exact component={Cart} />
+          <PatientPrivateRoute path="/patient/payment" exact component={AddPayment} />
+          <PatientPrivateRoute path="/patient/payment/:patientID" exact component={AllPayments} />
+          <PatientPrivateRoute path="/patient/review" exact component={CreateReview} />
+          <PatientPrivateRoute path="/patient/review/:patientID" exact component={DisplayReview} />
+          <PatientPrivateRoute path="/patient/review/update/:id" exact component={updateReview} />
+          <PatientPrivateRoute path="/patient/appointment/:id" exact component={AddAppointment} />
+          <Route path="/cart/AddAppointment" exact component={AddAppointment} />
+          <Route path="/cart/ViewAppointment" exact component={ViewAppointment} />
+          <Route path="/video" exact component={VideoConference} />
+          <Footer />
         </div>
       </Router>
     </div>
