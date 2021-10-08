@@ -4,7 +4,7 @@ const Product = require("../models/Product");
 exports.addProduct = async (req, res) => {
  
   //constant variables for the attributes
-  const {name, description, type, price} = req.body;
+  const {name, description, type, price,imgUrl} = req.body;
  
   //object
   const newProduct= new Product({
@@ -12,7 +12,8 @@ exports.addProduct = async (req, res) => {
     name,     
     description, 
     type, 
-    price
+    price,
+    imgUrl
   })
  
   //saving the object to the db 
@@ -39,13 +40,14 @@ exports.updateProduct = async (req, res) => {
   //fetch id from url
   let productId = req.params.id;
  
-  const {name, description,type, price} = req.body;
+  const {name, description,type, price,imgUrl} = req.body;
  
   const updateProduct = {
     name,
     description,
     type,
-    price   
+    price,
+    imgUrl   
   }
 
   //check whether there's a product for the ID

@@ -13,6 +13,7 @@ import GetAppIcon from '@material-ui/icons/GetApp';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { green,blue,red,yellow} from '@material-ui/core/colors';
 import './DoctorProfile.css';
+import ProfileAppointments from '../../AppointmentManagement/ProfileAppointments';
 
 function DoctorProfile() {
     const [doctor,setDoctor] = useState(JSON.parse(localStorage.getItem('user')));
@@ -146,6 +147,13 @@ function DoctorProfile() {
                     </Button>                           
                 </div>
             </div>    
+            <div className="row mt-3">
+                <div className="col-6">
+                    <ProfileAppointments/>                     
+                </div>
+                <div className="col-6">                   
+                </div>
+            </div>            
         </div>
         )
 }

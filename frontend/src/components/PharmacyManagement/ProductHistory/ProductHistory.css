@@ -1,0 +1,60 @@
+.blue-table table {
+    border-collapse: collapse;
+    width: 100%;
+    border-radius: 15px;
+    border: 10px
+  }
+  .blue-table tr:nth-child(even){background-color: #f2f2f2}
+  
+  .blue-table th {
+    text-align: left;
+    padding: 12px 12px 12px 12px;
+    background-color: #0376c4;
+    color: white;
+  }
+  
+  .blue-table table,
+  .blue-table td {
+    padding: 8px 8px 8px 20px;
+    border: 100px
+  }
+  
+  .box-view-product {
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 0px 40px 0px rgba(0, 0, 0, 0.15);
+    -moz-box-shadow: 0 0px 40px 0px rgba(0, 0, 0, 0.15);
+    -webkit-box-shadow: 0 0px 40px 0px rgba(0, 0, 0, 0.15);
+    -o-box-shadow: 0 0px 40px 0px rgba(0, 0, 0, 0.15);
+    -ms-box-shadow: 0 0px 40px 0px rgba(0, 0, 0, 0.15);
+  }
+  .singleItemBtn{
+    border: none;
+    margin-bottom: auto;
+    margin: auto;
+    padding: 5px 12px;
+    margin-top: 15px;
+    color:white;
+    border: none;
+    border-radius: 5px;
+
+}
+.box-single-product {
+  background: rgb(255, 255, 255);
+  border-radius: 15px;
+  text-align: left;
+  box-shadow: 0px 24px 48px 0 rgba(0, 0, 0, 0.1);
+  padding: 45px;
+  min-height:1000px;
+  max-width:80%;
+  margin: 0 auto;
+  margin-top:40px;
+  margin-bottom:40px;
+  
+}
+
+.product table{
+  text-align:left;
+  width:90%;
+  min-height:25px;
+}
