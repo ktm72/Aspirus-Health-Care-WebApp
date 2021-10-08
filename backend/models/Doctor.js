@@ -105,6 +105,11 @@ const DoctorSchema =new Schema({
         required:true
     },
 
+    imgUrl: {
+        type: String,
+        required: false
+    },
+
     signature:{
         type:String,
         required:false
