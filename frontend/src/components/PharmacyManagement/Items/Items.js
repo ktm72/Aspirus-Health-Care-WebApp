@@ -47,6 +47,30 @@ function ProductItem() {
     }
   }, [location,isAdmin])
   
+  function filterContent(data, searchTerm){
+    const result = data.filter((product) => 
+        product.name.toLowerCase().includes(searchTerm) 
+    )
+    setProducts(result)
+  }
+
+  function handleSearch(event){
+    const searchTerm = event.currentTarget.value
+    axios.get(`http://localhost:8070/product/OTC`).then((res) => {
+      filterContent(res.data.result, searchTerm.toLowerCase())
+    }).catch((error) => {
+      alert("Failed to fetch products")
+    })
+  }
+
+  function handleSearchAll(event){
+    const searchTerm = event.currentTarget.value
+    axios.get(`http://localhost:8070/product`).then((res) => {
+      filterContent(res.data, searchTerm.toLowerCase())
+    }).catch((error) => {
+      alert("Admin Failed to fetch products")
+    })
+  }
   function view(id){
     history.push(`/pharmacy/item/${id}`)
   }
@@ -54,7 +78,42 @@ function ProductItem() {
     history.push(`/pharmacy/addProduct`)
   }
     return (
-        <div className="container productGrid" > 
+        <div className="container">
+          <div className="row">
+              <div className="col-4">
+                <div className="pb-2 px-3 d-flex flex-wrap align-items-center justify-content-between">
+                    <h2>Aspirus Pharmacy</h2>
+                </div>
+              </div>
+              <div className="col-3">
+              </div>
+              <div className="col-5">
+              {isAdmin === true ?
+                <div className="px-3 search" align="right">
+                  <input 
+                    type="text" 
+                    name="search" 
+                    id="search"
+                    placeholder="Search" 
+                    onChange={handleSearchAll} 
+                    required 
+                  />
+                </div>
+                :
+                <div className="px-3 search" align="right">
+                    <input 
+                      type="text" 
+                      name="search" 
+                      id="search"
+                      placeholder="Search" 
+                      onChange={handleSearch} 
+                      required 
+                    />
+                </div> 
+              }  
+          </div>
+        </div>
+        <div className="productGrid"  > 
           {isAdmin && 
             <Button  className="mx-2 productBtn" style={{backgroundColor:blue[400],color:'white'}} onClick={()=>addProduct()}>
             Add Product <AddIcon/>
@@ -62,9 +121,9 @@ function ProductItem() {
           }
           {products.map((Product,key)=>( 
                 <div key={key}> 
-                    <div className="productCard">
+                    <div className="productCard" >
                         <div className="imgBx">
-                            <img  src="/images/s.jpg" alt="product" className="itemProduct"/>
+                            <img  src={`${Product.imgUrl}`} alt="product" className="itemProduct"/>
                         </div>
                         <div className="p-3">
                             <h7>{Product.name}</h7>
@@ -82,9 +141,11 @@ function ProductItem() {
                         </div>
                     </div>
                 </div>
-          ))}
+          ))} 
         </div>
+      </div>
     )
+      
 }
 
 export default ProductItem
