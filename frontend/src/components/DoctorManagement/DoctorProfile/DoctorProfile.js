@@ -60,6 +60,9 @@ function DoctorProfile() {
          history.push(`/doctor/update/${doctor._id}`)
      }
  
+    const report =() =>{
+        history.push(`/doctor/report/${doctor._id}`)
+    }
     
     return (
         <div className="container">
@@ -75,7 +78,12 @@ function DoctorProfile() {
                     <div className="row doc-card align-items-center">
                         <div className="col-xl-3">
                             <div className="docProfile_img">
-                                <img src="/images/user-img.png" className="rounded-circle" alt="profile pic"/>
+                                {doctor.imgUrl === "" ?
+                                    <img src="/images/user-img.png" className="rounded-circle" alt="profile pic"/>
+                                :
+                                    <img src={`${doctor.imgUrl}`}
+                                    className="rounded-circle" alt="profile pic"/>
+                                }
                             </div>
                         </div>
                         <div className="col-xl-4">
@@ -111,12 +119,13 @@ function DoctorProfile() {
                         className="mb-4"
                         variant="contained"
                         color="secondary"
-                        endIcon={<GetAppIcon />}
                         style={{ backgroundColor: green[400], color: 'white'}}
                         disableElevation
+                        onClick={report}
                         fullWidth
                     >
-                        Download Details 
+                         
+                        View Appointments
                     </Button>
                     <br/>
                     <Button
