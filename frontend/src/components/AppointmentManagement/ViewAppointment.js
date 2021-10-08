@@ -81,13 +81,12 @@ function ViewAppointment(props) {
                             {appointments.map((Appointment,key) => (
                             <tr key={key}>
                             
-                                <td onClick={() => ViewAppointment(Appointment.patientID._id)}>
+                                <td>
                                     { isDoctor ?
                                         Appointment.patientID.firstname + " " + Appointment.patientID.lastname
                                         :
                                         Appointment.doctorID.title + " " + Appointment.doctorID.name
                                     }
-
                                 </td>
                             
                                 <td>

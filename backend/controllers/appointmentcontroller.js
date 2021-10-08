@@ -73,7 +73,6 @@ exports.viewAppointment = async (req, res) => {
       //error message
       res.status(500).json({ message: "fetching Appointment failed", error: error.message })
     }
-  }
 }
 
 //view one appointment
