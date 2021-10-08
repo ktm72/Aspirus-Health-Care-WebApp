@@ -59,7 +59,7 @@ exports.viewAppointment = async (req, res) => {
     try {
       //find appointment by patient id
       const appointment = await Appointment.find({ $or: [{ patientID }, { doctorID }] }).populate(
-        { path: 'patientID doctorID', select: ['firstname', 'lastname', 'name',  'title'] });
+        { path: 'patientID doctorID', select: ['firstname', 'lastname', 'name',  'title','slmcreg'] });
       //success message
       res.status(200).json({ success: true, result: appointment })
       
@@ -73,7 +73,8 @@ exports.viewAppointment = async (req, res) => {
 exports.viewOneAppointment = async (req, res) => {
     let appointmentID = req.params.id;
 
-    await Appointment.findById(appointmentID).then((appointment) => {
+    await Appointment.findById(appointmentID).populate(
+      { path: 'patientID doctorID', select: ['firstname', 'lastname', 'name',  'title','slmcreg'] }).then((appointment) => {
         res.status(200).json({success: true, result:appointment});
     }).catch((error) =>{
         res.status(500).json({success:false, status: "Fetching appointment failed", error: error.message });

@@ -4,13 +4,13 @@ const Schema = mongoose.Schema;
 
 const AppointmentSchema = new Schema({
     patientID: {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref:'patient',
         require: true
     },
 
     doctorID: {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref:'doctor',
         require: true
     },
@@ -24,6 +24,7 @@ const AppointmentSchema = new Schema({
         type: String,
         require: true
     }
+
 
 });
 
