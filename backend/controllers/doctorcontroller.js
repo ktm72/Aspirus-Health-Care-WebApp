@@ -35,7 +35,7 @@ exports.signinDoctor = async(req,res) => {
 //doctor signup
 exports.signupDoctor = async(req,res) => {
 
-    const {title, name, email, speciality, gender, languages, phoneno, qualification, doctorfee, availableDay, slmcreg, practicingLocations, password, nameOfAccountHolder, accountNo, bankName, bankBranch } = req.body;
+    const {title, name, email, speciality, gender, languages, phoneno, qualification, doctorfee, availableDay, slmcreg, practicingLocations, password, nameOfAccountHolder, accountNo, bankName, bankBranch, imgUrl } = req.body;
     
     let to=new Date(req.body.availableTimeTo)
     let from=new Date(req.body.availableTimeFrom)
@@ -45,7 +45,7 @@ exports.signupDoctor = async(req,res) => {
 
     try {
         //creating a new doctor
-        const doctor = await Doctor.create({title, name, email, speciality, gender, languages, phoneno, qualification, doctorfee, availableDay, availableTimeTo, availableTimeFrom, slmcreg, practicingLocations, password, nameOfAccountHolder, accountNo, bankName, bankBranch });
+        const doctor = await Doctor.create({title, name, email, speciality, gender, languages, phoneno, qualification, doctorfee, availableDay, availableTimeTo, availableTimeFrom, slmcreg, practicingLocations, password, nameOfAccountHolder, accountNo, bankName, bankBranch, imgUrl });
 
         //creating a token
         const token = jwt.sign({name: doctor.name, id: doctor._id, slmcreg: doctor.slmcreg}, process.env.JWT_SECRET, {expiresIn: "1h"})
