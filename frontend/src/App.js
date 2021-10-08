@@ -31,6 +31,7 @@ import DisplayReview from './components/ReviewManagement/DisplayReview/DisplayRe
 import updateReview from './components/ReviewManagement/UpdateReview/UpdateReview';
 import AddAppointment from './components/AppointmentManagement/AddAppointment';
 import ViewAppointment from './components/AppointmentManagement/ViewAppointment';
+import DoctorReport from './components/DoctorManagement/DoctorProfile/DoctorReport';
 import Footer from './components/Footer/Footer';
 import Homepage from './components/Home/Homepage';
 
@@ -54,6 +55,7 @@ function App() {
             <Route path="/doctor/signup" exact component={DoctorSignUp}/>  
             <DoctorPrivateRoute path="/doctor/profile" exact component={DoctorProfile}/>
             <DoctorPrivateRoute path="/doctor/update/:id" exact component={DoctorUpdate}/> 
+            <DoctorPrivateRoute path ="/doctor/report/:id" exact component={DoctorReport}/> 
             <PrivateRoute path="/prescription/history/:id" exact component={PrescriptionHistory} />
             <PrivateRoute path="/prescription/view/:id" exact component={ViewOne} />  
             <DoctorPrivateRoute path="/prescription/add" exact component={AddPrescription} />
@@ -68,8 +70,8 @@ function App() {
             <PatientPrivateRoute path="/patient/review" exact component={CreateReview}/>
             <PatientPrivateRoute path="/patient/review/:patientID" exact component = {DisplayReview}/>
             <PatientPrivateRoute path="/patient/review/update/:id" exact component = {updateReview}/>      
-            <Route path="/cart/AddAppointment" exact component={AddAppointment}/>
-            <Route path="/cart/ViewAppointment" exact component={ViewAppointment}/>
+            <PatientPrivateRoute path="/appointment/AddAppointment" exact component={AddAppointment}/>
+            <PrivateRoute path="/appointment/:id" exact component={ViewAppointment}/>
             <Route path="/video" exact component={VideoConference}/>
             <Footer/>
         </div>
