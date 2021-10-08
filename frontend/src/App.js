@@ -1,4 +1,4 @@
-import { BrowserRouter as Router,Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import PrivateRoute from './Routes/PrivateRoute';
 import PatientPrivateRoute from './Routes/PatientPrivateRoute';
 import DoctorPrivateRoute from './Routes/DoctorPrivateRoute';
@@ -35,7 +35,6 @@ import ViewAppointment from './components/AppointmentManagement/ViewAppointment'
 import Footer from './components/Footer/Footer';
 import Homepage from './components/Home/Homepage';
 import PaymentReport from './components/PaymentManagement/PaymentReport/PaymentReport';
-
 import VideoConference from './components/VideoConference/VideoConference';
 import PatientReport from './components/PatientManagement/Report/PatientReport';
 
@@ -74,7 +73,7 @@ function App() {
             <PatientPrivateRoute path="/patient/review" exact component={CreateReview}/>
             <PatientPrivateRoute path="/patient/review/:patientID" exact component = {DisplayReview}/>
             <PatientPrivateRoute path="/patient/review/update/:id" exact component = {updateReview}/>      
-            <Route path="/cart/AddAppointment" exact component={AddAppointment}/>
+            <PatientPrivateRoute path="/patient/appointment/:id" exact component={AddAppointment} />
             <Route path="/appointment/:id" exact component={ViewAppointment}/>
             <PrivateRoute path="/video/:id" exact component={VideoConference}/>
             <Footer/>

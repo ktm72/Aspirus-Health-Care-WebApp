@@ -4,25 +4,25 @@ const Schema = mongoose.Schema;
 
 const AppointmentSchema = new Schema({
     patientID: {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref:'patient',
-        require: true
+        required: true
     },
 
     doctorID: {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref:'doctor',
-        require: true
+        required: true
     },
     
     time: {
         type: String,
-        require: true
+        required: true
     },
 
     date: {
         type: String,
-        require: true
+        required: true
     }
 
 });
