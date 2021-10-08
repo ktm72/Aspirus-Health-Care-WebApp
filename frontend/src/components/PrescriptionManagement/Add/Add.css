@@ -6,3 +6,14 @@
   text-align: left;
   box-shadow: 0px 24px 48px 0 rgba(0, 0, 0, 0.1);
 }
+
+.suggestion{
+  cursor: pointer;
+  border-right: 1px solid black;
+  border-left: 1px solid black;
+  border-bottom : 1px solid black;
+}
+
+.suggestion:hover{
+  background-color: rgb(216, 216, 216);
+}

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { OutlinedInput } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
@@ -7,15 +7,31 @@ import RemoveIcon from '@material-ui/icons/Remove';
 import { useHistory } from 'react-router-dom';
 import './Add.css';
 
-export default function Add() {
+export default function Add(props) {
 
   const [doctorID, setDoctorID] = useState("");
   const [patientID, setPatientID] = useState("");
+  const [patientName, setPatientName] = useState("");
+  const [doctorName, setDoctorName] = useState("");
   const [refill, setRefill] = useState("");
   const [action, setAction] = useState("");
   const history = useHistory()
-
   const [medicineList, setMedicineList] = useState([{ productTitle: "", dose: "", sig: "", disp: "" }]);
+
+  useEffect(() => {
+    async function getAppointmentData() {
+      await axios.get(`http://localhost:8070/appointment/view/${props.match.params.id}`).then((res) => {
+        setPatientID(res.data.result.patientID)
+        setDoctorID(res.data.result.doctorID)
+        console.log(res.data.result)
+        setPatientName(res.data.result.patientID.firstname + ' ' + res.data.result.patientID.lastname)
+        setDoctorName(res.data.result.doctorID.title + ' ' + res.data.result.doctorID.name)
+      }).catch((error) => {
+        alert("Failed to fetch appointment data")
+      })
+    }
+    getAppointmentData()
+  }, [props]);
 
   // handle input change
   const handleInputChange = (event, index) => {
@@ -38,9 +54,7 @@ export default function Add() {
   };
 
   function sendData(e) {
-
     e.preventDefault();
-
     const newPrescription = {
       doctorID,
       patientID,
@@ -52,7 +66,7 @@ export default function Add() {
     axios.post("http://localhost:8070/prescription/add", newPrescription)
       .then(() => {
         alert("prescription added")
-        history.push(`/prescription/history/${doctorID}`)
+        history.push(`/prescription/history/${doctorID._id}`)
       }).catch((error) => {
         alert("Failed to add a new prescription")
       })
@@ -71,10 +85,13 @@ export default function Add() {
         <form onSubmit={sendData} className="box-add-prescription">
           <div className="row">
             <h4> Information </h4>
+          </div>
+          <div className="row">
             <div className="col-xl-6 mb-4"><br />
               <div className="form-group">
-                <OutlinedInput type="text" placeholder="Doctor ID"
-                  onChange={(e) => { setDoctorID(e.target.value); }}
+                <OutlinedInput type="text" placeholder="Doctor Name"
+                  onChange={(e) => { setDoctorName(e.target.value); }}
+                  value={doctorName}
                   required fullWidth
                   inputProps={{ style: { padding: 12 } }}
                 />
@@ -82,8 +99,9 @@ export default function Add() {
             </div>
             <div className="col-xl-6 mb-4"><br />
               <div className="form-group">
-                <OutlinedInput type="text" placeholder="Patient ID"
-                  onChange={(e) => { setPatientID(e.target.value); }}
+                <OutlinedInput type="text" placeholder="Patient Name"
+                  onChange={(e) => { setPatientName(e.target.value); }}
+                  value={patientName}
                   required fullWidth
                   inputProps={{ style: { padding: 12 } }}
                 />
@@ -102,7 +120,7 @@ export default function Add() {
                         name="productTitle"
                         placeholder="Drug Name"
                         value={x.productTitle}
-                        onChange={event => handleInputChange(event, i)}
+                        onChange={(event) => { handleInputChange(event, i); }}
                         required fullWidth
                         inputProps={{ style: { padding: 12 } }}
                       />
@@ -119,6 +137,7 @@ export default function Add() {
                         required
                         inputProps={{ style: { padding: 12 } }}
                       />
+
                     </div>
                   </div>
                   <div className="col-xl-3 mb-4">
