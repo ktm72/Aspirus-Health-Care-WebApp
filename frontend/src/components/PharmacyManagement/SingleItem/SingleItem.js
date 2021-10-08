@@ -3,11 +3,12 @@ import { useHistory } from 'react-router';
 import '../Items/Items.css'
 import './SingleItem.css'
 import axios from 'axios'
-import {orange,blue,red } from '@material-ui/core/colors';
+import {orange,blue,red, green } from '@material-ui/core/colors';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import EditIcon from '@material-ui/icons/Edit';
 import {AddToCart} from './../../../Utils/CartUtils'
+
 
 function ProductDetails(props) {
     const [isAdmin,setIsAdmin]=useState(false)
@@ -15,6 +16,7 @@ function ProductDetails(props) {
     const[name,setName]=useState("");
     const[description,setDescription]=useState("");
     const[price,setPrice]=useState("");
+    const[imgUrl,setImgUrl]=useState("");
     const [products, setProducts] = useState([])
     const history=useHistory()
     const [user, setUser] = useState("");
@@ -39,6 +41,7 @@ function ProductDetails(props) {
           setName(res.data.product.name)
           setDescription(res.data.product.description)
           setPrice(res.data.product.price)   
+          setImgUrl(res.data.product.imgUrl)
         }).catch((err) => {
           alert("Failed to Fetch Products")
         })
@@ -48,14 +51,14 @@ function ProductDetails(props) {
     }, [props])
 
     useEffect(() => {
-        async function getProducts() {
-          axios.get(`http://localhost:8070/product`).then((res) => {
-            setProducts(res.data)   
-          }).catch((err) => {
-            alert("Failed to Fetch Products")
-          })
-        }
-        getProducts();
+        async function getOtcProducts() {
+            axios.get(`http://localhost:8070/product/OTC`).then((res) => {
+              setProducts(res.data.result) 
+            }).catch((error) => {
+              alert("Failed to fetch products")
+            })
+          }
+          getOtcProducts();
       }, [])
 
  
@@ -74,13 +77,16 @@ function ProductDetails(props) {
     function update(uid){
         history.push(`/pharmacy/item/update/${uid}`)
     }
+    function ProductHistory(uid){
+        history.push(`/pharmacy/product/history`)
+    }
 
    
     return (
         <div className = "container" align="center">
-            <div className="detailProductCard">     
+            <div className="detailProductCard" >     
                 <div className="detailProduct">
-                                <img src="/images/dw.jpg " alt="productDetails" />
+                                <img src={`${imgUrl}`} alt="productDetails" />
                     <div className="box-detailProduct">
                             <div className="row">
                                 <h2>{name}</h2>
@@ -98,6 +104,9 @@ function ProductDetails(props) {
                                         </button>
                                         <button className="mx-2 productBtn" style={{backgroundColor:red[500]}} onClick={()=>deleteProduct(id)} >
                                         Delete <DeleteForeverIcon/>
+                                        </button>
+                                        <button className="mx-2 productBtn" style={{backgroundColor:green[500]}} onClick={ProductHistory} >
+                                        Products History 
                                         </button>
                                     </div>
                                     : 
@@ -130,7 +139,7 @@ function ProductDetails(props) {
                                 <div key={key} > 
                                     <div className="productCard">
                                             <div className="imgBx">
-                                                <img  src="/images/s.jpg" alt="product"  className="itemProduct"/>
+                                                <img  src={`${Product.imgUrl}`} alt="product"  className="itemProduct"/>
                                             </div>
                                             <div className="p-3">
                                                 <h7>{Product.name}</h7>

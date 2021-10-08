@@ -20,6 +20,7 @@
         "ispassword",
         "itemid",
         "lastname",
+        "passwordreset",
         "patientauth",
         "patientcontroller",
         "patientid",
@@ -47,3 +48,4 @@
         "viewproduct"
     ]
 }
+

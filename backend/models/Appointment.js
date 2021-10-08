@@ -6,23 +6,23 @@ const AppointmentSchema = new Schema({
     patientID: {
         type: mongoose.Schema.Types.ObjectId,
         ref:'patient',
-        require: true
+        required: true
     },
 
     doctorID: {
         type: mongoose.Schema.Types.ObjectId,
         ref:'doctor',
-        require: true
+        required: true
     },
     
     time: {
         type: String,
-        require: true
+        required: true
     },
 
     date: {
         type: String,
-        require: true
+        required: true
     }
 
 
