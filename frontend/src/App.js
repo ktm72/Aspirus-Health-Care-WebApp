@@ -22,6 +22,7 @@ import ViewOne from './components/PrescriptionManagement/View/View';
 import AddProducts from './components/PharmacyManagement/AddProduct/AddProducts'
 import Items from './components/PharmacyManagement/Items/Items';
 import SingleItem from './components/PharmacyManagement/SingleItem/SingleItem';
+import ProductHistory from './components/PharmacyManagement/ProductHistory/ProductHistory';
 import UpdateProduct from './components/PharmacyManagement/UpdateProduct/UpdateProduct';
 import Cart from './components/CartManagement/Cart';
 import CartReport from './components/CartManagement/Report';
@@ -63,6 +64,7 @@ function App() {
             <DoctorPrivateRoute path="/prescription/update/:id" exact component={UpdatePrescription} />  
             <Route path="/pharmacy/addProduct" exact component={AddProducts}/>
             <Route path="/pharmacy/items" exact component={Items}/>
+            <Route path="/pharmacy/product/history" exact component={ProductHistory}/>
             <Route path="/pharmacy/item/:id" exact component={SingleItem}/>
             <Route path="/pharmacy/item/update/:id" exact component={UpdateProduct}/>
             <PatientPrivateRoute path="/cart/:id/:type" exact component={Cart}/>
@@ -73,6 +75,9 @@ function App() {
             <PatientPrivateRoute path="/patient/review" exact component={CreateReview}/>
             <PatientPrivateRoute path="/patient/review/:patientID" exact component = {DisplayReview}/>
             <PatientPrivateRoute path="/patient/review/update/:id" exact component = {updateReview}/>      
+            <PatientPrivateRoute path="/patient/appointment/:id" exact component={AddAppointment}/>
+            <Route path="/cart/ViewAppointment" exact component={ViewAppointment}/>
+            <Route path="/video" exact component={VideoConference}/>
             <PatientPrivateRoute path="/patient/appointment/:id" exact component={AddAppointment} />
             <Route path="/appointment/:id" exact component={ViewAppointment}/>
             <PrivateRoute path="/video/:id" exact component={VideoConference}/>
