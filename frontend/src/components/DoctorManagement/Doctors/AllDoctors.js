@@ -41,7 +41,7 @@ function AllDoctors() {
   }
   
   function Channel(id){
-    history.push(`/pharmacy/item/${id}`)
+    history.push(`/patient/appointment/${id}`)
   }
 
     return (
