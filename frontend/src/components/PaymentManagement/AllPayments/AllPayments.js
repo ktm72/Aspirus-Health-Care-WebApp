@@ -1,6 +1,9 @@
 import React, {useState,useEffect} from 'react';
 import axios from "axios";
-import './AllPayments.css';
+import { Link,useHistory} from 'react-router-dom';
+import Button from '@material-ui/core/Button';
+import { deepOrange} from '@material-ui/core/colors';
+import GetAppIcon from '@material-ui/icons/GetApp';
 import {IconButton } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/DeleteForever';
 import { red } from '@material-ui/core/colors';
@@ -10,12 +13,14 @@ export default function AllPayments(props){
             "content-Type": "application/json"
         }
     }; 
-    const [payments,setPayments]=useState([])
    
+    const [payments,setPayments]=useState([])
+    const history=useHistory();
+    
     useEffect(()=> {
         async function getPayments(){
 
-            await axios.get(`http://localhost:8070/payment/${props.match.params.patientID}`).then((res)=>{
+            await axios.get(`http://localhost:8070/payment/${props.match.params.id}`).then((res)=>{
                 setPayments(res.data.result);
             }).catch((error)=>{
                 alert("fetching failed");
@@ -35,7 +40,7 @@ export default function AllPayments(props){
 
     function handleSearch(event){
         const searchTerm=event.currentTarget.value
-        axios.get(`http://localhost:8070/payment/${props.match.params.patientID}`).then((res)=>{
+        axios.get(`http://localhost:8070/payment/${props.match.params.id}`).then((res)=>{
             filterContent(res.data.result,searchTerm.toLowerCase())
 
         }).catch((error)=>{
@@ -53,6 +58,9 @@ export default function AllPayments(props){
         })    
     }
     
+    const report=()=>{
+        history.push(`/patient/payments/report`)
+    }
     return(
         <div className="container">
             <div className="row">
@@ -112,10 +120,18 @@ export default function AllPayments(props){
                             </tr>
                         ))}
                     </tbody>
-                </table>
+                </table><br></br>
+               <center> 
+                    <Button style={{ backgroundColor: deepOrange[700], color: 'white'}}
+                        endIcon={<GetAppIcon />}
+                        onClick={report}>
+                        Generate Report
+                    </Button>
+                </center>
             </div>
         </div>
     )
+    
 }
 
 
