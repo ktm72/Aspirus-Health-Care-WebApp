@@ -15,23 +15,15 @@ function UpdateProduct(props){
     const [price,setPrice]= useState("");
     const [type,setType]= useState("");
     const history=useHistory();
+    const[imgUrl,setImgUrl]=useState("");
+
+    const [fileInputState, setFileInputState] = useState('');
+    const [selectedFile, setSelectedFile] = useState();
     const [previewSource, setPreviewSource] = useState();
-
-     //handling the image uploading
-     const handleFileInputChange = (event) => {
-        const file = event.target.files[0]
-        previewImage(file);
-    };
-
-    //display a preview of uploaded image
-    const previewImage = (file) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file)
-        reader.onload = () => {
-            setPreviewSource(reader.result)
-        }
-    }
-    
+    const types = [
+        { value: 'OTC', label: 'OTC',},
+        { value: 'Non-OTC', label: 'Non-OTC',},];
+        
     useEffect(()=>{
       async function fetchproduct(){
         await axios.get(`http://localhost:8070/product/item/${props.match.params.id}`).then((res)=>{
@@ -39,18 +31,52 @@ function UpdateProduct(props){
            setDescription(res.data.product.description)
            setPrice(res.data.product.price)
            setType(res.data.product.type)
+           setImgUrl(res.data.product.imgUrl)
         }).catch((error)=>{
           alert("Failed to fetch item data")
         })
       }
       fetchproduct()
     },[props]);
-      
+
+    //handling the image uploading
+    const handleFileInputChange = (event) => {
+        const file = event.target.files[0];
+        previewFile(file);
+        setSelectedFile(file);
+        setFileInputState(event.target.value);
+    };
+
+    //display a preview of uploaded image
+    const previewFile = (file) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file)
+        reader.onloadend = () => {
+            setPreviewSource(reader.result)
+        }
+    }
+      //update the Product
     async function Update(event){
 
-        event.preventDefault()    
+        event.preventDefault();
+        
+        let imgUrl
 
-        const updatedproduct = {name,description,price,type}
+        if(previewSource){
+            const formData = new FormData();
+            formData.append("file", selectedFile) 
+            formData.append("upload_preset", "product_pictures")
+
+            try {
+                await axios.post("https://api.cloudinary.com/v1_1/aspirushealthcare/image/upload", formData).then((res) =>{
+                    imgUrl = res.data.secure_url
+                })
+            } catch (error) {
+                alert(error)
+            }
+        }
+
+        const updatedproduct = {name,description,price,type,imgUrl}
 
         const config = {
           headers: {
@@ -104,16 +130,6 @@ function UpdateProduct(props){
                                         </div>
                                     </div>
                                 </div>  
-                                <div className="col-md-3 mb-2">    
-                                    <div className="form-type">
-                                        <OutlinedInput 
-                                            type="type" id="type" placeholder="Type"
-                                            required fullWidth value={type}
-                                            onChange={(event)=> {setType(event.target.value)}}
-                                            inputProps={{style: {padding: 12}}}
-                                        />
-                                    </div>
-                                </div>
                                 <div>
                                     <br></br>                                   
                                     <div className="col-md-10 mb-4">
@@ -129,43 +145,37 @@ function UpdateProduct(props){
                                     </div>
                                 </div>
                             </div>
-                            {/* <div className="row">
+                            <div className="row">
                                 <div className="col-md-12 mb-4">
-                                    <div className="form-group" >
-                                    <div>
-                                                <label><h6>Type</h6></label>
-                                            </div>
-                                        <div className="form-check form-check-inline">
-                                                <input 
-                                                    className="form-check-input" type="radio" name="Type" id="OTC" 
-                                                    value={type.OTC}
-                                                    onChange={(event)=> {setType(event.target.value)}}
-                                                />
-                                                <label className="form-check-label" for="OTC">
-                                                    OTC
-                                                </label>
-                                        </div>
-                                        <div className="form-check form-check-inline">
-                                                <input 
-                                                    className="form-check-input" type="radio" name="Type" id="Non-OTC" 
-                                                    value={type.Non_OTC}
-                                                    onChange={(event)=> {setType(event.target.value)}}
-                                                />
-                                                <label className="form-check-label" for="Non-OTC">
-                                                    Non-OTC
-                                                </label>
-                                            
-                                        
+                                    <div className="form-group">
+                                        <TextField 
+                                            id="type"
+                                            select
+                                            SelectProps={{
+                                            native: true,
+                                            }}
+                                            variant="outlined"
+                                            fullWidth
+                                            value={type}
+                                            onChange={(event)=> {setType(event.target.value)}}
+                                            inputProps={{style: {padding: 12}}}
+                                            >
+                                            {types.map((option) => (
+                                            <option key={option.value} value={option.value}>
+                                            {option.label}
+                                            </option>
+                                            ))}
+                                        </TextField>
                                     </div>
                                 </div>
-                            </div> */}
+                            </div>
                         </div>
                         <div className="col-4 d-flex justify-content-center">
                             <div>
                                 {previewSource ? 
                                     <img src={previewSource} alt="preview" className="previewImgProduct"/>
                                 :
-                                    <img src="/images/product.jpg" className="updatePreviewImgProduct" alt="product pic"/>
+                                    <img src={`${imgUrl}`} className="updatePreviewImgProduct" alt="product pic"/>
                                 }
                                 <div className="form-group">
                                     <label htmlFor="productImg">
@@ -175,6 +185,7 @@ function UpdateProduct(props){
                                             name="productImg"
                                             type="file"
                                             onChange={handleFileInputChange}
+                                            value={fileInputState}
                                         />
                                         <Button color="primary" variant="contained" component="span">
                                             <AddAPhotoIcon/> &nbsp; Update Image
