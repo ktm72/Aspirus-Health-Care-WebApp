@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Add from '../PrescriptionManagement/Add/Add';
 
 function VideoConference() {
 
@@ -39,6 +40,8 @@ function VideoConference() {
   return (
     <div className="container">
       <div id="jitsi-container" />
+      <br/>
+      <Add/>
     </div>
   );
 }

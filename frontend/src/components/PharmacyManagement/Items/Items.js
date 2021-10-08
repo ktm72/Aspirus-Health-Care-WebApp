@@ -74,6 +74,7 @@ function ProductItem() {
   function view(id){
     history.push(`/pharmacy/item/${id}`)
   }
+  
   function addProduct(){
     history.push(`/pharmacy/addProduct`)
   }
@@ -144,8 +145,7 @@ function ProductItem() {
           ))} 
         </div>
       </div>
-    )
-      
+    )      
 }
 
 export default ProductItem

@@ -13,6 +13,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import CheckRound from '@material-ui/icons/TripOrigin';
+import OutlinedInput from "@material-ui/core/OutlinedInput";
 
 
 function PrescriptionCart(props) {
@@ -21,7 +22,9 @@ function PrescriptionCart(props) {
     const history = useHistory()
     const [isCheckAll, setIsCheckAll] = useState(false);
     const [isCheck, setIsCheck] = useState([]);
-
+    const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
+    let finalTotal = 0;
+    
     const config = {
         headers: {
             "content-Type": "application/json",
@@ -46,9 +49,10 @@ function PrescriptionCart(props) {
               alert("Failed to fetch Items")
             })
         }
-        getData();
+        getData();        
     }, [props])
 
+    
     //select all checkbox
     const handleSelectAll = event => {
         setIsCheckAll(!isCheckAll);
@@ -66,7 +70,27 @@ function PrescriptionCart(props) {
         if (!checked) {
             setIsCheck(isCheck.filter(item => item !== id));
         }
-    };console.log(isCheck)
+    };
+
+    isCheck.map(productID => (                                              
+        getTotal(productID)
+
+    ))
+
+    localStorage.setItem("selectedItem",JSON.stringify(isCheck))
+
+    async function getTotal(id) {
+        let iTotal
+        await axios.get(`http://localhost:8070/cart/${id}`,config).then((res) => {
+            iTotal = res.data.result.total 
+            finalTotal = finalTotal + iTotal            
+            
+            
+        }).catch((error) => {
+          alert("Failed to fetch cal")
+        })
+        localStorage.setItem("total",finalTotal)
+    }
 
     //Update Item
     async function updateQuantity(id,quantity,price) {
@@ -74,10 +98,8 @@ function PrescriptionCart(props) {
         try {
             await axios.put(`http://localhost:8070/cart/update/${id}`,{quantity,price},config)
             history.push(`/cart/${props.match.params.id}/${props.match.params.type}`)
-            console.log(price)
         } catch (error) {
             alert("Update failed")
-            console.log(error)
         }                
     }
 
@@ -114,16 +136,61 @@ function PrescriptionCart(props) {
             alert(`Failed to delete the item\n${error.message}`)
         }) 
     } 
+
+    // search
+    function filterContent(data, searchTerm){
+        const result = data.filter((items) => 
+            items.itemid.name.toLowerCase().includes(searchTerm)
+        )
+        setItems(result)
+      }
+    
+      function handleSearch(event){
+        const searchTerm = event.currentTarget.value
+        axios.get(`http://localhost:8070/cart/${props.match.params.id}&${props.match.params.type}`).then((res) => {
+          filterContent(res.data.result, searchTerm.toLowerCase())
+        }).catch((error) => {
+          alert("Failed to fetch item")
+        })
+      }
+
+      function checkout() {
+          history.push(`/patient/payment/`)
+      }
+
+      function generateReport() {
+        history.push(`/cart/report/${props.match.params.id}/${props.match.params.type}`)
+    }
+
+      
      
     return (
         <div>
             <div className="container">
                 {/* check cart type */}
-                <div className="dropdown">
-                    <span>{isShopping ? <h2>Shopping Cart</h2> : <h2>Prescription Cart</h2> }</span>
-                    <div className="dropdown-content">
-                        {isShopping ? <a href={`/cart/${props.match.params.id}/prescription`}><h5 className="linkColor">Prescription Cart</h5></a> : <a href={`/cart/${props.match.params.id}/shopping`}><h5 className="linkColor">Shopping Cart</h5></a>}
+                <div className = "row">
+                    <div className="col-4">
+                        <div className="dropdown">
+                            <span>{isShopping ? <h2>Shopping Cart</h2> : <h2>Prescription Cart</h2> }</span>
+                            <div className="dropdown-content">
+                                {isShopping ? <a href={`/cart/${props.match.params.id}/prescription`}><h5 className="linkColor">Prescription Cart</h5></a> : <a href={`/cart/${props.match.params.id}/shopping`}><h5 className="linkColor">Shopping Cart</h5></a>}
+                            </div>
+                        </div>
+                    </div>                    
+                    <div className="col-3">
                     </div>
+                    <div className="col-5">
+                        <div className="px-3 search" align="center">
+                            <input 
+                                type="text" 
+                                name="search" 
+                                id="search"
+                                placeholder="Search" 
+                                onChange={handleSearch} 
+                                required 
+                            />
+                        </div>
+                    </div>                    
                 </div>
                 <div className="row">
                     <div className="col-12 exp"> <br/>
@@ -162,7 +229,7 @@ function PrescriptionCart(props) {
                                         </div>
                                         {/* Product Image */}
                                         <div className="col-sm-2">
-                                            <div ><img className="product-Img" src="/images/product.jpg" alt="product"></img></div>
+                                            <div ><img className="product-Img" src={Item.itemid.imgUrl} alt="product"></img></div>
                                         </div>
                                         {/* Product Name and description */}
                                         <div className="col-sm-4">                                                
@@ -208,24 +275,17 @@ function PrescriptionCart(props) {
                                 <br/>
                                 <div className="row">
                                     {/* Address */}
-                                    <div className="col-xl-12">
-                                        Address:<p>69/69, Colombo 69, Sri Lanka</p>
-                                        {isCheck.map(productID => (  
-                                            <li>  
-                                                {productID}  
-                                            </li>  
-                                            ))}
+                                    <div className="col-xl-12 mb-3">
+                                        <h6>Address:</h6>
+                                        <OutlinedInput  
+                                            type="text" id="lastname" placeholder="Address" 
+                                            required fullWidth
+                                            value={user.address}
+                                        />                                   
                                     </div>
-                                    <hr/>
-                                    <div className="col-xl-7">
-                                        <p>Total</p>
-                                    </div>
-                                    {/* Total Price */}
-                                    <div className="col-xl-5">
-                                        <h5>LKR 200000.00</h5>
-                                    </div>
+                                    <hr/>                                                                  
                                     {/* Checkout Button */}
-                                    <Button disableElevation style={{backgroundColor:red[500]}} variant="contained" color="secondary">
+                                    <Button disableElevation style={{backgroundColor:red[500]}} variant="contained" color="secondary" onClick={checkout}>
                                     <b>Checkout</b>
                                     </Button>
                                 </div>                                
@@ -233,7 +293,7 @@ function PrescriptionCart(props) {
                         <div>
                             {/* Report Generate Button  */}
                             <center>
-                            <Button variant="contained" className="mb-4" disableElevation size="large"
+                            <Button variant="contained" className="mb-4" disableElevation size="large" onClick={generateReport}
                                 style={{ backgroundColor: green[400], color: 'white' }} endIcon={<CloudDownloadIcon/>}>
                                 Generate Report
                             </Button>
