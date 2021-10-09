@@ -177,7 +177,7 @@ function SignUp() {
                                             <OutlinedInput 
                                                 type="text" id="nic" placeholder="NIC" required fullWidth
                                                 onChange={(event)=> {setNIC(event.target.value)}}
-                                                inputProps={{style: {padding: 12}}}
+                                                inputProps={{style: {padding: 12}, pattern: '([0-9]{9}[x|X|v|V]|[0-9]{12})'}}
                                             />
                                         </div>
                                     </div>
