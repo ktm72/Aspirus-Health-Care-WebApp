@@ -43,12 +43,6 @@ function Header() {
           cName: 'nav-text'
         },
         {
-            title: 'Channelling',
-            path: '/channelling',
-            icon: <EventAvailableIcon/>,
-            cName: 'nav-text'
-        },
-        {
             title: 'Pharmacy',
             path: '/pharmacy/items',
             icon: <LocalHospitalIcon/>,

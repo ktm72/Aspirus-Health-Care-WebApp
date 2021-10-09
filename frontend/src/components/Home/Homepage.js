@@ -1,10 +1,13 @@
 import React from 'react'
+import AllDoctors from './Doctors/AllDoctors'
 import Covid from './Covid/Covid'
 
 function Homepage() {
     return (
-        <div>
-            <Covid />
+        <div className="container">
+            <Covid />       
+            <br/>     
+            <AllDoctors/>
         </div>
     )
 }

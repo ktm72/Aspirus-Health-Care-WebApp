@@ -14,7 +14,6 @@ import DoctorLogin from './components/DoctorManagement/DoctorLogin/DoctorLogin';
 import DoctorSignUp from './components/DoctorManagement/DoctorSignUp/DoctorSignUp';
 import DoctorProfile from './components/DoctorManagement/DoctorProfile/DoctorProfile';
 import DoctorUpdate from './components/DoctorManagement/DoctorUpdateProfile/DoctorUpdate';
-import AllDoctors from './components/DoctorManagement/Doctors/AllDoctors';
 import AddPrescription from './components/PrescriptionManagement/Add/Add';
 import PrescriptionHistory from './components/PrescriptionManagement/History/History';
 import UpdatePrescription from './components/PrescriptionManagement/Update/Update';
@@ -55,7 +54,6 @@ function App() {
             <PatientPrivateRoute path="/patient/profile" exact component={PatientProfile} />
             <PatientPrivateRoute path="/patient/updateprofile/:id" exact component={PatientUpdateProfile} />
             <PatientPrivateRoute path="/patient/report" exact component={PatientReport}/>
-            <PatientPrivateRoute path="/channelling" exact component={AllDoctors} />
             <Route path="/doctor/signin" exact component={DoctorLogin}/>
             <Route path="/doctor/signup" exact component={DoctorSignUp}/>  
             <DoctorPrivateRoute path="/doctor/profile" exact component={DoctorProfile}/>
