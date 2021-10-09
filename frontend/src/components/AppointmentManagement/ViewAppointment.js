@@ -1,12 +1,16 @@
 import React, {useEffect, useState} from 'react';
-
+import DeleteIcon from '@material-ui/icons/DeleteForever';
+import EditIcon from '@material-ui/icons/Edit';
+import { red, grey } from '@material-ui/core/colors';
+import { useHistory } from 'react-router-dom';
 import axios from 'axios';
-
+import IconButton from '@material-ui/core/IconButton';
 
 function ViewAppointment(props) {
 
     const [appointments, setAppointments] = useState([]);
     const [isDoctor,setIsDoctor]=useState(false)
+    const history = useHistory()
  
     useEffect(() => {        
         if(localStorage.getItem("doctorAuthToken")){
@@ -15,7 +19,7 @@ function ViewAppointment(props) {
             setIsDoctor(false)
           }
         async function getAppointments(){
-            await axios.get(`http://localhost:8070/Appointment/${props.match.params.id}`).then ((res) => {
+            await axios.get(`http://localhost:8070/appointment/${props.match.params.id}`).then ((res) => {
                 setAppointments(res.data.result)
             }).catch((error) => {
                 alert("Failed to fetch the appointment")
@@ -24,24 +28,43 @@ function ViewAppointment(props) {
         getAppointments();
     }, [props])
 
+    async function onDelete(id) {
+        const config = {
+          headers: {
+            "content-Type": "application/json"
+          }
+        };
+
+        await axios.delete(`http://localhost:8070/appointment/delete/${id}`, config).then(() => {
+        alert("Appointment deleted successfully")
+        setAppointments(appointments.filter(element => element._id !== id))
+        }).catch((error) => {
+        alert(`Failed to delete the appointment`)
+        })
+    }
+
     function filterContent (data,searchTerm){
         const result = data.filter((Appointment) =>
-            // Appointment.date.toLowerCae().includes(searchTerm) ||
+            Appointment.date.toLowerCase().includes(searchTerm) ||
             Appointment.patientID.firstname.toLowerCase().includes(searchTerm) ||
-             Appointment.patientID.lastname.toLowerCase().includes(searchTerm) 
-            // Appointment.time.toLowerCae().includes(searchTerm)
+            Appointment.patientID.lastname.toLowerCase().includes(searchTerm) ||
+            Appointment.time.toLowerCase().includes(searchTerm)
         )
     setAppointments(result)
     }
 
     function handleSearch(event){
         const searchTerm=event.currentTarget.value
-        axios.get(`http://localhost:8070/Appointment/${props.match.params.id}`).then((res)=>{
+        axios.get(`http://localhost:8070/appointment/${props.match.params.id}`).then((res)=>{
             filterContent(res.data.result,searchTerm.toLowerCase())
         }).catch((error)=>{
             alert("Appointments fetching failed")
         })
     }
+
+    function update(id) {
+        history.push(`/appointment/update/${id}`)
+      }
 
     return (
         <div className="container">
@@ -75,6 +98,7 @@ function ViewAppointment(props) {
                                 
                                 <th style={{ textAlign: 'center' }}>Date</th>
                                 <th style={{ textAlign: 'center' }}>Time</th>
+                                <th style={{ textAlign: 'center' }}>Status</th>
                             </tr>
                         </thead>
                         <tbody style={{ textAlign: 'center' }}>
@@ -94,6 +118,18 @@ function ViewAppointment(props) {
                                 </td>
                                 <td>
                                     {Appointment.time}
+                                </td>
+                                <td>
+                                    <div>
+                                    <IconButton onClick={() => onDelete(Appointment._id)}>
+                                        <DeleteIcon style={{ color: red[500] }} ></DeleteIcon>
+                                    </IconButton>
+                                    
+                                        <IconButton onClick={() => update(Appointment._id)}>
+                                        <EditIcon style={{ color: grey[500] }} ></EditIcon>
+                                        </IconButton>
+                                   
+                                    </div>
                                 </td>
                             </tr> 
                             ))}
