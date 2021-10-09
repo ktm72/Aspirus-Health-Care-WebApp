@@ -1,9 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, {useEffect, useState } from 'react';
 import Add from '../PrescriptionManagement/Add/Add';
 
-function VideoConference() {
+function VideoConference(props) {
 
-  function startConference() {
+  const appointmentID = props.match.params.id
+  const [show, setShow] = useState(false)
+  const [isDoctor, setIsDoctor] = useState(false)
+
+    function startConference() {
     try {
       const domain = 'meet.jit.si';
       const options = {
@@ -29,6 +33,13 @@ function VideoConference() {
   }
 
   useEffect(() => {
+
+    if (localStorage.getItem("doctorAuthToken")) {
+      setIsDoctor(true)
+    } else {
+      setIsDoctor(false)
+    }
+
     // verify the JitsiMeetExternalAPI constructor is added to the global..
     if (window.JitsiMeetExternalAPI){
       startConference();
@@ -41,7 +52,18 @@ function VideoConference() {
     <div className="container">
       <div id="jitsi-container" />
       <br/>
-      <Add/>
+      <div align='right'>
+      {isDoctor &&
+          <input type="submit" value="Prescription" className="form-submit-btn" onClick={()=>setShow(!show)}/>
+      }    
+      </div>
+      <br/>
+      <div>
+        {
+         show?<Add parentToChild = {appointmentID}/>:null      
+        }
+      </div>
+      
     </div>
   );
 }
