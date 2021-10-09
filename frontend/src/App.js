@@ -14,7 +14,6 @@ import DoctorLogin from './components/DoctorManagement/DoctorLogin/DoctorLogin';
 import DoctorSignUp from './components/DoctorManagement/DoctorSignUp/DoctorSignUp';
 import DoctorProfile from './components/DoctorManagement/DoctorProfile/DoctorProfile';
 import DoctorUpdate from './components/DoctorManagement/DoctorUpdateProfile/DoctorUpdate';
-import AllDoctors from './components/DoctorManagement/Doctors/AllDoctors';
 import AddPrescription from './components/PrescriptionManagement/Add/Add';
 import PrescriptionHistory from './components/PrescriptionManagement/History/History';
 import UpdatePrescription from './components/PrescriptionManagement/Update/Update';
@@ -26,7 +25,8 @@ import ProductHistory from './components/PharmacyManagement/ProductHistory/Produ
 import UpdateProduct from './components/PharmacyManagement/UpdateProduct/UpdateProduct';
 import Cart from './components/CartManagement/Cart';
 import CartReport from './components/CartManagement/Report';
-import AddPayment from './components/PaymentManagement/AddPayment/AddPayment';
+import CartPayment from './components/PaymentManagement/AddPayment/CartPayment';
+import BuyPayment from './components/PaymentManagement/AddPayment/BuyPayment';
 import AllPayments from './components/PaymentManagement/AllPayments/AllPayments';
 import CreateReview from './components/ReviewManagement/CreateReview/CreateReview';
 import DisplayReview from './components/ReviewManagement/DisplayReview/DisplayReview';
@@ -54,7 +54,6 @@ function App() {
             <PatientPrivateRoute path="/patient/profile" exact component={PatientProfile} />
             <PatientPrivateRoute path="/patient/updateprofile/:id" exact component={PatientUpdateProfile} />
             <PatientPrivateRoute path="/patient/report" exact component={PatientReport}/>
-            <PatientPrivateRoute path="/channelling" exact component={AllDoctors} />
             <Route path="/doctor/signin" exact component={DoctorLogin}/>
             <Route path="/doctor/signup" exact component={DoctorSignUp}/>  
             <DoctorPrivateRoute path="/doctor/profile" exact component={DoctorProfile}/>
@@ -71,7 +70,8 @@ function App() {
             <Route path="/pharmacy/item/update/:id" exact component={UpdateProduct}/>
             <PatientPrivateRoute path="/cart/:id/:type" exact component={Cart}/>
             <PatientPrivateRoute path="/cart/report/:id/:type" exact component={CartReport}/>
-            <PatientPrivateRoute path= "/patient/payment" exact component= {AddPayment}/>
+            <PatientPrivateRoute path= "/patient/payment" exact component= {CartPayment}/>
+            <PatientPrivateRoute path= "/patient/buyPayment/:id/:price" exact component= {BuyPayment}/>
             <PatientPrivateRoute path="/patient/payment/:id" exact component = {AllPayments}/>
             <PatientPrivateRoute path="/patient/payments/report" exact component={PaymentReport}/>
             <PatientPrivateRoute path="/patient/review" exact component={CreateReview}/>

@@ -1,4 +1,5 @@
 import React from 'react'
+import AllDoctors from './Doctors/AllDoctors'
 import Covid from './Covid/Covid'
 import Intro from './Intro/Intro'
 import ReviewsHome from './Review/ReviewsHome'
@@ -7,7 +8,8 @@ function Homepage() {
     return (
         <div className="container">
             <Covid/>
-            <Intro/>               
+            <Intro/>      
+            <AllDoctors/>
             <div className="row">
                 <div className="col-8">
                     <img src="../images/appStore.png" alt="download from store" width="200px" style={{position:'absolute', marginTop:'175px', marginLeft:'50px'}}/>
