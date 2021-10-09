@@ -70,7 +70,7 @@ function AllDoctors() {
         <div className="row">
           <div className="col-4" >
             <div align="center">
-                <h2>Meet Our Specialists</h2>
+                <h1>Meet Our Specialists</h1>
             </div>
           </div>
           <div className="col-3">
