@@ -35,8 +35,12 @@ exports.addAppointment = async (req, res) => {
 exports.updateAppointment = async (req, res) => {
   //fetch id from url
   let appointmentID = req.params.id;
+  let to = new Date(req.body.time)
+  const time = (to.getHours() + ":" + to.getMinutes())
 
-  const { time, date } = req.body;
+  const date = new Date(req.body.date)
+  
+  
 
   const updateAppointment = {
     time,
@@ -80,7 +84,7 @@ exports.viewOneAppointment = async (req, res) => {
   let appointmentID = req.params.id;
 
     await Appointment.findById(appointmentID).populate(
-      { path: 'patientID doctorID', select: ['firstname', 'lastname', 'name',  'title','slmcreg'] }).then((appointment) => {
+      { path: 'patientID doctorID', select: ['firstname', 'lastname', 'name',  'title','slmcreg', 'speciality', 'gender', 'languages', 'doctorfee', 'availableTimeFrom', 'availableTimeTo', 'availableDay' , 'imgUrl'] }).then((appointment) => {
         res.status(200).json({success: true, result:appointment});
     }).catch((error) =>{
         res.status(500).json({success:false, status: "Fetching appointment failed", error: error.message });
