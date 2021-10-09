@@ -77,10 +77,13 @@ function ProductDetails(props) {
     function update(uid){
         history.push(`/pharmacy/item/update/${uid}`)
     }
-    function ProductHistory(uid){
+    function ProductHistory(){
         history.push(`/pharmacy/product/history`)
     }
-
+    function Buy(){
+        history.push(`/patient/buyPayment/${id}/${price}`)
+    }
+    
    
     return (
         <div className = "container" align="center">
@@ -115,7 +118,8 @@ function ProductDetails(props) {
                                         onClick={()=>AddToCart(id, user._id, price)}>
                                            Add To Cart <ShoppingCartIcon/>
                                         </button> 
-                                        <button className="mx-2 productBtn" style={{backgroundColor:red[500]}} >
+                                        <button className="mx-2 productBtn" style={{backgroundColor:red[500]}} 
+                                            onClick={()=>Buy()}>
                                             Buy Now
                                         </button> 
                                     </div>  

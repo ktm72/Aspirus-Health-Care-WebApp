@@ -19,6 +19,7 @@ const ProductRouter = require("./routes/productrouter");
 const CartRouter = require("./routes/cartrouter");
 const ReviewRouter = require("./routes/reviewrouter.js");
 const PaymentRouter = require("./routes/paymentrouter.js");
+const OrderRouter = require("./routes/orderrouter.js");
 
 //getting the database url
 const URL = process.env.MONGODB_URL;
@@ -53,6 +54,8 @@ app.use("/cart",CartRouter);
 app.use("/review",ReviewRouter);
 //when http://localhost:8070/payment ran it will execute paymentrouter.js file
 app.use("/payment",PaymentRouter);
+//when http://localhost:8070/order ran it will execute orderrouter.js file
+app.use("/order",OrderRouter);
 
 //defining a port to run the application
 //use port 8070 or use any other port if the 8070 is unavailable 
