@@ -6,11 +6,12 @@ exports.addAppointment = async (req, res) => {
   //constant variables for attributes
   const patientID = req.body.patientID;
   const doctorID = req.body.doctorID;
+  const paymentID = req.body.paymentID;
 
   let to = new Date(req.body.time)
   const time = (to.getHours() + ":" + to.getMinutes())
 
-  let today = new Date();
+  let today = new Date(req.body.date);
   const date = (today.getDate() + "/" + (today.getMonth() + 1) + "/" + today.getFullYear())
 
   //object
@@ -18,6 +19,7 @@ exports.addAppointment = async (req, res) => {
     //initializing properties
     patientID,
     doctorID,
+    paymentID,
     time,
     date
   })
