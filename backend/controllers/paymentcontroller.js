@@ -10,7 +10,7 @@ exports.addPayment = async(req,res) => {
         const payment = await Payment.create({patientID, amount, creditCardNumber,date});
 
         
-        res.status(200).json ({success:true,message:"payment added"})
+        res.status(200).json ({success:true,message:"payment added",payment})
      }catch(error){
          res.status(500).json({message: "unable to add the payment",error:error.message});
      }

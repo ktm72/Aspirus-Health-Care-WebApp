@@ -3,12 +3,15 @@ import axios from "axios";
 import { useHistory } from "react-router-dom";
 import './AddPayment.css';
 import { OutlinedInput } from "@material-ui/core";
-export default function AddPayment(){
+import InputAdornment from "@material-ui/core/InputAdornment";
+
+export default function CartPayment(){
     const user=JSON.parse(localStorage.getItem('user'));
     const patientID=user._id;
-    const [amount,setAmount]= useState("");
     const [creditCardNumber,setCreditCardNumber]= useState("");
     const history=useHistory();
+    const amount=JSON.parse(localStorage.getItem('total'));
+    const cartItem=JSON.parse(localStorage.getItem('selectedItem'));
    
     function sendData(e){
         e.preventDefault();
@@ -17,13 +20,39 @@ export default function AddPayment(){
             amount,
             creditCardNumber    
         }
+        
     
         //getting data from backend
-        axios.post("http://localhost:8070/Payment/add",newPayment).then(()=>{
-            alert("payment is added")
+        axios.post("http://localhost:8070/Payment/add",newPayment).then((res)=>{
+            alert("payment successful")
+            const paymentID=res.data.payment._id
+          
+            const itemList=[{}]
+            cartItem.map((Cart)=>
+                axios.get(`http://localhost:8070/cart/${Cart}`).then((res) => {
+                    let itemid=res.data.result.itemid
+                    let quantity=res.data.result.quantity
+                    itemList.push({itemid,quantity})
+                }).catch((error) => {
+                    alert("Failed to fetch Items")
+                })
+            )  
+              
+            const newOrder={
+                paymentID,
+                itemList,
+                patientID
+            }
+             
+            axios.post("http://localhost:8070/order/add",newOrder).then((res)=>{
+                alert ("Order placed") 
+            }).catch((error)=>{
+                alert("Failed to place order")
+            }) 
+            
             history.push(`/patient/payment/${user._id}`)
         }).catch((error)=>{
-            alert("adding failed")
+            alert("Payment unsuccessful")
         }) 
     }
     
@@ -80,9 +109,20 @@ export default function AddPayment(){
                                     <div className="form-group">
                                         <OutlinedInput  
                                             type="text" id="amount" placeholder="Total Amount" 
-                                            required fullWidth 
-                                            onChange={(event)=> {setAmount(event.target.value)}}
+                                            required fullWidth
+                                            value={amount}
+                                            readOnly 
+                                         
                                             inputProps={{style: {padding: 12}}}
+                                            startAdornment={
+
+                                                <InputAdornment position="start">
+
+                                                    LKR
+
+                                                </InputAdornment>
+
+                                            }
                                         />
                                     </div>
                                 </div>
