@@ -13,10 +13,11 @@ function Intro() {
                         <div data-aos="fade-up">
                             <h1>Secure Your Health Anytime Anywhere</h1>
                         </div>
+                        <br/>
                         <div data-aos="fade" className="px-3 pt-3 text-muted">
-                            <h5>
+                            <p>
                                 Aspirus healthcare lets you to channel qualified doctors,receive a prescription if required, all from the comfort of your home. You can channel either a Physician or a specialist from our system. An appointment can be made 24/7 as your wish. Easy and convenient way to channel your doctor.
-                            </h5>
+                            </p>
                         </div>
                     </div>
                     <div className="col-5 pb-5">

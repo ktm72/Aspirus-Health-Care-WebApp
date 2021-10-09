@@ -32,10 +32,10 @@ function ReviewsHome() {
                         </div>            
                         <div className="col-10 mx-3">
                             <div className="row">
-                                <div className="col-10">
+                                <div className="col-9 pt-1">
                                     <h5 className="text-muted align-item-center">{Review.patientID.firstname + " " + Review.patientID.lastname}</h5>
                                 </div>
-                                <div className="col-2 text-muted">
+                                <div className="col-3 text-muted pt-1">
                                     <p>{Review.date}</p>    
                                 </div>            
                                 <div className="col-12 text-muted">
