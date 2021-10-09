@@ -13,11 +13,11 @@ import DesktopDatePicker from '@mui/lab/DesktopDatePicker';
 
 
 
-function AddAppointment(props) {
+function UpdateAppointment(props) {
 
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
   const [doctorID, setDoctorID] = useState("");
-  const [patientID, setPatientID] = useState("");
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
+  const patientID = user._id;
   const [title, setTitle] = useState("");
   const [name, setName] = useState("");
   const [gender, setGender] = useState("");
@@ -28,9 +28,9 @@ function AddAppointment(props) {
   const [availableTimeTo, setAvailableTimeTo] = useState("");
   const [availableTimeFrom, setAvailableTimeFrom] = useState("");
   const [time, setTime] = useState(new Date('2021-09-10T14:20:00'));
-  const [date, setDate] = useState(new Date());
+  const [date, setDate] = useState();
   const [imgUrl, setImgUrl] = useState("");
-  const history = useHistory()
+  
 
   const config = {
     headers: {
@@ -39,28 +39,49 @@ function AddAppointment(props) {
   };
 
   useEffect(() => {
-    async function getDoctorDetails() {
-      axios.get(`http://localhost:8070/doctor/${props.match.params.id}`, config).then((res) => {
-        setDoctorID(res.data._id)
-        setPatientID(user._id)
-        setName(res.data.name)
-        setSpeciality(res.data.speciality)
-        setDoctorfee(res.data.doctorfee)
-        setImgUrl(res.data.imgUrl)
-        setTitle(res.data.title)
-        setGender(res.data.gender)
-        setLanguages(res.data.languages)
-        setAvailableDay(res.data.availableDay)
-        setAvailableTimeTo(res.data.availableTimeTo)
-        setAvailableTimeFrom(res.data.availableTimeFrom)
+    
+    async function getAppointmentDetails() {
+      axios.get(`http://localhost:8070/appointment/view/${props.match.params.id}`, config).then((res) => {
+       console.log(res.data.result) 
+       setName(res.data.result.doctorID.name)
+       setTitle(res.data.result.doctorID.title)
+       setLanguages(res.data.result.doctorID.languages)
+       setGender(res.data.result.doctorID.gender)
+       setSpeciality(res.data.result.doctorID.speciality)
+       setAvailableDay(res.data.result.doctorID.availableDay)
+       setAvailableTimeFrom(res.data.result.doctorID.availableTimeFrom)
+       setAvailableTimeTo(res.data.result.doctorID.availableTimeTo)
+       setImgUrl(res.data.result.doctorID.imgUrl)
+       setDoctorfee(res.data.result.doctorID.doctorfee)
+       setTime('2021-09-10T' + res.data.time + ':00')
+       setDate(res.data.date)
       }).catch((error) => {
         console.log(error)
-        alert("Failed to Fetch doctor")
+        alert("Failed to Fetch Appointment")
       })
     }
-    getDoctorDetails();
+    getAppointmentDetails();
 
-  }, [props])
+  }, [props]);
+
+  async function update(event){
+    event.preventDefault()
+    const updateApp = {time , date}
+    const config = {
+      headers: {
+        "content-Type": "application/json",
+      }
+    };
+
+    try {
+      await axios.put(`http://localhost:8070/appointment/update/${props.match.params.id}`, updateApp , config);
+      alert("Appointment updated successfully")
+    }catch(error){
+      alert("Updating Failed")
+    }
+  
+}  
+  
 
   const handleSelectTimeChange = (time) => {
     setTime(time);
@@ -70,20 +91,7 @@ function AddAppointment(props) {
     setDate(date);
   };
 
-  function sendData(e) {
-    e.preventDefault();
-    const newAppointment = {
-      doctorID,
-      patientID,
-      time,
-      date,
-      doctorfee
-    }
 
-    localStorage.setItem("appointment", JSON.stringify(newAppointment))
-    history.push(`/patient/appointmentpayment`)
-
-  }
 
   return (
     <div className="container" align="center">
@@ -92,7 +100,7 @@ function AddAppointment(props) {
         </div>
         <div className="col-11">
           <div className="pb-2 px-5 d-flex align-items-center justify-content-between">
-            <h2>Create Appointment</h2>
+            <h2>Update Appointment</h2>
           </div>
         </div>
       </div>
@@ -126,7 +134,7 @@ function AddAppointment(props) {
             </div>
           </div>
 
-          <form onSubmit={sendData} className="col-6 mt-5">
+          <form onSubmit={update} className="col-6 mt-5">
             <div className="row">
               <div className="col-md-12 mb-4 mx-3">
                 <div className="form-group">
@@ -169,7 +177,7 @@ function AddAppointment(props) {
               </div>
               <div className="col-12">
                 <div className="form-group">
-                  <input className="form-submit-btn mb-0" type="submit" value="Add Appointment" />
+                  <input className="form-submit-btn mb-0" type="submit" value="Update Appointment" />
                 </div>
               </div>
             </div>
@@ -181,4 +189,4 @@ function AddAppointment(props) {
 
 }
 
-export default AddAppointment
+export default UpdateAppointment

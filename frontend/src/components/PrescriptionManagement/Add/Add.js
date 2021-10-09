@@ -20,10 +20,9 @@ export default function Add(props) {
 
   useEffect(() => {
     async function getAppointmentData() {
-      await axios.get(`http://localhost:8070/appointment/view/${props.match.params.id}`).then((res) => {
+      await axios.get(`http://localhost:8070/appointment/view/${props.parentToChild}`).then((res) => {
         setPatientID(res.data.result.patientID)
         setDoctorID(res.data.result.doctorID)
-        console.log(res.data.result)
         setPatientName(res.data.result.patientID.firstname + ' ' + res.data.result.patientID.lastname)
         setDoctorName(res.data.result.doctorID.title + ' ' + res.data.result.doctorID.name)
       }).catch((error) => {
@@ -66,7 +65,9 @@ export default function Add(props) {
     axios.post("http://localhost:8070/prescription/add", newPrescription)
       .then(() => {
         alert("prescription added")
-        history.push(`/prescription/history/${doctorID._id}`)
+        setRefill(" ")
+        setAction(" ")
+        setMedicineList([{ productTitle: "", dose: "", sig: "", disp: "" }])
       }).catch((error) => {
         alert("Failed to add a new prescription")
       })
@@ -79,6 +80,7 @@ export default function Add(props) {
           <div className="pb-2 px-3 d-flex flex-wrap align-items-center justify-content-between">
             <h2> Add Prescription </h2>
           </div>
+          <br/><br/>
         </div>
       </div>
       <div>
@@ -91,6 +93,7 @@ export default function Add(props) {
               <div className="form-group">
                 <OutlinedInput type="text" placeholder="Doctor Name"
                   onChange={(e) => { setDoctorName(e.target.value); }}
+                  readOnly
                   value={doctorName}
                   required fullWidth
                   inputProps={{ style: { padding: 12 } }}
@@ -101,6 +104,7 @@ export default function Add(props) {
               <div className="form-group">
                 <OutlinedInput type="text" placeholder="Patient Name"
                   onChange={(e) => { setPatientName(e.target.value); }}
+                  readOnly
                   value={patientName}
                   required fullWidth
                   inputProps={{ style: { padding: 12 } }}
@@ -182,6 +186,7 @@ export default function Add(props) {
               <div className="form-group">
                 <OutlinedInput type="text" placeholder="No. of refills"
                   onChange={(e) => { setRefill(e.target.value); }}
+                  value ={refill}
                   required fullWidth
                   inputProps={{ style: { padding: 12 } }}
                 />
@@ -192,6 +197,7 @@ export default function Add(props) {
                 <OutlinedInput type="text" placeholder="Issue"
                   onChange={(e) => { setAction(e.target.value); }}
                   required fullWidth
+                  value ={action}
                   inputProps={{ style: { padding: 12 } }}
                 />
               </div>

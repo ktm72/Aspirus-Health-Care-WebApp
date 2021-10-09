@@ -126,7 +126,7 @@ function DoctorProfile() {
                         fullWidth
                     >
                          
-                        View Appointments
+                        Download Appointments
                     </Button>
                     <br/>
                     <Button
