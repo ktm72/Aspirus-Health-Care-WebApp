@@ -72,21 +72,17 @@ function AddAppointment(props) {
 
   function sendData(e) {
     e.preventDefault();
-    const newPrescription = {
+    const newAppointment = {
       doctorID,
       patientID,
       time,
       date,
+      doctorfee
     }
 
-    axios.post("http://localhost:8070/appointment/add", newPrescription)
-      .then(() => {
-        alert("Please make the Payment")
-        history.push(`/patient/payment`)
-      }).catch((error) => {
-        alert("Failed to add a new appointment")
-        console.log(error)
-      })
+    localStorage.setItem("appointment", JSON.stringify(newAppointment))
+    history.push(`/patient/appointmentpayment`)
+
   }
 
   return (
