@@ -5,7 +5,7 @@ import Chip from '@material-ui/core/Chip';
 import InputLabel from '@material-ui/core/InputLabel';
 import Input from '@material-ui/core/Input';
 import Select from '@material-ui/core/Select';
-
+import InputAdornment from "@material-ui/core/InputAdornment";
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from "@material-ui/core/Button";
 import {KeyboardTimePicker, MuiPickersUtilsProvider} from '@material-ui/pickers';
@@ -205,7 +205,7 @@ function DoctorSignUp(){
                             placeholder="E-mail" 
                             onChange={(e) => setEmail(e.target.value)}
                             required fullWidth
-                            inputProps={{style: {padding: 12}}}
+                            inputProps={{style: {padding: 12} } }
                         />
                     </div>
                 
@@ -277,7 +277,7 @@ function DoctorSignUp(){
                         onChange={(e) => setPhone(e.target.value)}
                         required fullWidth
                         maxLength="10"
-                        inputProps={{style: {padding: 12}}}
+                        inputProps={{style: {padding: 12}, pattern: "[0-9]{10}"}}
                     />
                 </div>
                             <div className="col-xl-6 mb-3">
@@ -303,6 +303,15 @@ function DoctorSignUp(){
                                     onChange={(e) => setFee(e.target.value)}
                                     required fullWidth
                                     inputProps={{style: {padding: 12}}}
+                                    startAdornment={
+
+                                        <InputAdornment position="start">
+
+                                            LKR
+
+                                        </InputAdornment>
+
+                                    }
                                 />
                             </div>
             
@@ -333,7 +342,7 @@ function DoctorSignUp(){
                         </div>
                   
                             <br/>
-                                
+   
                             <MuiPickersUtilsProvider utils={DateFnsUtils} >
                                 <div className="col-xl-6 mb-3">
                                     <KeyboardTimePicker
@@ -346,7 +355,7 @@ function DoctorSignUp(){
                                             'aria-label': 'change time',
                                         }}
                                     />
-                                </div>                        
+                                </div>                       
                                 <div className="col-xl-6 mb-3">
                                     <KeyboardTimePicker
                                         margin="normal"
@@ -358,9 +367,8 @@ function DoctorSignUp(){
                                         'aria-label': 'change time',
                                         }}
                                     />
-                                </div>  
+                                </div>    
                             </MuiPickersUtilsProvider>  
-                    
                             <br/>
                 
                             <div className="col-xl-6 mb-3">  
@@ -372,7 +380,7 @@ function DoctorSignUp(){
                                     onChange={(e) => setSlmc(e.target.value)}
                                     required fullWidth
                                     maxLength="5"
-                                    inputProps={{style: {padding: 12}}}
+                                    inputProps={{style: {padding: 12},  pattern: "[0-9]{4,5}"}}
                                 />
                             </div>
                             <div className="col-xl-6 mb-3">  
@@ -449,7 +457,7 @@ function DoctorSignUp(){
                                         placeholder="Account Number"
                                         onChange={(e) => setAccount(e.target.value)}
                                         required fullWidth
-                                        inputProps={{style: {padding: 12}}}
+                                        inputProps={{style: {padding: 12}, pattern: "[0-9]{6,18}"}}
                                     />
                                 </div>
                             </div>
