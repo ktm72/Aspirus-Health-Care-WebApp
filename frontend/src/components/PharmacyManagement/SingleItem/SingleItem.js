@@ -3,7 +3,7 @@ import { useHistory } from 'react-router';
 import '../Items/Items.css'
 import './SingleItem.css'
 import axios from 'axios'
-import {orange,blue,red, green } from '@material-ui/core/colors';
+import {orange,blue,red } from '@material-ui/core/colors';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import EditIcon from '@material-ui/icons/Edit';
@@ -77,9 +77,6 @@ function ProductDetails(props) {
     function update(uid){
         history.push(`/pharmacy/item/update/${uid}`)
     }
-    function ProductHistory(){
-        history.push(`/pharmacy/product/history`)
-    }
     function Buy(){
         history.push(`/patient/buyPayment/${id}/${price}`)
     }
@@ -107,9 +104,6 @@ function ProductDetails(props) {
                                         </button>
                                         <button className="mx-2 productBtn" style={{backgroundColor:red[500]}} onClick={()=>deleteProduct(id)} >
                                         Delete <DeleteForeverIcon/>
-                                        </button>
-                                        <button className="mx-2 productBtn" style={{backgroundColor:green[500]}} onClick={ProductHistory} >
-                                        Products History 
                                         </button>
                                     </div>
                                     : 
