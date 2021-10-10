@@ -14,6 +14,8 @@ import Checkbox from '@material-ui/core/Checkbox';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import CheckRound from '@material-ui/icons/TripOrigin';
 import OutlinedInput from "@material-ui/core/OutlinedInput";
+import Aos from "aos";
+import "aos/dist/aos.css"
 
 
 function PrescriptionCart(props) {
@@ -31,6 +33,7 @@ function PrescriptionCart(props) {
             Authorization: `${localStorage.getItem("patientAuthToken")}`
         }
     };
+    Aos.init({duration:2000})
 
     useEffect(() => {
         //check Cart type
@@ -62,6 +65,7 @@ function PrescriptionCart(props) {
         }
     };
 
+    //one checkbox
     function handleClick(event) {
         const id = event.currentTarget.id;
         const checked = event.currentTarget.checked;
@@ -98,9 +102,16 @@ function PrescriptionCart(props) {
         try {
             await axios.put(`http://localhost:8070/cart/update/${id}`,{quantity,price},config)
             history.push(`/cart/${props.match.params.id}/${props.match.params.type}`)
-        } catch (error) {
-            alert("Update failed")
-        }                
+        } catch (error) {            
+            if(error.response.status === 401){
+                alert("Authentication failed. Please Sign In again")
+                history.push('/patient/signin')
+                } 
+                else{
+                    alert("Update failed")
+                }
+        }  
+                     
     }
 
     //Increment Quantity
@@ -208,10 +219,10 @@ function PrescriptionCart(props) {
                     </div>                    
                 </div>
                 <div className="row">
-                    <div className="col-xl-8">
+                    <div className="col-xl-8"data-aos="slide-up">
                         {/* map */}
                         {items.map((Item, key) => ( 
-                            <div key={key}>                                
+                            <div key={key} >                                
                                 <div className="cart-box mb-3 shadow">                        
                                     <div className="row align-items-center ">
                                         <div className="col-sm-1">

@@ -14,7 +14,6 @@ import DoctorLogin from './components/DoctorManagement/DoctorLogin/DoctorLogin';
 import DoctorSignUp from './components/DoctorManagement/DoctorSignUp/DoctorSignUp';
 import DoctorProfile from './components/DoctorManagement/DoctorProfile/DoctorProfile';
 import DoctorUpdate from './components/DoctorManagement/DoctorUpdateProfile/DoctorUpdate';
-import AllDoctors from './components/DoctorManagement/Doctors/AllDoctors';
 import AddPrescription from './components/PrescriptionManagement/Add/Add';
 import PrescriptionHistory from './components/PrescriptionManagement/History/History';
 import UpdatePrescription from './components/PrescriptionManagement/Update/Update';
@@ -40,6 +39,8 @@ import Homepage from './components/Home/Homepage';
 import PaymentReport from './components/PaymentManagement/PaymentReport/PaymentReport';
 import VideoConference from './components/VideoConference/VideoConference';
 import PatientReport from './components/PatientManagement/Report/PatientReport';
+import AppointmentPayment from './components/PaymentManagement/AddPayment/AppointmentPayment';
+import UpdateAppointment from './components/AppointmentManagement/UpdateAppointment';
 
 function App() {
   return (
@@ -55,7 +56,6 @@ function App() {
             <PatientPrivateRoute path="/patient/profile" exact component={PatientProfile} />
             <PatientPrivateRoute path="/patient/updateprofile/:id" exact component={PatientUpdateProfile} />
             <PatientPrivateRoute path="/patient/report" exact component={PatientReport}/>
-            <PatientPrivateRoute path="/channelling" exact component={AllDoctors} />
             <Route path="/doctor/signin" exact component={DoctorLogin}/>
             <Route path="/doctor/signup" exact component={DoctorSignUp}/>  
             <DoctorPrivateRoute path="/doctor/profile" exact component={DoctorProfile}/>
@@ -63,7 +63,6 @@ function App() {
             <DoctorPrivateRoute path ="/doctor/report/:id" exact component={DoctorReport}/> 
             <PrivateRoute path="/prescription/history/:id" exact component={PrescriptionHistory} />
             <PrivateRoute path="/prescription/view/:id" exact component={ViewOne} />  
-            <DoctorPrivateRoute path="/prescription/add" exact component={AddPrescription} />
             <DoctorPrivateRoute path="/prescription/update/:id" exact component={UpdatePrescription} />  
             <Route path="/pharmacy/addProduct" exact component={AddProducts}/>
             <Route path="/pharmacy/items" exact component={Items}/>
@@ -82,6 +81,8 @@ function App() {
             <PatientPrivateRoute path="/patient/appointment/:id" exact component={AddAppointment}/>
             <PrivateRoute path="/appointment/:id" exact component={ViewAppointment}/>
             <PrivateRoute path="/video/:id" exact component={VideoConference}/>
+            <PatientPrivateRoute path= "/patient/appointmentpayment" exact component= {AppointmentPayment}/>
+            <PatientPrivateRoute path="/appointment/update/:id" exact component={UpdateAppointment} />
             <Footer/>
         </div>
       </Router>
