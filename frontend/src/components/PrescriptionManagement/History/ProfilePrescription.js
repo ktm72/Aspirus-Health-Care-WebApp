@@ -41,6 +41,7 @@ function ProfilePrescription(props) {
     <div className="container"  >
       <div className="blue-table ">
         <div className="blue-table, box-view-prescription">
+        {prescriptionArr.length > 0 &&
           <table>
             <thead >
               <tr>
@@ -73,6 +74,7 @@ function ProfilePrescription(props) {
               ))}
             </tbody>
           </table>
+        }
         </div>
       </div>
     </div>
