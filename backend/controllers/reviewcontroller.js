@@ -51,7 +51,7 @@ exports.deleteReview= async(req,res)=>{
 exports.fetchAll = async(req,res)=>{
 
     try{
-         const reviews =await Review.find().populate({path:'patientID',select:['firstname','lastname']});
+         const reviews =await Review.find().populate({path:'patientID',select:['firstname','lastname','imgUrl']});
 
          res.status(200).json({success:true,result:reviews});
     }catch(error){
@@ -75,9 +75,9 @@ exports.viewReviews = async(req,res) => {
 }
 
 exports.fetchOne = async(req,res)=>{
-    let patientID =req.params.id;
+    let reviewID =req.params.id;
     try{ 
-        const review =await Review.findById(patientID).populate({path:'patientID',select:['firstname','lastname']})
+        const review =await Review.findById(reviewID).populate({path:'patientID',select:['firstname','lastname']})
     
         res.status(200).json(review)
     }catch(error){

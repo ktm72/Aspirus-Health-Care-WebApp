@@ -41,6 +41,7 @@ const PatientSchema = new Schema({
         type: String,
         required: true,
         unique: true,
+        match: /^([0-9]{9}[x|X|v|V]|[0-9]{12})$/
     },
 
     phone: {
@@ -52,11 +53,6 @@ const PatientSchema = new Schema({
     address: {
         type: String,
         required: true,
-    },
-
-    profilePicture: {
-        type: String,
-        required: false,
     },
 
     password: {

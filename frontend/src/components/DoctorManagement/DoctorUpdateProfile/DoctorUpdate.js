@@ -12,6 +12,7 @@ import DateFnsUtils from '@date-io/date-fns';
 import axios from 'axios';
 import Button from "@material-ui/core/Button";
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
+import InputAdornment from "@material-ui/core/InputAdornment";
 
 import './DoctorUpdate.css';
 
@@ -28,7 +29,7 @@ function DoctorUpdate(props){
     const [availableTimeTo, setTimeTo] = useState(new Date('2021-09-10T14:20:00'));
     const [userImg, setUserImg] = useState("");
     const [fileInputState, setFileInputState] = useState('');
-    const [selectedFile, setSelectedFile] = useState();
+    const  setSelectedFile = useState();
     const [previewSource, setPreviewSource] = useState();
     const history = useHistory(); 
 
@@ -210,6 +211,15 @@ function DoctorUpdate(props){
                                 placeholder="Charge Per Consultation" fullWidth
                                 value={doctorfee}
                                 onChange={(e) => setFee (e.target.value)}
+                                startAdornment={
+
+                                    <InputAdornment position="start">
+
+                                        LKR
+
+                                    </InputAdornment>
+
+                                }
                             />
                         </div>
                         <br/>

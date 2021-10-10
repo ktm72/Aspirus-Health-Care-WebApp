@@ -36,7 +36,7 @@ function Covid() {
     },[location]);
 
     return (
-        <div className="container">
+        <div>
             <div className="covid-card">
                 <div className="card-head">
                     <div className="row">
@@ -83,8 +83,7 @@ function Covid() {
                         </div>
                     </div>
                 </div>
-            </div>
-            
+            </div>    
         </div>
     )
 }

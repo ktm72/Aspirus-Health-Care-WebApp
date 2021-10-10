@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button';
 import { green} from '@material-ui/core/colors';
 import GetAppIcon from '@material-ui/icons/GetApp';
 import './DoctorProfile.css'
-import { useLocation } from 'react-router-dom';
+
 
 
 function DoctorReport(props){
@@ -38,10 +38,9 @@ function DoctorReport(props){
     return(
         
             <div className="container">
-                <div className="row">
-                    <div className="col-md-12">
-                        <div className="container" align='center'>
-                            <div ref={componentRef} >
+                <div className="box-report">
+                        <div className="container" >
+                            <div id= "report" ref={componentRef} >
                                 <div className="box-doc-report">
                                     <div className="row">
                                         <div className="col-xl-2" align='center'>
@@ -49,17 +48,18 @@ function DoctorReport(props){
                                         </div>
                                         <div className="col-xl-8" align='center'>
                                             <h3>Aspirus Health Care</h3>
-                                            <h6 >Digitally Generated Report</h6>
+                                            <h6 >Appointment Details</h6>
                                         </div>
                                     </div>
                                     <hr />
                                     <br />
-                                    <div className="prescription px-4">
-                                        <h5 >Doctor Name : {user.title} {user.name}  </h5>
+                                    <div className="prescription px-4" align='left'>
+                                        <h6 >Name Of the Doctor : {user.title} {user.name}  </h6>
                                         <h6> Specialization : {user.speciality} </h6>
                                         <h6 >SLMC No. : {user.slmcreg}  </h6>
                                         
                                         <br />
+                                        <hr />
                                         <div className="col-4">
                                             <div className="pb-2 px-3 d-flex flex-wrap align-items-center justify-content-between">
                                                 <h2>Appointments</h2>
@@ -106,8 +106,8 @@ function DoctorReport(props){
                                 </div>
                             </div>
                         </div>
-                        </div>
-                        <div className="w-25 p-3" align='right'> 
+                </div>                                     
+                <div className="w-25 p-3" align='right'> 
                             <div >                                
                                 <Button
                                 className="float-right"
@@ -122,7 +122,6 @@ function DoctorReport(props){
                                 Download Details 
                             </Button>
                         </div>
-                    </div>
                 </div>
             </div>  
     )
