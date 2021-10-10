@@ -124,11 +124,11 @@ function ViewAppointment(props) {
                                     <IconButton onClick={() => onDelete(Appointment._id)}>
                                         <DeleteIcon style={{ color: red[500] }} ></DeleteIcon>
                                     </IconButton>
-                                    
+                                    { isDoctor ? "" : 
                                         <IconButton onClick={() => update(Appointment._id)}>
                                         <EditIcon style={{ color: grey[500] }} ></EditIcon>
                                         </IconButton>
-                                   
+                                    }
                                     </div>
                                 </td>
                             </tr> 
