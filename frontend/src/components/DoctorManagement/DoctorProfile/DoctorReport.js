@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button';
 import { green} from '@material-ui/core/colors';
 import GetAppIcon from '@material-ui/icons/GetApp';
 import './DoctorProfile.css'
-import { useLocation } from 'react-router-dom';
+
 
 
 function DoctorReport(props){
