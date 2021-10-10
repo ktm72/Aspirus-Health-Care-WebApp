@@ -4,7 +4,6 @@ const Order = require('../models/Order');
 //add Order
 exports.addOrder = async(req,res) => {
     const {paymentID,patientID,itemList} = req.body;
-
     try {
         //creating a new add order
         await Order.create({paymentID,patientID,itemList});
@@ -24,7 +23,7 @@ exports.viewOrder = async(req,res) => {
     try {
         //find oder by patient id and order
         const order = await Order.find({patientID}).populate(
-            {path:'itemId', select:['name']});
+            {path:'itemId', select:['name','imgUrl']});
         //success message
         res.status(200).json({success: true,result:order})
     }catch(error){

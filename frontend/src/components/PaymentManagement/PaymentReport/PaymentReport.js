@@ -75,6 +75,7 @@ export default function PaymentReport(){
                                                         <th style={{ textAlign: 'center' }}>Patient Name</th>
                                                         <th style={{ textAlign: 'center' }}>Amount</th>
                                                         <th style={{ textAlign: 'center' }}>Card number</th>
+                                                        <th style={{ textAlign: 'center' }}>CVV</th>
                                                         <th style={{ textAlign: 'center' }}>Date</th>
                                                     </tr>
                                                 </thead>
@@ -90,6 +91,9 @@ export default function PaymentReport(){
                                                         </td>
                                                         <td>
                                                         {Payment.creditCardNumber}
+                                                        </td>
+                                                        <td>
+                                                        {Payment.cvv}
                                                         </td>                        
                                                         <td >
                                                         {Payment.date}
