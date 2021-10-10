@@ -1,11 +1,11 @@
 import React,{useEffect, useState} from 'react'
 import { useHistory } from 'react-router';
-import '../PharmacyManagement/Items/Items.css'
-import '../PharmacyManagement/SingleItem/SingleItem.css'
+import '../../PharmacyManagement/Items/Items.css'
+import '../../PharmacyManagement/SingleItem/SingleItem.css'
 import axios from 'axios'
 import {orange,red } from '@material-ui/core/colors';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import {AddToCart} from './../../Utils/CartUtils'
+import {AddToCart} from '../../../Utils/CartUtils'
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 
@@ -49,7 +49,7 @@ function ProductDetails(props) {
     
     return (
         <div>         
-            <Carousel removeArrowOnDeviceType={["desktop"]} responsive={responsive} autoPlay={true} autoPlaySpeed={2000} infinite={true} className="px-5 py-5 mb-2">
+            <Carousel removeArrowOnDeviceType={["desktop"]} responsive={responsive} autoPlay={true} autoPlaySpeed={2000} infinite={true} className="px-5 pt-3 pb-5">
                 {products.map((Product,key)=>( 
                     <div key={key} > 
                         <div className="productCard">
