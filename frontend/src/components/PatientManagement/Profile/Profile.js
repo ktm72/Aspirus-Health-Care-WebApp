@@ -14,6 +14,7 @@ import { orange, green, red, blue } from '@material-ui/core/colors';
 import axios from 'axios';
 import './Profile.css';
 import ProfileAppointments from '../../AppointmentManagement/ProfileAppointments';
+import ProfilePrescription from '../../PrescriptionManagement/History/ProfilePrescription';
 
 function Profile() {
 
@@ -232,7 +233,8 @@ function Profile() {
                 <div className="col-6">
                     <ProfileAppointments/>                     
                 </div>
-                <div className="col-6">                   
+                <div className="col-6"> 
+                    <ProfilePrescription/>
                 </div>
             </div>                                
         </div>
