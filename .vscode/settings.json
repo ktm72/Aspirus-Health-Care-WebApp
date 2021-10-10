@@ -1,6 +1,10 @@
 {
   "cSpell.words": [
     "additem",
+    "admincontroller",
+    "adminrouter",
+    "adminsignin",
+    "adminsignup",
     "appointmentpayment",
     "appointmentrouter",
     "Aspirus",
@@ -21,6 +25,7 @@
     "ispassword",
     "itemid",
     "lastname",
+    "orderrouter",
     "passwordreset",
     "patientauth",
     "patientcontroller",
@@ -40,6 +45,7 @@
     "reviewrouter",
     "showhide",
     "signin",
+    "Sinhala",
     "SLMC",
     "slmcreg",
     "speciality",

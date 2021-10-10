@@ -14,6 +14,21 @@ exports.addOrder = async(req,res) => {
     } catch (error) {
         //error message
         res.status(500).json({message: "Order can't placed", error: error.message})
-        console.log(error)
+    }
+}
+
+exports.viewOrder = async(req,res) => {
+    //get patient id
+    let patientID = req.params.id;
+   
+    try {
+        //find oder by patient id and order
+        const order = await Order.find({patientID}).populate(
+            {path:'itemId', select:['name']});
+        //success message
+        res.status(200).json({success: true,result:order})
+    }catch(error){
+        //error message
+        res.status(500).json({message: "Error with fetching orders", error: error.message})
     }
 }
