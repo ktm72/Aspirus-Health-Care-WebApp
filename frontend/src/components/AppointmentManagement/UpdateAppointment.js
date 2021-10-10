@@ -11,13 +11,10 @@ import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import TimePicker from '@mui/lab/TimePicker';
 import DesktopDatePicker from '@mui/lab/DesktopDatePicker';
 
-
-
 function UpdateAppointment(props) {
 
-  const [doctorID, setDoctorID] = useState("");
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
-  const patientID = user._id;
+  
+  const [user, setUser] = JSON.parse(localStorage.getItem('user'));
   const [title, setTitle] = useState("");
   const [name, setName] = useState("");
   const [gender, setGender] = useState("");
@@ -27,11 +24,11 @@ function UpdateAppointment(props) {
   const [availableDay, setAvailableDay] = useState([]);
   const [availableTimeTo, setAvailableTimeTo] = useState("");
   const [availableTimeFrom, setAvailableTimeFrom] = useState("");
-  const [time, setTime] = useState(new Date('2021-09-10T14:20:00'));
+  const [time, setTime] = useState();
   const [date, setDate] = useState();
   const [imgUrl, setImgUrl] = useState("");
+  const history = useHistory()
   
-
   const config = {
     headers: {
       "content-Type": "application/json"
@@ -42,6 +39,7 @@ function UpdateAppointment(props) {
     
     async function getAppointmentDetails() {
       axios.get(`http://localhost:8070/appointment/view/${props.match.params.id}`, config).then((res) => {
+
        console.log(res.data.result) 
        setName(res.data.result.doctorID.name)
        setTitle(res.data.result.doctorID.title)
@@ -53,8 +51,9 @@ function UpdateAppointment(props) {
        setAvailableTimeTo(res.data.result.doctorID.availableTimeTo)
        setImgUrl(res.data.result.doctorID.imgUrl)
        setDoctorfee(res.data.result.doctorID.doctorfee)
-       setTime('2021-09-10T' + res.data.time + ':00')
-       setDate(res.data.date)
+       setTime('2021-09-10T' + res.data.result.time + ':00')
+       setDate(res.data.result.date + 'T16:10:00')
+
       }).catch((error) => {
         console.log(error)
         alert("Failed to Fetch Appointment")
@@ -76,13 +75,13 @@ function UpdateAppointment(props) {
     try {
       await axios.put(`http://localhost:8070/appointment/update/${props.match.params.id}`, updateApp , config);
       alert("Appointment updated successfully")
+      history.push(`/Appointment/${user._id}`)
     }catch(error){
       alert("Updating Failed")
     }
   
 }  
   
-
   const handleSelectTimeChange = (time) => {
     setTime(time);
   };
@@ -91,8 +90,7 @@ function UpdateAppointment(props) {
     setDate(date);
   };
 
-
-
+ 
   return (
     <div className="container" align="center">
       <div className="row">

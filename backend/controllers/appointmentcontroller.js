@@ -12,7 +12,7 @@ exports.addAppointment = async (req, res) => {
   const time = (to.getHours() + ":" + to.getMinutes())
 
   let today = new Date(req.body.date);
-  const date = (today.getDate() + "/" + (today.getMonth() + 1) + "/" + today.getFullYear())
+  const date = ( today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate() )
 
   //object
   const newAppointment = new Appointment({
@@ -37,11 +37,12 @@ exports.addAppointment = async (req, res) => {
 exports.updateAppointment = async (req, res) => {
   //fetch id from url
   let appointmentID = req.params.id;
+
   let to = new Date(req.body.time)
   const time = (to.getHours() + ":" + to.getMinutes())
 
-  const date = new Date(req.body.date)
-  
+  const today = new Date(req.body.date)
+  const date = ( today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate() )
   
 
   const updateAppointment = {

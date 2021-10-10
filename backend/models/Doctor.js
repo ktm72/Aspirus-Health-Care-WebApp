@@ -12,7 +12,8 @@ const DoctorSchema =new Schema({
     slmcreg:{
         type:Number,
         required:true,
-        unique:true
+        unique:true,
+        match:/^[0-9]{4,5}$/
     },
 
     phoneno:{
@@ -92,7 +93,8 @@ const DoctorSchema =new Schema({
 
     accountNo:{
         type:String,
-        required:true
+        required:true,
+        match:/^[0-9]{6,18}$/
     },
 
     bankName:{
