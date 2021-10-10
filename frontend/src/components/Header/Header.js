@@ -82,7 +82,7 @@ function Header() {
 
     useEffect(() => {
         //check whether user has signed in
-        if(localStorage.getItem("patientAuthToken") || localStorage.getItem("doctorAuthToken")){
+        if(localStorage.getItem("patientAuthToken") || localStorage.getItem("doctorAuthToken") || localStorage.getItem("adminAuthToken") ){
             setIsSignedIn(true)
 
             //get user data
@@ -164,7 +164,7 @@ function Header() {
                                         </Badge>
                                     </IconButton>
                                     <IconButton onClick={profile}>
-                                        <Avatar alt="Remy Sharp" src={`${user.imgUrl}`} />
+                                        <Avatar alt="user" src={`${user.imgUrl}`} />
                                     </IconButton> 
                                 </div>
                                 :

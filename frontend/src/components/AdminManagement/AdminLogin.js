@@ -3,11 +3,10 @@ import { Link, useHistory } from 'react-router-dom';
 import IconButton from "@material-ui/core/IconButton";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
-import GoogleLogin from 'react-google-login';
 import axios from 'axios';
 import '../PatientManagement/SignIn/SignIn.css';
 
-function Login() {
+function AdminLogin() {
 
     const [showPassword, setShowPassword] = useState()
     const [email, setEmail] = useState("");
@@ -94,4 +93,4 @@ function Login() {
     )
 }
 
-export default Login
+export default AdminLogin

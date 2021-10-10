@@ -6,19 +6,13 @@ import { teal } from '@material-ui/core/colors';
 import { useHistory } from 'react-router-dom';
 import './History.css';
 
-function ProfilePrescription(props) {
+function ProfilePrescription() {
 
-  const user = JSON.parse(localStorage.getItem('user'));
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
   const [prescriptionArr, setPrescriptionsArr] = useState([])
   const history = useHistory()
-  const [isDoctor, setIsDoctor] = useState(false)
 
   useEffect(() => {
-    if (localStorage.getItem("doctorAuthToken")) {
-      setIsDoctor(true)
-    } else {
-      setIsDoctor(false)
-    }
 
     async function getPrescription() {
       await axios.get(`http://localhost:8070/prescription/${user._id}`).then((res) => {
@@ -29,7 +23,7 @@ function ProfilePrescription(props) {
       })
     }
     getPrescription();
-  }, [props])
+  }, [user])
 
 
 
