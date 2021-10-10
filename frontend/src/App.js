@@ -41,6 +41,7 @@ import VideoConference from './components/VideoConference/VideoConference';
 import PatientReport from './components/PatientManagement/Report/PatientReport';
 import AppointmentPayment from './components/PaymentManagement/AddPayment/AppointmentPayment';
 import UpdateAppointment from './components/AppointmentManagement/UpdateAppointment';
+import Orders from './components/OrderManagement/Orders';
 
 function App() {
   return (
@@ -83,6 +84,7 @@ function App() {
             <PrivateRoute path="/video/:id" exact component={VideoConference}/>
             <PatientPrivateRoute path= "/patient/appointmentpayment" exact component= {AppointmentPayment}/>
             <PatientPrivateRoute path="/appointment/update/:id" exact component={UpdateAppointment} />
+            <PatientPrivateRoute path="/orders/:id" exact component={Orders} />
             <Footer/>
         </div>
       </Router>
