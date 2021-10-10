@@ -12,6 +12,7 @@ app.use(express.urlencoded({ limit: '50mb', extended: true }));
 app.use(cors());
 
 const PatientRouter = require("./routes/patientrouter");
+const AdminRouter = require("./routes/adminrouter.js");
 const DoctorRouter = require("./routes/doctorrouter");
 const AppointmentRouter = require("./routes/appointmentrouter");
 const PrescriptionRouter = require("./routes/prescriptionrouter");
@@ -40,6 +41,8 @@ connection.once("open", function() {
 
 //when http://localhost:8070/patient ran it will execute patientrouter.js file
 app.use("/patient",PatientRouter);
+//when http://localhost:8070/admin ran it will execute adminrouter.js file
+app.use("/admin",AdminRouter);
 //when http://localhost:8070/doctor ran it will execute doctorrouter.js file
 app.use("/doctor",DoctorRouter);
 //when http://localhost:8070/appointment ran it will execute appointmentrouter.js file
