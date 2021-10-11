@@ -35,7 +35,7 @@ function ProfileAppointments() {
 
 
   function videoConference(id) {
-    history.push(`/video/${id}`)
+      window.open(`https://meet.jit.si/${id}`, "_blank");
   }
 
 

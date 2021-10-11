@@ -3,6 +3,7 @@ import Add from '../PrescriptionManagement/Add/Add';
 
 function VideoConference(props) {
 
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
   const appointmentID = props.match.params.id
   const [show, setShow] = useState(false)
   const [isDoctor, setIsDoctor] = useState(false)
@@ -11,7 +12,7 @@ function VideoConference(props) {
     try {
       const domain = 'meet.jit.si';
       const options = {
-        roomName: 'roomName',
+        roomName: appointmentID,
         height: 800,
         parentNode: document.getElementById('jitsi-container'),
         interfaceConfigOverwrite: {
@@ -25,7 +26,7 @@ function VideoConference(props) {
 
       const api = new window.JitsiMeetExternalAPI(domain, options);
       api.addEventListener('videoConferenceJoined', () => {
-        api.executeCommand('displayName', 'Minindu');
+        api.executeCommand('displayName', user.firstname);
       });
     } catch (error) {
       console.error('Failed to load Jitsi API', error);
