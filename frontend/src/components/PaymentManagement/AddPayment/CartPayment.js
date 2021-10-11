@@ -64,13 +64,14 @@ export default function CartPayment(){
                 cartItem.map((Cart)=>
                    deleteItem(Cart)
                 )
-                localStorage.removeItem("selectedItem")  
+                localStorage.removeItem("selectedItem")
+                history.push(`/patient/payment/${user._id}`)    
             }).catch((error)=>{
                 alert("Failed to place order")
              
             }) 
             
-           // history.push(`/patient/payment/${user._id}`)  
+           
         }).catch((error)=>{
             if(error.response.status === 401){
                 alert("Authentication failed. Please Sign In again")
