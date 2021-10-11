@@ -2,7 +2,7 @@ import React, {useState,useEffect} from 'react';
 import axios from "axios";
 import { useHistory} from 'react-router-dom';
 import Button from '@material-ui/core/Button';
-import { deepOrange} from '@material-ui/core/colors';
+import { green} from '@material-ui/core/colors';
 import GetAppIcon from '@material-ui/icons/GetApp';
 import {IconButton } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/DeleteForever';
@@ -123,7 +123,7 @@ export default function AllPayments(props){
                     </tbody>
                 </table><br></br>
                <center> 
-                    <Button style={{ backgroundColor: deepOrange[700], color: 'white'}}
+                    <Button style={{ backgroundColor: green[400], color: 'white'}}
                         endIcon={<GetAppIcon />}
                         onClick={report}>
                         Generate Report
