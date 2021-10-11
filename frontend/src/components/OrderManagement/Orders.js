@@ -3,30 +3,37 @@ import axios from "axios";
 import { useHistory } from 'react-router-dom';
 
 function Orders() {
-    const user=JSON.parse(localStorage.getItem('user'));
+    const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
     const [orders,setOrder]=useState([])
 
-    const config = {
-        headers: {
-            "content-Type": "application/json",
-            Authorization: `${localStorage.getItem("patientAuthToken")}`
-        }
-    };
+    
 
     useEffect(() => {        
+        
         //Fetch Item 
         async function getData() {
-            await axios.get(`http://localhost:8070/order/${user._id}`,config).then((res) => {
+            await axios.get(`http://localhost:8070/order/${user}`).then((res) => {
                 setOrder(res.data.result) 
+                console.log(res.data.result)
             }).catch((error) => {
               alert("Failed to fetch Items")
+              console.log(error)
             })
         }
         getData();        
     }, [])
+
+    async function getProductDetails(id) {
+        axios.get(`http://localhost:8070/product/item/${id}`).then((res) => {   
+           setOrder( res.data.product.name)
+            // return String(itemName)
+        }).catch((error) => {
+          alert("Failed to Fetch Products")
+        })
+      }
     
     return (
-        <div className="container">
+        <div className="container">            
             <div className="blue-table">
                 <table className="table100 ver1 m-b-110">
                     <thead>                    
@@ -44,13 +51,17 @@ function Orders() {
                                 {Order.itemid.imgUrl}
                             </td>
                             <td>
-                                {Order.itemid.name}
+                                {Order.itemList.map((Item,key)=>(
+                                    <p key={key}>{Item.itemid}</p>
+                                ))}
                             </td> 
                             <td>
-                                {Order.quantity}
+                                {Order.itemList.map((Item,key)=>(
+                                    <p key={key}>{Item.quantity}</p>
+                                ))}
                             </td>  
                             <td>
-                                {/* {Review.date} */}
+                                <p color="black">{Order.paymentID.amount}</p>
                             </td>                                              
                         </tr>     
                      ))}

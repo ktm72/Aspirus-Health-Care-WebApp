@@ -85,7 +85,7 @@ function App() {
             <PatientPrivateRoute path="/appointment/update/:id" exact component={UpdateAppointment} />
             <PrivateRoute path="/appointment/:id" exact component={ViewAppointment}/>
             <PrivateRoute path="/video/:id" exact component={VideoConference}/>
-            <PatientPrivateRoute path="/patient/orders/" exact component={Orders} />
+            <PatientPrivateRoute path="/patient/orders" exact component={Orders} />
             <Footer/>
         </div>
       </Router>
