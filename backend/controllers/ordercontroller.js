@@ -23,7 +23,7 @@ exports.viewOrder = async(req,res) => {
     try {
         //find oder by patient id and order
         const order = await Order.find({patientID}).populate(
-            {path:'itemId', select:['name','imgUrl']});
+            {path:'itemId paymentID', select:['name','imgUrl','amount']});
         //success message
         res.status(200).json({success: true,result:order})
     }catch(error){

@@ -1,7 +1,7 @@
 import React from 'react'
 import AllDoctors from './Doctors/AllDoctors'
 import Covid from './Covid/Covid'
-import PharmacyHome from './PharmacyHome'
+import PharmacyHome from './Pharmacy/PharmacyHome'
 import Intro from './Intro/Intro'
 import ReviewsHome from './Review/ReviewsHome'
 import { Button } from '@material-ui/core';

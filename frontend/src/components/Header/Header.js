@@ -94,6 +94,8 @@ function Header() {
                 await axios.get(`http://localhost:8070/cart/${user._id}&shopping`).then((res) => {
                     let result = res.data.result;
                     setCartCount(result.length) 
+                }).catch((error) => {
+                    console.log(error)
                 })
             }
             getCartCount();
