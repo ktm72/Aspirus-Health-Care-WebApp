@@ -55,11 +55,6 @@ const PatientSchema = new Schema({
         required: true,
     },
 
-    profilePicture: {
-        type: String,
-        required: false,
-    },
-
     password: {
         type: String,
         required: true,
