@@ -14,7 +14,7 @@ import DesktopDatePicker from '@mui/lab/DesktopDatePicker';
 function UpdateAppointment(props) {
 
   
-  const [user, setUser] = JSON.parse(localStorage.getItem('user'));
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
   const [title, setTitle] = useState("");
   const [name, setName] = useState("");
   const [gender, setGender] = useState("");
