@@ -23,7 +23,6 @@ const PaymentSchema=new Schema({
     },
     cvv:{
         type:String,
-        required: true,
         //validate cvv
         match:/^[0-9]{3,4}$/,
 
