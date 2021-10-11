@@ -48,7 +48,6 @@ export default function BuyPayment(props){
             }).catch((error)=>{
                 alert("Failed to place order")
             })
-            
         }).catch((error)=>{
             alert("adding failed")
         }) 

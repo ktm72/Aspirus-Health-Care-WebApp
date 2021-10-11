@@ -42,7 +42,7 @@ export default function PaymentReport(){
                     <div class="col-md-12">
                         <div ref={componentRef}>
                             <div className="container" align='center'>
-                                <div className="box-single-prescription">
+                                <div className="box-payment-report">
                                     <div className="row">
                                         <div className="col-xl-2" align='center'>
                                             <img src="/images/Logo.png" width="100px" alt="logo" />
@@ -75,6 +75,7 @@ export default function PaymentReport(){
                                                         <th style={{ textAlign: 'center' }}>Patient Name</th>
                                                         <th style={{ textAlign: 'center' }}>Amount</th>
                                                         <th style={{ textAlign: 'center' }}>Card number</th>
+                                                        <th style={{ textAlign: 'center' }}>CVV</th>
                                                         <th style={{ textAlign: 'center' }}>Date</th>
                                                     </tr>
                                                 </thead>
@@ -90,6 +91,9 @@ export default function PaymentReport(){
                                                         </td>
                                                         <td>
                                                         {Payment.creditCardNumber}
+                                                        </td>
+                                                        <td>
+                                                        {Payment.cvv}
                                                         </td>                        
                                                         <td >
                                                         {Payment.date}
