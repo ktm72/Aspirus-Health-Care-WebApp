@@ -4,7 +4,6 @@ import { OutlinedInput } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import IconButton from '@material-ui/core/IconButton';
 import RemoveIcon from '@material-ui/icons/Remove';
-import { useHistory } from 'react-router-dom';
 import './Add.css';
 
 export default function Add(props) {
@@ -15,7 +14,6 @@ export default function Add(props) {
   const [doctorName, setDoctorName] = useState("");
   const [refill, setRefill] = useState("");
   const [action, setAction] = useState("");
-  const history = useHistory()
   const [medicineList, setMedicineList] = useState([{ productTitle: "", dose: "", sig: "", disp: "" }]);
 
   useEffect(() => {
