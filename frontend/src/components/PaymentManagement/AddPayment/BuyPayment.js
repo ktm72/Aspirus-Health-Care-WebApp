@@ -9,6 +9,7 @@ export default function BuyPayment(props){
     const patientID = user._id;
     const itemId = props.match.params.id
     const amount = props.match.params.price
+    const history = useHistory()
     const [creditCardNumber,setCreditCardNumber]= useState("");
    
     async function sendData(e){
@@ -43,14 +44,10 @@ export default function BuyPayment(props){
 
             axios.post("http://localhost:8070/order/add",newOrder,config).then((res)=>{
                 alert ("Order placed") 
-
+                history.push(`/patient/payment/${user._id}`)
             }).catch((error)=>{
                 alert("Failed to place order")
-                console.log(error)
             })
-
-            
-            // history.push(`/patient/payment/${user._id}`)
         }).catch((error)=>{
             alert("adding failed")
         }) 

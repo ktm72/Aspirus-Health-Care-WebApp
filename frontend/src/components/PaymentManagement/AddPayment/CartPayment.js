@@ -1,4 +1,4 @@
-import React,{useState} from "react"
+import React,{useState,useEffect} from "react"
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import './AddPayment.css';
@@ -12,50 +12,83 @@ export default function CartPayment(){
     const history=useHistory();
     const amount=JSON.parse(localStorage.getItem('total'));
     const cartItem=JSON.parse(localStorage.getItem('selectedItem'));
+    const [itemList,setItemList]=useState([])
    
-    function sendData(e){
+    useEffect(()=> {
+        const List=[...itemList]
+        cartItem.map((Cart)=>
+            getCartItems(Cart)   
+        ) 
+        async function getCartItems(Cart){
+
+            await axios.get(`http://localhost:8070/cart/${Cart}`).then((res) => {
+                let itemid=res.data.result.itemid
+                let quantity=res.data.result.quantity
+                List.push({itemid,quantity})
+            }).catch((error) => {
+                alert("Failed to fetch Items")
+            })
+
+        }
+       setItemList(List)
+    },[])
+     //header with authorization token
+     const config = {
+        headers: {
+            "content-Type": "application/json",
+            Authorization: `${localStorage.getItem("patientAuthToken")}`,
+        }
+    };
+
+    async function sendData(e){
         e.preventDefault();
         const newPayment={
             patientID,
             amount,
-            creditCardNumber    
+            creditCardNumber,
+              
         }
-        
-    
         //getting data from backend
-        axios.post("http://localhost:8070/Payment/add",newPayment).then((res)=>{
+        await axios.post("http://localhost:8070/Payment/add",newPayment).then((res)=>{
             alert("payment successful")
             const paymentID=res.data.payment._id
-          
-            const itemList=[{}]
-            cartItem.map((Cart)=>
-                axios.get(`http://localhost:8070/cart/${Cart}`).then((res) => {
-                    let itemid=res.data.result.itemid
-                    let quantity=res.data.result.quantity
-                    itemList.push({itemid,quantity})
-                }).catch((error) => {
-                    alert("Failed to fetch Items")
-                })
-            )  
-              
+    
             const newOrder={
                 paymentID,
                 itemList,
                 patientID
             }
-             
-            axios.post("http://localhost:8070/order/add",newOrder).then((res)=>{
-                alert ("Order placed") 
+      
+            axios.post("http://localhost:8070/order/add",newOrder,config).then((res)=>{
+                alert ("Order placed")
+                cartItem.map((Cart)=>
+                   deleteItem(Cart)
+                )
+                localStorage.removeItem("selectedItem")
+                history.push(`/patient/payment/${user._id}`)    
             }).catch((error)=>{
                 alert("Failed to place order")
+             
             }) 
             
-            history.push(`/patient/payment/${user._id}`)
+           
         }).catch((error)=>{
-            alert("Payment unsuccessful")
-        }) 
+            if(error.response.status === 401){
+                alert("Authentication failed. Please Sign In again")
+                history.push('/patient/signin')
+            }
+            else{
+                 alert("Payment unsuccessful")   
+            }
+        })  
+      
     }
-    
+    async function deleteItem(id){        
+        await axios.delete(`http://localhost:8070/cart/delete/${id}`, config).then(() => {
+        }).catch((error) => {
+            alert(`Failed to delete the item\n${error.message}`)
+        })
+    }
     return(
         <div className="container" align="center">
             <div className="card-form">
@@ -83,16 +116,16 @@ export default function CartPayment(){
                                             type="text" id="creditCardNumber" placeholder="Credit Card Number"
                                             required fullWidth
                                             onChange={(event)=> {setCreditCardNumber(event.target.value)}}
-                                            inputProps={{style: {padding: 12}}}
+                                            inputProps={{style: {padding: 12}, pattern: "(?:5[1-5][0-9]{2}|222[1-9]|22[3-9][0-9]|2[3-6][0-9]{2}|27[01][0-9]|2720)[0-9]{12}"}}
                                         />
                                     </div>
                                 </div>
                                 <div className="col-md-6 mb-4">
                                     <div className="form-group">
                                         <OutlinedInput  
-                                            type="text" id="CVV" placeholder="CVV" 
-                                            required fullWidth  
-                                            inputProps={{style: {padding: 12}}}
+                                            type="text" id="cvv" placeholder="CVV" 
+                                            required fullWidth
+                                            inputProps={{style: {padding: 12},pattern:"[0-9]{3,4}"}}
                                         />
                                     </div>
                                 </div> 

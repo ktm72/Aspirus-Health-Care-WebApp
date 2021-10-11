@@ -1,12 +1,13 @@
 import React, {useState,useEffect} from 'react';
 import axios from "axios";
-import { Link,useHistory} from 'react-router-dom';
+import { useHistory} from 'react-router-dom';
 import Button from '@material-ui/core/Button';
-import { deepOrange} from '@material-ui/core/colors';
+import { green} from '@material-ui/core/colors';
 import GetAppIcon from '@material-ui/icons/GetApp';
 import {IconButton } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/DeleteForever';
 import { red } from '@material-ui/core/colors';
+
 export default function AllPayments(props){
     const config = {
         headers: {
@@ -26,7 +27,7 @@ export default function AllPayments(props){
                 alert("fetching failed");
             })    
 
-            }
+        }
         getPayments();
     },[props]) 
 
@@ -122,7 +123,7 @@ export default function AllPayments(props){
                     </tbody>
                 </table><br></br>
                <center> 
-                    <Button style={{ backgroundColor: deepOrange[700], color: 'white'}}
+                    <Button style={{ backgroundColor: green[400], color: 'white'}}
                         endIcon={<GetAppIcon />}
                         onClick={report}>
                         Generate Report
