@@ -35,8 +35,8 @@ function Footer() {
                             <li><Link to="/" style={{ color: '#FFF' }}>Home</Link></li>
                             <li><Link to="/pharmacy/items"  style={{ color: '#FFF' }}>Pharmacy</Link></li>
                             <li><Link to=""  style={{ color: '#FFF' }}>About Us</Link></li>
-                            <li><Link to=""  style={{ color: '#FFF' }}>Features</Link></li>
                             <li><Link to=""  style={{ color: '#FFF' }}>Contacts</Link></li>
+                            <li><Link to="/admin/signin"  style={{ color: '#FFF' }}>Admin</Link></li>
                         </ul>
                     </div>
                     <div className="col-xl-3" >

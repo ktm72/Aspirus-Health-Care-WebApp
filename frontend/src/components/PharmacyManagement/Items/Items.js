@@ -2,15 +2,16 @@ import React,{useEffect, useState} from 'react'
 import { useHistory,useLocation } from 'react-router';
 import './Items.css'
 import axios from 'axios'
-import { orange,red,blue } from '@material-ui/core/colors';
+import { orange,red,blue,green } from '@material-ui/core/colors';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import AddIcon from '@material-ui/icons/Add';
 import { Button } from '@material-ui/core';
 import {AddToCart} from './../../../Utils/CartUtils'
+import GetAppIcon from '@material-ui/icons/GetApp';
 
 function ProductItem() {
 
-  const [isAdmin,setIsAdmin]= useState(false)
+  const [isAdmin,setIsAdmin]= useState(true)
   const [products, setProducts] = useState([])
   const history = useHistory()
   const location = useLocation()
@@ -78,6 +79,9 @@ function ProductItem() {
   function addProduct(){
     history.push(`/pharmacy/addProduct`)
   }
+  function ProductHistory(){
+    history.push(`/pharmacy/product/history`)
+}
     return (
         <div className="container">
           <div className="row">
@@ -118,7 +122,12 @@ function ProductItem() {
           {isAdmin && 
             <Button  className="mx-2 productBtn" style={{backgroundColor:blue[400],color:'white'}} onClick={()=>addProduct()}>
             Add Product <AddIcon/>
-            </Button> 
+            </Button>  
+          }
+          {isAdmin && 
+            <Button  className="mx-2 productBtn" style={{backgroundColor:green[400],color:'white'}} onClick={ProductHistory} >
+            Pharmacy Report<GetAppIcon />
+            </Button>  
           }
           {products.map((Product,key)=>( 
                 <div key={key}> 

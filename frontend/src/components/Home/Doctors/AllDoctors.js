@@ -2,6 +2,8 @@ import React,{useEffect, useState} from 'react'
 import { useHistory,useLocation } from 'react-router';
 import './AllDoctors.css'
 import axios from 'axios'
+import Carousel from 'react-multi-carousel';
+import 'react-multi-carousel/lib/styles.css';
 import {blue} from '@material-ui/core/colors';
 
 function AllDoctors() {
@@ -9,6 +11,25 @@ function AllDoctors() {
   const [doctors, setDoctors] = useState([])
   const history = useHistory()
   const location = useLocation()
+
+  const responsive = {
+    superLargeDesktop: {
+      breakpoint: { max: 4000, min: 3000 },
+      items: 5
+    },
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 5
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 2
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 1
+    }
+  };
 
   useEffect(() => { 
 
@@ -45,11 +66,11 @@ function AllDoctors() {
   }
 
     return (
-      <div className="container">
+      <div>
         <div className="row">
-          <div className="col-4">
-            <div className="pb-2 px-3 d-flex flex-wrap align-items-center justify-content-between">
-                <h2>Channel Your Doctor</h2>
+          <div className="col-4" >
+            <div align="center">
+                <h1>Meet Our Specialists</h1>
             </div>
           </div>
           <div className="col-3">
@@ -67,7 +88,7 @@ function AllDoctors() {
             </div>
           </div>
         </div>
-        <div className="doctorGrid" > 
+        <Carousel wipeable={true}  responsive={responsive} autoPlay={true} autoPlaySpeed={2000} infinite={true} className="px-5 py-5 mb-2"> 
           {doctors.map((Doctor,key)=>( 
               <div key={key}> 
                   <div className="doctorsCard">
@@ -88,7 +109,7 @@ function AllDoctors() {
                   </div>
               </div>
           ))}
-        </div>
+        </Carousel>
       </div>
     )
 }

@@ -6,29 +6,24 @@ import { teal } from '@material-ui/core/colors';
 import { useHistory } from 'react-router-dom';
 import './History.css';
 
-function ProfilePrescription(props) {
+function ProfilePrescription() {
 
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
   const [prescriptionArr, setPrescriptionsArr] = useState([])
   const history = useHistory()
-  const [isDoctor, setIsDoctor] = useState(false)
 
   useEffect(() => {
-    if (localStorage.getItem("doctorAuthToken")) {
-      setIsDoctor(true)
-    } else {
-      setIsDoctor(false)
-    }
 
     async function getPrescription() {
-      await axios.get(`http://localhost:8070/prescription/${props.match.params.id}`).then((res) => {
+      await axios.get(`http://localhost:8070/prescription/${user._id}`).then((res) => {
         setPrescriptionsArr(res.data.result)
-        
+
       }).catch((error) => {
         alert("Failed to fetch the prescription history")
       })
     }
     getPrescription();
-  }, [props])
+  }, [user])
 
 
 
@@ -40,6 +35,7 @@ function ProfilePrescription(props) {
     <div className="container"  >
       <div className="blue-table ">
         <div className="blue-table, box-view-prescription">
+        {prescriptionArr.length > 0 &&
           <table>
             <thead >
               <tr>
@@ -50,7 +46,7 @@ function ProfilePrescription(props) {
               </tr>
             </thead>
             <tbody style={{ textAlign: 'center' }}>
-              {prescriptionArr.map((Prescription, key) => (
+              {prescriptionArr.slice(0, 4).map((Prescription, key) => (
                 <tr key={key}>
                   <td>
                     {Prescription.doctorID.title + ' ' + Prescription.doctorID.name}
@@ -72,6 +68,7 @@ function ProfilePrescription(props) {
               ))}
             </tbody>
           </table>
+        }
         </div>
       </div>
     </div>
