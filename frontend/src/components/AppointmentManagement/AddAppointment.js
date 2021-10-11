@@ -70,6 +70,15 @@ function AddAppointment(props) {
     setDate(date);
   };
 
+  const startDate = new Date();
+
+  function disablePrevDates(startDate) {
+    const startSeconds = Date.parse(startDate);
+    return (date) => {
+      return Date.parse(date) < startSeconds;
+    }
+  }
+
   function sendData(e) {
     e.preventDefault();
     const newAppointment = {
@@ -151,7 +160,7 @@ function AddAppointment(props) {
                   <LocalizationProvider dateAdapter={AdapterDateFns}>
                     <Stack spacing={3}>
                       <DesktopDatePicker
-                        label=""
+                        shouldDisableDate={disablePrevDates(startDate)}
                         inputFormat="dd/MM/yyyy"
                         value={date}
                         required

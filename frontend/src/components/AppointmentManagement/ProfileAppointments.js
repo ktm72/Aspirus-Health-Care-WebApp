@@ -35,7 +35,11 @@ function ProfileAppointments() {
 
 
   function videoConference(id) {
-      window.open(`https://meet.jit.si/${id}`, "_blank");
+    window.open(`https://meet.jit.si/${id}`, "_blank");
+  }
+
+  function docVideoConference(id) {
+    history.push(`/video/${id}`)
   }
 
 
@@ -70,9 +74,15 @@ function ProfileAppointments() {
                     {Appointment.time}
                   </td>
                   <td>
-                    <IconButton onClick={() => videoConference(Appointment._id)}>
-                      <VideoCameraFrontIcon style={{ color: green[500] }} ></VideoCameraFrontIcon>
-                    </IconButton>
+                    {isDoctor ? 
+                      <IconButton onClick={() => docVideoConference(Appointment._id)}>
+                        <VideoCameraFrontIcon style={{ color: green[500] }} ></VideoCameraFrontIcon>
+                      </IconButton>
+                    :
+                      <IconButton onClick={() => videoConference(Appointment._id)}>
+                        <VideoCameraFrontIcon style={{ color: green[500] }} ></VideoCameraFrontIcon>
+                      </IconButton>
+                    }
                   </td>
                 </tr>
               ))}
