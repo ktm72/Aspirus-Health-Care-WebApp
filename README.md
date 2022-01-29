@@ -10,7 +10,6 @@
   #### [@Ashen Ravisara](https://github.com/Ashen-Ravisara)
   #### [@Onara Pathiraja](https://github.com/OnaraPathiraja014)
   #### [@Sathinka Wijesinghe](https://github.com/sathinka)
-  #### [@Pasan Withanage](https://github.com/pasan2232)
 
   <a href="https://github.com/JMAT-Technologies/Aspirus-Health-Care-WebApp/graphs/contributors">
     <img src="https://contrib.rocks/image?repo=JMAT-Technologies/Aspirus-Health-Care-WebApp" />
