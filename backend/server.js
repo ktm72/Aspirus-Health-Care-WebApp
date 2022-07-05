@@ -64,6 +64,10 @@ app.use("/order",OrderRouter);
 //use port 8070 or use any other port if the 8070 is unavailable 
 const PORT = process.env.PORT || 8080;
 
+if(process.env.NODE_ENV === 'production') {
+    app.use(express.static('../frontend/build'));
+}
+
 //running the app in previously defined port
 const server = app.listen(PORT,() =>{
     console.log(`Server is up and running on: ${PORT}`);
